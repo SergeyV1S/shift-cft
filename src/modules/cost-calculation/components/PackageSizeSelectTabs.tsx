@@ -9,10 +9,10 @@ export const PackageSizeSelectTabs = () => (
       <TabsTrigger value='approximate'>Примерные</TabsTrigger>
       <TabsTrigger value='exact'>Точные</TabsTrigger>
     </TabsList>
-    <TabsContent value='approximate'>
+    <TabsContent value='approximate' className='px-4 py-2'>
       <ApproximatePackageSizesList />
     </TabsContent>
-    <TabsContent value='exact'>
+    <TabsContent value='exact' className='px-4 py-2'>
       <ExactPackageSizesForm />
     </TabsContent>
   </Tabs>

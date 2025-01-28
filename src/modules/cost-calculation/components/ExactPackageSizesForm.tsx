@@ -18,6 +18,7 @@ export const ExactPackageSizesForm = () => {
       width: ""
     }
   });
+
   return (
     <Form {...signInPhoneForm}>
       <form className='grid w-full gap-6'>
@@ -25,7 +26,7 @@ export const ExactPackageSizesForm = () => {
           control={signInPhoneForm.control}
           name='length'
           render={({ field }) => (
-            <FormItem className='flex items-center gap-4'>
+            <FormItem className='grid grid-cols-[20%_1fr] items-center gap-4'>
               <FormLabel>Длинна</FormLabel>
               <FormControl>
                 <Input placeholder='см' {...field} />
@@ -38,7 +39,7 @@ export const ExactPackageSizesForm = () => {
           control={signInPhoneForm.control}
           name='width'
           render={({ field }) => (
-            <FormItem className='flex items-center gap-4'>
+            <FormItem className='grid grid-cols-[20%_1fr] items-center gap-4'>
               <FormLabel>Ширина</FormLabel>
               <FormControl>
                 <Input placeholder='см' {...field} />
@@ -51,7 +52,7 @@ export const ExactPackageSizesForm = () => {
           control={signInPhoneForm.control}
           name='height'
           render={({ field }) => (
-            <FormItem className='flex items-center gap-4'>
+            <FormItem className='grid grid-cols-[20%_1fr] items-center gap-4'>
               <FormLabel>Высота</FormLabel>
               <FormControl>
                 <Input placeholder='см' {...field} />
@@ -64,7 +65,7 @@ export const ExactPackageSizesForm = () => {
           control={signInPhoneForm.control}
           name='weight'
           render={({ field }) => (
-            <FormItem className='flex items-center gap-4'>
+            <FormItem className='grid grid-cols-[20%_1fr] items-center gap-4'>
               <FormLabel>Вес</FormLabel>
               <FormControl>
                 <Input placeholder='кг' {...field} />
