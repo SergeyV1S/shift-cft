@@ -7,33 +7,26 @@ import type { z } from "zod";
 import { Button } from "@shared/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
 import { Input } from "@shared/ui/input";
-import { PasswordInput } from "@shared/ui/password-input";
 
-import { signInPhoneSchema } from "../lib/signInPhoneSchema";
+import { signInPhoneSchema } from "../lib/signInSchemas";
 
-interface PhoneFormProps {
+interface IPhoneFormProps {
   onSubmit: (values: z.infer<typeof signInPhoneSchema>) => Promise<void>;
-  switchForm: () => void;
-  isPending: boolean;
+  isLoading: boolean;
   t: TFunctionNonStrict<"translation", undefined>;
 }
 
-export const PhoneForm = ({ onSubmit, switchForm, isPending, t }: PhoneFormProps) => {
+export const PhoneForm = ({ onSubmit, isLoading, t }: IPhoneFormProps) => {
   const signInPhoneForm = useForm<z.infer<typeof signInPhoneSchema>>({
     resolver: zodResolver(signInPhoneSchema),
     defaultValues: {
-      phone: "",
-      password: ""
+      phone: ""
     }
   });
 
   return (
     <Form {...signInPhoneForm}>
-      <form
-        onSubmit={signInPhoneForm.handleSubmit(onSubmit)}
-        className='grid gap-4'
-        data-testid='sign_in_phone_form'
-      >
+      <form onSubmit={signInPhoneForm.handleSubmit(onSubmit)} className='grid gap-5'>
         <FormField
           control={signInPhoneForm.control}
           name='phone'
@@ -42,7 +35,6 @@ export const PhoneForm = ({ onSubmit, switchForm, isPending, t }: PhoneFormProps
               <FormLabel>{t("general.phone")}</FormLabel>
               <FormControl>
                 <Input
-                  data-testid='sign_in_phone_input'
                   type='text'
                   placeholder={t("general.phone")}
                   format='+7 (###) ### ## ##'
@@ -51,42 +43,16 @@ export const PhoneForm = ({ onSubmit, switchForm, isPending, t }: PhoneFormProps
                   {...field}
                 />
               </FormControl>
-              <FormMessage data-testid='sign_in_phone_form_message' />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={signInPhoneForm.control}
-          name='password'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("general.password")}</FormLabel>
-              <FormControl>
-                <PasswordInput
-                  data-testid='sign_in_password_input'
-                  autoComplete='off'
-                  placeholder={t("general.password")}
-                  {...field}
-                />
-              </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button onClick={switchForm} size='sm' variant='link' type='button'>
-          {t("sign-in.sign_in_with_email")}
-        </Button>
         <Button
-          disabled={
-            !signInPhoneForm.formState.dirtyFields.password ||
-            !signInPhoneForm.formState.dirtyFields.phone ||
-            isPending
-          }
-          data-testid='sign_in_submit_form_button'
+          disabled={!signInPhoneForm.formState.dirtyFields.phone || isLoading}
           type='submit'
           className='w-full'
         >
-          {t("sign-in.title")}
+          {t("sign-in.send_code")}
         </Button>
       </form>
     </Form>

@@ -1,11 +1,11 @@
-export interface UserData {
-  uid: string;
-  firstName: string;
-  secondName: string;
-  mail: string;
+export interface IUserSession extends IUserProfile {
   phone: string;
-  tag: string;
-  birthDate: string;
-  image: Image;
-  role: string;
+}
+
+export interface IUserProfile {
+  firstname: string;
+  middlename: string;
+  lastname: string;
+  email: string;
+  city: string;
 }

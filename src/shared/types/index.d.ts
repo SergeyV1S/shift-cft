@@ -9,3 +9,8 @@ type TComponentPropsWithRef<Component> = import("react").ComponentProps<Componen
 type THTMLElementPropsWithRef<Element> = import("react").HTMLAttributes<Element> & {
   ref?: import("react").Ref<Element>;
 };
+
+interface IDefaultResponse {
+  success: boolean;
+  reason: string;
+}

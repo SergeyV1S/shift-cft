@@ -8,9 +8,7 @@ import { Spinner } from "@shared/ui/spinner";
 import { PrivateRoute } from "./PrivateRoute";
 
 const RootScreen = lazy(() => import("./RootPage"));
-const YandexCallbackScreen = lazy(() => import("@modules/auth/oAuth/Yandex"));
 const SignInScreen = lazy(() => import("@modules/auth/signIn/"));
-const SignUpScreen = lazy(() => import("@modules/auth/signUp"));
 const ProfileScreen = lazy(() => import("@modules/user/profile"));
 
 export const routes = createBrowserRouter([
@@ -24,14 +22,6 @@ export const routes = createBrowserRouter([
             <SignInScreen />
           </Suspense>
         )
-      },
-      {
-        path: PATHS.SIGNUP,
-        element: (
-          <Suspense fallback={<Spinner />}>
-            <SignUpScreen />
-          </Suspense>
-        )
       }
     ]
   },
@@ -40,14 +30,6 @@ export const routes = createBrowserRouter([
     element: (
       <Suspense fallback={<Spinner />}>
         <RootScreen />
-      </Suspense>
-    )
-  },
-  {
-    path: PATHS.OAUTH_YANDEX,
-    element: (
-      <Suspense fallback={<Spinner />}>
-        <YandexCallbackScreen />
       </Suspense>
     )
   },

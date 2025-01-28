@@ -9,18 +9,10 @@
   "root": {
     "title": "Привет"
   },
-  "sign-up": {
-    "title": "Регистрация",
-    "description": "Введите свои данные для создания учетной записи",
-    "already_have_account": "Уже есть учетная запись?",
-    "sign_in": "Войти",
-    "create_account": "Зарегистрироваться"
-  },
   "sign-in": {
-    "title": "Войти",
-    "dont_have_account": "У вас нет учетной записи?",
-    "sign_up": "Зарегистрироваться",
-    "sign_in_with_email": "Войти по электронной почте",
-    "sign_in_with_phone": "Войти по номеру телефона"
+    "title": "Авторизация",
+    "send_code": "Отправить код",
+    "one-time_password": "Проверочный код",
+    "auth_button": "Войти"
   }
 }

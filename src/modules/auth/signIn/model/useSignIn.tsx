@@ -1,43 +1,35 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { getAuthState, postOtpAction, postSignInAction } from "@modules/auth";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import type { z } from "zod";
 
-import { AUTH_KEY, PATHS } from "@shared/constants";
-import { toast } from "@shared/lib/hooks/use-toast";
+import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
-import { usePostLoginMutation } from "../api/usePostLoginMutation";
-import type { signInMailSchema } from "../lib/signInMailSchema";
-import type { signInPhoneSchema } from "../lib/signInPhoneSchema";
+import { PATHS } from "@shared/constants";
+import { formatePhone } from "@shared/lib/formatePhone";
+
+import type { signInPhoneSchema, signInSchema } from "../lib/signInSchemas";
 
 export const useSignIn = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
 
-  const posLoginMutation = usePostLoginMutation({
-    options: {
-      onSuccess: () => {
-        localStorage.setItem(AUTH_KEY, "true");
-        navigate(location.state?.pathname || PATHS.PROFILE);
-      },
-      onError(error) {
-        if (error?.response?.data?.message) {
-          toast({
-            className: "bg-red-800 text-white hover:bg-red-700",
-            title: "Ошибка авторизации",
-            description: `${error.response.data.message}`
-          });
-        } else {
-          toast({
-            className: "bg-red-800 text-white hover:bg-red-700",
-            title: "Не удалось выполнить запрос"
-          });
-        }
-      }
+  const dispatch = useAppDispatch();
+  const { isLoading, otp, phoneNumber, isAuth, retryDelay } = useAppSelector(getAuthState);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate(PATHS.PROFILE);
     }
-  });
+  }, [isAuth, navigate]);
 
-  const onSubmit = async (values: z.infer<typeof signInPhoneSchema | typeof signInMailSchema>) => {
-    await posLoginMutation.mutateAsync({ params: values });
+  const onOtpSubmit = async ({ phone }: z.infer<typeof signInPhoneSchema>) => {
+    dispatch(postOtpAction({ phone: formatePhone(phone) }));
   };
 
-  return { onSubmit, posLoginMutation };
+  const signIn = async (values: z.infer<typeof signInSchema>) => {
+    dispatch(postSignInAction({ phone: values.phone, code: +values.otp }));
+  };
+
+  return { onOtpSubmit, signIn, state: { isLoading, otp, phoneNumber, retryDelay } };
 };
