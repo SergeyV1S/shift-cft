@@ -1,5 +1,5 @@
 export const PATHS = {
   SIGNIN: "/sign-in",
-  SIGNUP: "/sign-up",
-  PROFILE: "/profile"
+  PROFILE: "/profile",
+  HISTORY: "/history"
 } as const;

@@ -1,4 +1,5 @@
 import { AuthLayout } from "@modules/auth";
+import { RootLayout } from "@modules/cost-calculation/RootLayout";
 import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -7,7 +8,7 @@ import { Spinner } from "@shared/ui/spinner";
 
 import { PrivateRoute } from "./PrivateRoute";
 
-const RootScreen = lazy(() => import("./RootPage"));
+const CostCalculationPage = lazy(() => import("@modules/cost-calculation"));
 const SignInScreen = lazy(() => import("@modules/auth/signIn/"));
 const ProfileScreen = lazy(() => import("@modules/user/profile"));
 
@@ -26,23 +27,28 @@ export const routes = createBrowserRouter([
     ]
   },
   {
-    path: "/",
-    element: (
-      <Suspense fallback={<Spinner />}>
-        <RootScreen />
-      </Suspense>
-    )
-  },
-  {
-    element: <PrivateRoute />,
+    element: <RootLayout />,
     children: [
       {
-        path: PATHS.PROFILE,
+        path: "/",
         element: (
           <Suspense fallback={<Spinner />}>
-            <ProfileScreen />
+            <CostCalculationPage />
           </Suspense>
         )
+      },
+      {
+        element: <PrivateRoute />,
+        children: [
+          {
+            path: PATHS.PROFILE,
+            element: (
+              <Suspense fallback={<Spinner />}>
+                <ProfileScreen />
+              </Suspense>
+            )
+          }
+        ]
       }
     ]
   }
