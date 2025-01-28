@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface IPackageSize {
   length: string;
   width: string;
@@ -15,7 +16,9 @@ export interface ISenderPoint {
   longitude: string;
 }
 
-export interface IReceiverPoint {
-  latitude: string;
-  longitude: string;
+export interface IReceiverPoint extends ISenderPoint {}
+
+export interface IPoint extends ISenderPoint {
+  id: string;
+  name: string;
 }

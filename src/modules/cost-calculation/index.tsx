@@ -3,14 +3,15 @@ import { useEffect } from "react";
 
 import { useAppDispatch } from "@app/store/hooks";
 
-import { CalculateDeliveryForm } from "./components/CalculateDeliveryForm";
-import { getPackageTypesAction } from "./store";
+import { CalculateDeliveryCard } from "./components/CalculateDeliveryCard";
+import { getPackageTypesAction, getPointsAction } from "./store";
 
 const CostCalculationPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getPackageTypesAction());
+    dispatch(getPointsAction());
   }, []);
 
   return (
@@ -29,7 +30,7 @@ const CostCalculationPage = () => {
             <p className='opacity-80'>Наведите камеру телефона на QR-код</p>
           </div>
         </div>
-        <CalculateDeliveryForm />
+        <CalculateDeliveryCard />
       </div>
     </div>
   );

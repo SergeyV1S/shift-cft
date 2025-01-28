@@ -1,14 +1,16 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
-import type { IGetPackageTypesResponse } from "../api/getPackageTypes";
-import { getPackageTypesAction } from "./action";
+import type { IGetPackageTypesResponse, IGetPointsResponse } from "../api";
+import { getPackageTypesAction, getPointsAction } from "./action";
 import type { ICostCalculationState } from "./type";
 
 export const initialState: ICostCalculationState = {
   packagesTypes: [],
+  points: [],
   isLoading: false,
-  error: undefined
+  error: undefined,
+  activeRequests: 0
 };
 
 export const costCalculationSlice = createSlice({
@@ -18,26 +20,43 @@ export const costCalculationSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Получить типы посылок
+      .addCase(getPackageTypesAction.pending, (state) => {
+        state.activeRequests += 1;
+        state.isLoading = true;
+      })
       .addCase(
         getPackageTypesAction.fulfilled,
         (state, action: PayloadAction<IGetPackageTypesResponse>) => {
-          state.isLoading = false;
+          state.activeRequests -= 1;
           state.packagesTypes = action.payload.packages;
+          state.isLoading = state.activeRequests > 0;
         }
       )
-      .addCase(getPackageTypesAction.pending, (state) => {
+      .addCase(getPackageTypesAction.rejected, (state, action) => {
+        state.activeRequests -= 1;
+        state.error = action.error?.message;
+        state.isLoading = state.activeRequests > 0;
+      })
+
+      // Получить пункты выдачи
+      .addCase(getPointsAction.pending, (state) => {
+        state.activeRequests += 1;
         state.isLoading = true;
       })
-      .addCase(getPackageTypesAction.rejected, (state, action) => {
-        state.isLoading = false;
+      .addCase(getPointsAction.fulfilled, (state, action: PayloadAction<IGetPointsResponse>) => {
+        state.activeRequests -= 1;
+        state.points = action.payload.packages;
+        state.isLoading = state.activeRequests > 0;
+      })
+      .addCase(getPointsAction.rejected, (state, action) => {
+        state.activeRequests -= 1;
         state.error = action.error?.message;
+        state.isLoading = state.activeRequests > 0;
       });
   },
   selectors: {
     getCostCalculationState: (state) => state
   }
 });
-
-// export const { moveItem, removeIngredientFromConstructor, clearConstructor } = authSlice.actions;
 
 export const { getCostCalculationState } = costCalculationSlice.selectors;
