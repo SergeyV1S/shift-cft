@@ -1,3 +1,5 @@
+import { MailIcon, MapPin, Send } from "lucide-react";
+
 import { useAppSelector } from "@app/store/hooks";
 
 import { Button } from "@shared/ui/button";
@@ -5,13 +7,20 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/ui/select";
 
 import { usePackageSizeForm } from "../model/usePackageSizeForm";
-import { getPackageType } from "../store";
+import { getCostCalculationState, getPackageType, getReceiverPoint } from "../store";
 import { PackageSizeSelectTabs } from "./PackageSizeSelectTabs";
 
 export const CalculateDeliveryForm = () => {
   const selectedPackageType = useAppSelector(getPackageType);
-  const { calculateDeliveryForm, isPackageSizeSelectOpen, setIsPackageSizeOpen } =
-    usePackageSizeForm();
+  const selectedReceiverPoint = useAppSelector(getReceiverPoint);
+  const { points } = useAppSelector(getCostCalculationState);
+
+  const {
+    calculateDeliveryForm,
+    isPackageSizeSelectOpen,
+    selectReceiverPoint,
+    setIsPackageSizeOpen
+  } = usePackageSizeForm();
 
   return (
     <Form {...calculateDeliveryForm}>
@@ -29,7 +38,14 @@ export const CalculateDeliveryForm = () => {
               >
                 <FormControl>
                   <SelectTrigger className='h-10'>
-                    <SelectValue placeholder={selectedPackageType.name || "Укажите размер"} />
+                    <SelectValue
+                      placeholder={
+                        <div className='flex items-center gap-2'>
+                          <MailIcon className='size-5 opacity-60' />
+                          <p>{selectedPackageType.name || "Укажите размер"}</p>
+                        </div>
+                      }
+                    />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className='z-50'>
@@ -49,7 +65,14 @@ export const CalculateDeliveryForm = () => {
               <Select onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger className='h-10'>
-                    <SelectValue placeholder='Выберите город' />
+                    <SelectValue
+                      placeholder={
+                        <div className='flex items-center gap-2'>
+                          <MapPin className='size-5 opacity-60' />
+                          <p>{"Выберите город"}</p>
+                        </div>
+                      }
+                    />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -65,19 +88,24 @@ export const CalculateDeliveryForm = () => {
         <FormField
           control={calculateDeliveryForm.control}
           name='receiverPoint'
-          render={({ field }) => (
+          render={() => (
             <FormItem>
               <FormLabel>Город назначения</FormLabel>
-              <Select onValueChange={field.onChange}>
+              <Select onValueChange={selectReceiverPoint}>
                 <FormControl>
                   <SelectTrigger className='h-10'>
-                    <SelectValue placeholder='Выберите город' />
+                    <div className='flex items-center gap-2'>
+                      <Send className='size-5 opacity-60' />
+                      <p>{selectedReceiverPoint?.name || "Выберите город"}</p>
+                    </div>
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
-                  <SelectItem value='m@example.com'>m@example.com</SelectItem>
-                  <SelectItem value='m@google.com'>m@google.com</SelectItem>
-                  <SelectItem value='m@support.com'>m@support.com</SelectItem>
+                <SelectContent className='max-h-[250px]'>
+                  {points.map((point) => (
+                    <SelectItem key={point.id} value={point.id}>
+                      {point.name}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />

@@ -16,6 +16,13 @@ export const initialState: ICostCalculationState = {
     weight: "",
     width: ""
   },
+  // selectedReceiverPoint: {
+  //   id: "",
+  //   latitude: "",
+  //   longitude: "",
+  //   name: ""
+  // },
+  selectedReceiverPoint: undefined,
   isLoading: false,
   error: undefined,
   activeRequests: 0,
@@ -36,6 +43,10 @@ export const costCalculationSlice = createSlice({
     },
     togglePackageSizeSelect: (state) => {
       state.isPackageSizeSelectOpen = !state.isPackageSizeSelectOpen;
+    },
+    setReceiverPoint: (state, action: PayloadAction<string>) => {
+      const receiverPoint = state.points.find((point) => point.id === action.payload);
+      state.selectedReceiverPoint = receiverPoint;
     }
   },
   extraReducers: (builder) => {
@@ -66,7 +77,7 @@ export const costCalculationSlice = createSlice({
       })
       .addCase(getPointsAction.fulfilled, (state, action: PayloadAction<IGetPointsResponse>) => {
         state.activeRequests -= 1;
-        state.points = action.payload.packages;
+        state.points = action.payload.points;
         state.isLoading = state.activeRequests > 0;
       })
       .addCase(getPointsAction.rejected, (state, action) => {
@@ -77,10 +88,13 @@ export const costCalculationSlice = createSlice({
   },
   selectors: {
     getCostCalculationState: (state) => state,
-    getPackageType: (state) => state.selectedPackageType
+    getPackageType: (state) => state.selectedPackageType,
+    getReceiverPoint: (state) => state.selectedReceiverPoint
   }
 });
 
-export const { setPackageSize, togglePackageSizeSelect } = costCalculationSlice.actions;
+export const { setPackageSize, togglePackageSizeSelect, setReceiverPoint } =
+  costCalculationSlice.actions;
 
-export const { getCostCalculationState, getPackageType } = costCalculationSlice.selectors;
+export const { getCostCalculationState, getPackageType, getReceiverPoint } =
+  costCalculationSlice.selectors;

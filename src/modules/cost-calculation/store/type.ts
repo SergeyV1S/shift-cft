@@ -7,5 +7,6 @@ export interface ICostCalculationState {
   error: string | undefined;
   activeRequests: number;
   selectedPackageType: Partial<Omit<IPackage, "id">>;
+  selectedReceiverPoint: IPoint | undefined;
   isPackageSizeSelectOpen: boolean;
 }

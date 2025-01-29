@@ -10,6 +10,7 @@ import {
   getCostCalculationState,
   getPackageType,
   setPackageSize,
+  setReceiverPoint,
   togglePackageSizeSelect
 } from "../store";
 
@@ -52,11 +53,16 @@ export const usePackageSizeForm = () => {
     dispatch(togglePackageSizeSelect());
   };
 
+  const selectReceiverPoint = (pointId: string) => {
+    dispatch(setReceiverPoint(pointId));
+  };
+
   return {
     storedPackageSize,
     calculateDeliveryForm,
     exactPackageSizesForm,
     isPackageSizeSelectOpen,
+    selectReceiverPoint,
     setSelectedPackageSize,
     setIsPackageSizeOpen
   };
