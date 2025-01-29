@@ -1,6 +1,11 @@
-import { api } from "@shared/api/instance";
+import type {
+  IOptions,
+  IPackageSize,
+  IReceiverPoint,
+  ISenderPoint
+} from "@modules/cost-calculation/type";
 
-import type { IOptions, IPackageSize, IReceiverPoint, ISenderPoint } from "../type";
+import { api } from "@shared/api/instance";
 
 export interface ICalculatePriceData {
   package: IPackageSize;

@@ -1,7 +1,8 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
-import type { IGetPackageTypesResponse, IGetPointsResponse } from "../api";
+import type { IGetPackageTypesResponse, IGetPointsResponse } from "@shared/api";
+
 import type { IPackage } from "../type";
 import { getPackageTypesAction, getPointsAction } from "./action";
 import type { ICostCalculationState } from "./type";

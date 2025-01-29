@@ -2,7 +2,7 @@ import { MailIcon, MapPin, Send } from "lucide-react";
 
 import { useAppSelector } from "@app/store/hooks";
 
-import { Button } from "@shared/ui/button";
+import { Button } from "@shared/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/ui/select";
 

@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@shared/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@shared/ui";
 
 import { ApproximatePackageSizesList } from "./ApproximatePackageSizesList";
 import { ExactPackageSizesForm } from "./ExactPackageSizesForm";

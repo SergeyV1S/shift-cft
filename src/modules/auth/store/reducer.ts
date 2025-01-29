@@ -1,9 +1,9 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
+import type { IPostOtpResponse, IPostSignInResponse } from "@shared/api";
 import { ACCESS_TOKEN } from "@shared/constants";
 
-import type { IPostOtpResponse, IPostSignInResponse } from "../signIn/api";
 import { postOtpAction, postSignInAction } from "./action";
 import type { IAuthInitialState } from "./type";
 

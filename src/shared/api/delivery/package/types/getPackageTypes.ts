@@ -1,6 +1,6 @@
-import { api } from "@shared/api/instance";
+import type { IPackage } from "@modules/cost-calculation/type";
 
-import type { IPackage } from "../type";
+import { api } from "@shared/api/instance";
 
 export interface IGetPackageTypesResponse extends IDefaultResponse {
   packages: IPackage[];

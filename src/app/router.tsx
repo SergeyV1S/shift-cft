@@ -4,7 +4,7 @@ import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import { PATHS } from "@shared/constants";
-import { Spinner } from "@shared/ui/spinner";
+import { Spinner } from "@shared/ui";
 
 import { ProtectedRoute } from "./ProtectedRoute";
 

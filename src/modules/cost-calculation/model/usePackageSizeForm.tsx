@@ -4,7 +4,8 @@ import type { z } from "zod";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
-import { postCalculatePrice } from "../api";
+import { postCalculatePrice } from "@shared/api";
+
 import { calculateDeliveryScheme } from "../lib/calculateDeliveryScheme";
 import { exactPackageSizesSchema } from "../lib/exactPackageSizesSchema";
 import {

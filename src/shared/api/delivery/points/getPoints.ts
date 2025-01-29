@@ -1,6 +1,6 @@
-import { api } from "@shared/api/instance";
+import type { IPoint } from "@modules/cost-calculation/type";
 
-import type { IPoint } from "../type";
+import { api } from "@shared/api/instance";
 
 export interface IGetPointsResponse extends IDefaultResponse {
   points: IPoint[];

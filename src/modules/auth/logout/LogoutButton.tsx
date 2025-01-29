@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "@app/store/hooks";
 
-import { Button } from "@shared/ui/button";
+import { Button } from "@shared/ui";
 
 import { logout } from "../store";
 

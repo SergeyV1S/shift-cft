@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import type { IPostOtpParams, IPostSignInParams } from "../signIn/api";
-import { postOtp, postSignIn } from "../signIn/api";
+import type { IPostOtpParams, IPostSignInParams } from "@shared/api";
+import { postOtp, postSignIn } from "@shared/api";
 
 export const postOtpAction = createAsyncThunk("authSlice/postOtp", async (data: IPostOtpParams) =>
   postOtp({ data })

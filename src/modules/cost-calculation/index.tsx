@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import { useAppDispatch } from "@app/store/hooks";
 
-import { CalculateDeliveryCard } from "./components/CalculateDeliveryCard";
+import { CalculateDeliveryCard } from "./_components/CalculateDeliveryCard";
 import { getPackageTypesAction, getPointsAction } from "./store";
 
 const CostCalculationPage = () => {

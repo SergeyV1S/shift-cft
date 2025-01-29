@@ -4,7 +4,7 @@ import type { z } from "zod";
 
 import { useAppSelector } from "@app/store/hooks";
 
-import { Button } from "@shared/ui/button";
+import { Button } from "@shared/ui";
 import { CardFooter } from "@shared/ui/card";
 
 import type { signInPhoneSchema } from "../lib/signInSchemas";

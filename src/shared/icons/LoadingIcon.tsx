@@ -1,6 +1,8 @@
+import type { ComponentProps } from "react";
+
 import { cn } from "@shared/lib/utils";
 
-export const LoadingIcon = (props: ReactTagProps<"svg"> & { size?: number }) => (
+export const LoadingIcon = (props: ComponentProps<"svg"> & { size?: number }) => (
   <svg
     aria-hidden='true'
     role='status'

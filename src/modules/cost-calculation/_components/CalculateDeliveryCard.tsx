@@ -1,7 +1,7 @@
 import { useAppSelector } from "@app/store/hooks";
 
+import { Spinner } from "@shared/ui";
 import { Card, CardContent, CardHeader } from "@shared/ui/card";
-import { Spinner } from "@shared/ui/spinner";
 
 import { getCostCalculationState } from "../store";
 import { CalculateDeliveryForm } from "./CalculateDeliveryForm";
