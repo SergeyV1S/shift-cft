@@ -1,23 +1,12 @@
-import type {
-  IOptions,
-  IPackageSize,
-  IReceiverPoint,
-  ISenderPoint
-} from "@modules/cost-calculation/type";
+import type { IDeliveryCost, IOption } from "@modules/cost-calculation/type";
 
 import { api } from "@shared/api/instance";
 
-export interface ICalculatePriceData {
-  package: IPackageSize;
-  senderPoint: ISenderPoint;
-  receiverPoint: IReceiverPoint;
-}
-
 export interface ICalculatePriceResponse extends IDefaultResponse {
-  oprions: IOptions[];
+  options: IOption[];
 }
 
-type TCalculatePriceConfig = IMutationSettings<ICalculatePriceData>;
+type TCalculatePriceConfig = IMutationSettings<IDeliveryCost>;
 
 export const postCalculatePrice = async ({ data, config }: TCalculatePriceConfig) =>
   api.post<ICalculatePriceResponse>("/delivery/calc", data, config).then((res) => res.data);

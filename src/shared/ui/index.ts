@@ -8,3 +8,4 @@ export * from "./tabs";
 export * from "./toaster";
 export * from "./toast";
 export * from "./typography";
+export * from "./progress";

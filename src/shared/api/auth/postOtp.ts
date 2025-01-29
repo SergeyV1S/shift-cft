@@ -5,7 +5,7 @@ export interface IPostOtpParams {
 }
 
 export interface IPostOtpResponse extends IDefaultResponse {
-  retryDelay: 120000;
+  retryDelay: number;
 }
 
 type TPostOtpConfig = IMutationSettings<IPostOtpParams>;

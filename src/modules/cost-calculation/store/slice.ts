@@ -1,10 +1,14 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
-import type { IGetPackageTypesResponse, IGetPointsResponse } from "@shared/api";
+import type {
+  ICalculatePriceResponse,
+  IGetPackageTypesResponse,
+  IGetPointsResponse
+} from "@shared/api";
 
 import type { IPackage } from "../type";
-import { getPackageTypesAction, getPointsAction } from "./action";
+import { getPackageTypesAction, getPointsAction, postCalculatePriceAction } from "./action";
 import type { ICostCalculationState } from "./type";
 
 export const initialState: ICostCalculationState = {
@@ -22,7 +26,8 @@ export const initialState: ICostCalculationState = {
   isLoading: false,
   error: undefined,
   activeRequests: 0,
-  isPackageSizeSelectOpen: false
+  isPackageSizeSelectOpen: false,
+  deliveryCost: []
 };
 
 export const costCalculationSlice = createSlice({
@@ -76,7 +81,6 @@ export const costCalculationSlice = createSlice({
         state.error = action.error?.message;
         state.isLoading = state.activeRequests > 0;
       })
-
       // Получить пункты выдачи
       .addCase(getPointsAction.pending, (state) => {
         state.activeRequests += 1;
@@ -91,18 +95,39 @@ export const costCalculationSlice = createSlice({
         state.activeRequests -= 1;
         state.error = action.error?.message;
         state.isLoading = state.activeRequests > 0;
+      })
+      // Рассчитать стоимость
+      .addCase(postCalculatePriceAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        postCalculatePriceAction.fulfilled,
+        (state, action: PayloadAction<ICalculatePriceResponse>) => {
+          state.deliveryCost = action.payload.options;
+          state.isLoading = false;
+        }
+      )
+      .addCase(postCalculatePriceAction.rejected, (state, action) => {
+        state.error = action.error?.message;
+        state.isLoading = false;
       });
   },
   selectors: {
     getCostCalculationState: (state) => state,
     getPackageType: (state) => state.selectedPackageType,
     getReceiverPoint: (state) => state.selectedReceiverPoint,
-    getSenderPoint: (state) => state.selectedSenderPoint
+    getSenderPoint: (state) => state.selectedSenderPoint,
+    getDeliveryCost: (state) => state.deliveryCost
   }
 });
 
 export const { setPackageSize, togglePackageSizeSelect, setReceiverPoint, setSenderPoint } =
   costCalculationSlice.actions;
 
-export const { getCostCalculationState, getPackageType, getReceiverPoint, getSenderPoint } =
-  costCalculationSlice.selectors;
+export const {
+  getCostCalculationState,
+  getPackageType,
+  getReceiverPoint,
+  getSenderPoint,
+  getDeliveryCost
+} = costCalculationSlice.selectors;

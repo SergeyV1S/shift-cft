@@ -1,16 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import type { z } from "zod";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
-import { postCalculatePrice } from "@shared/api";
+import { PATHS } from "@shared/constants";
 
 import { calculateDeliveryScheme } from "../lib/calculateDeliveryScheme";
 import { exactPackageSizesSchema } from "../lib/exactPackageSizesSchema";
 import {
   getCostCalculationState,
   getPackageType,
+  postCalculatePriceAction,
   setPackageSize,
   setReceiverPoint,
   setSenderPoint,
@@ -21,6 +23,7 @@ export const usePackageSizeForm = () => {
   const { isPackageSizeSelectOpen } = useAppSelector(getCostCalculationState);
   const storedPackageSize = useAppSelector(getPackageType);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const calculateDeliveryForm = useForm<z.infer<typeof calculateDeliveryScheme>>({
     resolver: zodResolver(calculateDeliveryScheme),
@@ -38,7 +41,9 @@ export const usePackageSizeForm = () => {
   });
 
   const calculateDeliveryFormHandler = async (data: z.infer<typeof calculateDeliveryScheme>) => {
-    await postCalculatePrice({ data });
+    dispatch(postCalculatePriceAction(data)).then(() => {
+      navigate(PATHS.CREATE_ORDER);
+    });
   };
 
   const exactPackageSizesForm = useForm<z.infer<typeof exactPackageSizesSchema>>({

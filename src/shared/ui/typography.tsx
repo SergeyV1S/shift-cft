@@ -9,10 +9,12 @@ export const typographyVariants = cva("", {
     variant: {
       title_h1: "text-5xl font-bold font-inter leading-[58px]",
       title_h2: "text-2xl font-bold font-inter leading-8",
-      paragraph_Smedium: "text-sm font-medium font-inter leading-5 opacity-70",
+      title_h3: "text-xl font-semibold font-inter leading-6",
+      paragraph12_regular: "text-sm font-normal font-inter leading-4",
       paragraph16_regular: "text-base font-normal font-roboto leading-6 opacity-50",
-      paragraph16_medium: "text-base font-medium font-inter leading-6",
-      paragraph24_regular: "text-2xl font-light font-inter leading-8 opacity-50"
+      paragraph24_regular: "text-2xl font-light font-inter leading-8 opacity-50",
+      paragraph_Smedium: "text-sm font-medium font-inter leading-5 opacity-70",
+      paragraph16_medium: "text-base font-medium font-inter leading-6"
     }
   },
   defaultVariants: {
