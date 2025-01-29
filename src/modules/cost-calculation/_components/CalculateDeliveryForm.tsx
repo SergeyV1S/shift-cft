@@ -45,7 +45,7 @@ export const CalculateDeliveryForm = () => {
               }
             />
           </SelectTrigger>
-          <SelectContent className='z-50'>
+          <SelectContent className='bg-transparent border-none ring-0 shadow-transparent'>
             <PackageSizeSelectTabs />
           </SelectContent>
         </Select>
