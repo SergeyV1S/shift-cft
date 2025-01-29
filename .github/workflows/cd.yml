@@ -34,6 +34,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPOSITORY_NAME }}:latest
+          build-args: |
+            BASE_API_URL=${{ secrets.BASE_API_URL }}
 
   deploy:
     name: Deploy using Docker
@@ -46,6 +48,13 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.REMOTE_HOST }} > ~/.ssh/known_hosts
 
+      - name: Debug Variables
+        run: |
+          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}"
+          echo "REPOSITORY_NAME=${{ secrets.REPOSITORY_NAME }}"
+          echo "BASE_API_URL=${{ secrets.BASE_API_URL }}"
+          echo "PORT=${{ secrets.PORT }}"
+
       - name: Deploy Docker Container
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -54,14 +63,25 @@ jobs:
           REPOSITORY_NAME: ${{ secrets.REPOSITORY_NAME }}
           PORT: ${{ secrets.PORT }}
         run: |
-          ssh -T ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << 'EOF'
+          ssh -T ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
+          export DOCKER_USERNAME="${DOCKER_USERNAME}"
+          export REPOSITORY_NAME="${REPOSITORY_NAME}"
+          export BASE_API_URL="${BASE_API_URL}"
+          export PORT="${PORT}"
+
+          echo "Logging in to Docker..."
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 
+          echo "Removing old container..."
           docker container rm -f shift-delivery || true
 
+          echo "Cleaning system..."
           docker system prune -a -f
 
+          echo "Pulling new image..."
           docker pull $DOCKER_USERNAME/$REPOSITORY_NAME:latest
-          docker run -d --restart unless-stopped -p ${PORT}:80 --name shift-delivery -e BASE_API_URL=$BASE_API_URL ${DOCKER_USERNAME}/${REPOSITORY_NAME}:latest
+
+          echo "Running new container..."
+          docker run -d --restart unless-stopped -p ${PORT}:80 --name shift-delivery -e BASE_API_URL=$BASE_API_URL $DOCKER_USERNAME/$REPOSITORY_NAME:latest
 
           EOF
