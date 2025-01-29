@@ -1,5 +1,5 @@
 import { Button, Input } from "@shared/ui";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@shared/ui/form";
 
 import { usePackageSizeForm } from "../model/usePackageSizeForm";
 
@@ -28,7 +28,6 @@ export const ExactPackageSizesForm = () => {
               <FormControl>
                 <Input placeholder='см' {...field} />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -41,7 +40,6 @@ export const ExactPackageSizesForm = () => {
               <FormControl>
                 <Input placeholder='см' {...field} />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -54,7 +52,6 @@ export const ExactPackageSizesForm = () => {
               <FormControl>
                 <Input placeholder='см' {...field} />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -67,7 +64,6 @@ export const ExactPackageSizesForm = () => {
               <FormControl>
                 <Input placeholder='кг' {...field} />
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />

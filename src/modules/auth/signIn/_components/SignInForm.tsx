@@ -79,9 +79,9 @@ export const SignInForm = ({ onSubmit, isLoading }: ISignInFormProps) => {
           )}
         />
         <Button
+          variant='contained_primary'
           disabled={!signInPhoneForm.formState.dirtyFields.otp || isLoading}
           type='submit'
-          className='w-full'
         >
           Войти
         </Button>

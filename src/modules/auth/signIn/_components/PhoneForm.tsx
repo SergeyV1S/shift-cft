@@ -45,6 +45,7 @@ export const PhoneForm = ({ onSubmit, isLoading }: IPhoneFormProps) => {
           )}
         />
         <Button
+          variant='contained_primary'
           disabled={!signInPhoneForm.formState.dirtyFields.phone || isLoading}
           type='submit'
           className='w-full'

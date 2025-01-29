@@ -2,7 +2,7 @@ import { MailIcon, MapPin, Send } from "lucide-react";
 
 import { useAppSelector } from "@app/store/hooks";
 
-import { Button } from "@shared/ui";
+import { Button, Typography } from "@shared/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/ui/select";
 
@@ -41,7 +41,9 @@ export const CalculateDeliveryForm = () => {
           name='package'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Размер посылки</FormLabel>
+              <FormLabel>
+                <Typography variant='paragraph_Smedium'>Размер посылки</Typography>
+              </FormLabel>
               <Select
                 onValueChange={field.onChange}
                 onOpenChange={setIsPackageSizeOpen}
@@ -53,7 +55,9 @@ export const CalculateDeliveryForm = () => {
                       placeholder={
                         <div className='flex items-center gap-2'>
                           <MailIcon className='size-5 opacity-60' />
-                          <p>{selectedPackageType.name || "Укажите размер"}</p>
+                          <Typography variant='paragraph16_regular'>
+                            {selectedPackageType.name || "Укажите размер"}
+                          </Typography>
                         </div>
                       }
                     />
@@ -72,13 +76,17 @@ export const CalculateDeliveryForm = () => {
           name='senderPoint'
           render={() => (
             <FormItem>
-              <FormLabel>Город отправки</FormLabel>
+              <FormLabel>
+                <Typography variant='paragraph_Smedium'>Город отправки</Typography>
+              </FormLabel>
               <Select onValueChange={selectSenderPoint}>
                 <FormControl>
                   <SelectTrigger className='h-10'>
                     <div className='flex items-center gap-2'>
                       <MapPin className='size-5 opacity-60' />
-                      <p>{selectedSenderPoint?.name || "Выберите город"}</p>
+                      <Typography variant='paragraph16_regular'>
+                        {selectedSenderPoint?.name || "Выберите город"}
+                      </Typography>
                     </div>
                   </SelectTrigger>
                 </FormControl>
@@ -99,13 +107,17 @@ export const CalculateDeliveryForm = () => {
           name='receiverPoint'
           render={() => (
             <FormItem>
-              <FormLabel>Город назначения</FormLabel>
+              <FormLabel>
+                <Typography variant='paragraph_Smedium'>Город назначения</Typography>
+              </FormLabel>
               <Select onValueChange={selectReceiverPoint}>
                 <FormControl>
                   <SelectTrigger className='h-10'>
                     <div className='flex items-center gap-2'>
                       <Send className='size-5 opacity-60' />
-                      <p>{selectedReceiverPoint?.name || "Выберите город"}</p>
+                      <Typography variant='paragraph16_regular'>
+                        {selectedReceiverPoint?.name || "Выберите город"}
+                      </Typography>
                     </div>
                   </SelectTrigger>
                 </FormControl>
@@ -125,6 +137,7 @@ export const CalculateDeliveryForm = () => {
           disabled={!selectSenderPoint || !selectedReceiverPoint || !selectedPackageType.name}
           type='submit'
           className='w-full'
+          size='lg'
         >
           Рассчитать
         </Button>

@@ -30,7 +30,14 @@ export const costCalculationSlice = createSlice({
   initialState,
   reducers: {
     setPackageSize: (state, action: PayloadAction<Partial<Omit<IPackage, "id">>>) => {
-      if ("name" in action.payload) state.selectedPackageType = action.payload;
+      if ("name" in action.payload)
+        state.selectedPackageType = {
+          height: action.payload.height?.toString(),
+          length: action.payload.length?.toString(),
+          weight: action.payload.weight?.toString(),
+          width: action.payload.width?.toString(),
+          name: action.payload.name
+        };
       else
         state.selectedPackageType = {
           name: `${action.payload.length}x${action.payload.width}x${action.payload.height}`,

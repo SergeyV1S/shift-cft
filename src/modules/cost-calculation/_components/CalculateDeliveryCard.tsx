@@ -1,6 +1,6 @@
 import { useAppSelector } from "@app/store/hooks";
 
-import { Spinner } from "@shared/ui";
+import { Spinner, Typography } from "@shared/ui";
 import { Card, CardContent, CardHeader } from "@shared/ui/card";
 
 import { getCostCalculationState } from "../store";
@@ -11,8 +11,10 @@ export const CalculateDeliveryCard = () => {
 
   return (
     <Card className='w-[500px] px-16 py-10  min-h-[490px] relative'>
-      <CardHeader className='font-bold text-2xl text-center p-0 pb-6'>
-        Рассчитать доставку
+      <CardHeader className='pb-6'>
+        <Typography variant='title_h2' tag='h2'>
+          Рассчитать доставку
+        </Typography>
       </CardHeader>
       <CardContent className='w-[356px] p-0'>
         {isLoading ? (
