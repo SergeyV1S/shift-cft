@@ -7,7 +7,7 @@ import { cn } from "@shared/lib/utils";
 export const typographyVariants = cva("", {
   variants: {
     variant: {
-      title_h1: "text-5xl font-bold font-inter leading-[58px]",
+      title_h1: "text-5xl font-bold font-inter leading-[58px] max-lg:text-4xl",
       title_h2: "text-2xl font-bold font-inter leading-8",
       title_h3: "text-xl font-semibold font-inter leading-6",
       paragraph12_regular: "text-sm font-normal font-inter leading-4",

@@ -18,13 +18,13 @@ const CostCalculationPage = () => {
 
   return (
     <div className='m-auto container'>
-      <div className='flex items-center gap-20 justify-center'>
-        <div className='w-[380px] space-y-10'>
+      <div className='flex items-center gap-20 justify-center max-lg:flex-col max-lg:mt-20'>
+        <div className='w-[380px] max-lg:w-[60%] space-y-10'>
           <div className='space-y-4'>
-            <Typography variant='title_h1' tag='h1'>
+            <Typography variant='title_h1' tag='h1' className='max-lg:text-center'>
               Мы доставим ваш заказ
             </Typography>
-            <Typography variant='paragraph24_regular'>
+            <Typography variant='paragraph24_regular' className='max-lg:text-center'>
               Отправляйте посылки в приложении Шифт Delivery
             </Typography>
           </div>
