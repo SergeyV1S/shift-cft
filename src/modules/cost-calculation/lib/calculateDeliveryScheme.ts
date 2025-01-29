@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const packageSizeScheme = z.object({
+export const packageSizeScheme = z.object({
   length: z.string(),
   width: z.string(),
   weight: z.string(),

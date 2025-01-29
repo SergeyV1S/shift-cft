@@ -1,13 +1,18 @@
 import { useAppSelector } from "@app/store/hooks";
 
+import { usePackageSizeForm } from "../model/usePackageSizeForm";
 import { getCostCalculationState } from "../store";
 
 export const ApproximatePackageSizesList = () => {
   const { packagesTypes } = useAppSelector(getCostCalculationState);
+
+  const { setSelectedPackageSize } = usePackageSizeForm();
+
   return (
     <div className='space-y-2 max-h-[300px] overflow-y-scroll'>
       {packagesTypes.map((packageType) => (
         <button
+          onClick={() => setSelectedPackageSize(packageType)}
           key={packageType.id}
           className='p-4 w-full bg-slate-50 flex items-center gap-4 rounded-lg'
         >

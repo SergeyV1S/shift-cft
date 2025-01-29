@@ -2,21 +2,42 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
 import type { IGetPackageTypesResponse, IGetPointsResponse } from "../api";
+import type { IPackage } from "../type";
 import { getPackageTypesAction, getPointsAction } from "./action";
 import type { ICostCalculationState } from "./type";
 
 export const initialState: ICostCalculationState = {
   packagesTypes: [],
   points: [],
+  selectedPackageType: {
+    name: "",
+    height: "",
+    length: "",
+    weight: "",
+    width: ""
+  },
   isLoading: false,
   error: undefined,
-  activeRequests: 0
+  activeRequests: 0,
+  isPackageSizeSelectOpen: false
 };
 
 export const costCalculationSlice = createSlice({
   name: "costCalculationSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    setPackageSize: (state, action: PayloadAction<Partial<Omit<IPackage, "id">>>) => {
+      if ("name" in action.payload) state.selectedPackageType = action.payload;
+      else
+        state.selectedPackageType = {
+          name: `${action.payload.length}x${action.payload.width}x${action.payload.height}`,
+          ...action.payload
+        };
+    },
+    togglePackageSizeSelect: (state) => {
+      state.isPackageSizeSelectOpen = !state.isPackageSizeSelectOpen;
+    }
+  },
   extraReducers: (builder) => {
     builder
       // Получить типы посылок
@@ -55,8 +76,11 @@ export const costCalculationSlice = createSlice({
       });
   },
   selectors: {
-    getCostCalculationState: (state) => state
+    getCostCalculationState: (state) => state,
+    getPackageType: (state) => state.selectedPackageType
   }
 });
 
-export const { getCostCalculationState } = costCalculationSlice.selectors;
+export const { setPackageSize, togglePackageSizeSelect } = costCalculationSlice.actions;
+
+export const { getCostCalculationState, getPackageType } = costCalculationSlice.selectors;

@@ -1,48 +1,35 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import type { z } from "zod";
+import { useAppSelector } from "@app/store/hooks";
 
 import { Button } from "@shared/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/ui/select";
 
-import { calculateDeliveryScheme } from "../lib/calculateDeliveryScheme";
+import { usePackageSizeForm } from "../model/usePackageSizeForm";
+import { getPackageType } from "../store";
 import { PackageSizeSelectTabs } from "./PackageSizeSelectTabs";
 
 export const CalculateDeliveryForm = () => {
-  const signInPhoneForm = useForm<z.infer<typeof calculateDeliveryScheme>>({
-    resolver: zodResolver(calculateDeliveryScheme),
-    defaultValues: {
-      packageSize: {
-        height: "",
-        length: "",
-        weight: "",
-        width: ""
-      },
-      receiverPoint: {
-        latitude: "",
-        longitude: ""
-      },
-      senderPoint: {
-        latitude: "",
-        longitude: ""
-      }
-    }
-  });
+  const selectedPackageType = useAppSelector(getPackageType);
+  const { calculateDeliveryForm, isPackageSizeSelectOpen, setIsPackageSizeOpen } =
+    usePackageSizeForm();
 
   return (
-    <Form {...signInPhoneForm}>
+    <Form {...calculateDeliveryForm}>
       <form className='grid w-full gap-6'>
         <FormField
-          control={signInPhoneForm.control}
-          name='packageSize.width'
+          control={calculateDeliveryForm.control}
+          name='packageSize'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Размер посылки</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select
+                onValueChange={field.onChange}
+                onOpenChange={setIsPackageSizeOpen}
+                open={isPackageSizeSelectOpen}
+              >
                 <FormControl>
                   <SelectTrigger className='h-10'>
-                    <SelectValue placeholder='Укажите размер' />
+                    <SelectValue placeholder={selectedPackageType.name || "Укажите размер"} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className='z-50'>
@@ -54,12 +41,12 @@ export const CalculateDeliveryForm = () => {
           )}
         />
         <FormField
-          control={signInPhoneForm.control}
-          name='packageSize.height'
+          control={calculateDeliveryForm.control}
+          name='senderPoint'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Город отправки</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger className='h-10'>
                     <SelectValue placeholder='Выберите город' />
@@ -76,12 +63,12 @@ export const CalculateDeliveryForm = () => {
           )}
         />
         <FormField
-          control={signInPhoneForm.control}
-          name='packageSize.length'
+          control={calculateDeliveryForm.control}
+          name='receiverPoint'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Город назначения</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger className='h-10'>
                     <SelectValue placeholder='Выберите город' />
@@ -98,7 +85,7 @@ export const CalculateDeliveryForm = () => {
           )}
         />
         <Button
-          //   disabled={!signInPhoneForm.formState.dirtyFields.phone || isLoading}
+          //   disabled={!calculateDeliveryForm.formState.dirtyFields.phone || isLoading}
           type='submit'
           className='w-full'
         >

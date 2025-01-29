@@ -6,4 +6,6 @@ export interface ICostCalculationState {
   isLoading: boolean;
   error: string | undefined;
   activeRequests: number;
+  selectedPackageType: Partial<Omit<IPackage, "id">>;
+  isPackageSizeSelectOpen: boolean;
 }

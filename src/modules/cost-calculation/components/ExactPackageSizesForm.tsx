@@ -1,29 +1,27 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import type { z } from "zod";
-
 import { Button } from "@shared/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
 import { Input } from "@shared/ui/input";
 
-import { exacPackageSizesShema } from "../lib/exacPackageSizesShema";
+import { usePackageSizeForm } from "../model/usePackageSizeForm";
 
 export const ExactPackageSizesForm = () => {
-  const signInPhoneForm = useForm<z.infer<typeof exacPackageSizesShema>>({
-    resolver: zodResolver(exacPackageSizesShema),
-    defaultValues: {
-      height: "",
-      length: "",
-      weight: "",
-      width: ""
-    }
-  });
+  const { exactPackageSizesForm, setSelectedPackageSize, storedPackageSize } = usePackageSizeForm();
+  const values = exactPackageSizesForm.watch();
+
+  const isButtonDisabled =
+    !(values.height || storedPackageSize.height) ||
+    !(values.length || storedPackageSize.length) ||
+    !(values.weight || storedPackageSize.weight) ||
+    !(values.width || storedPackageSize.width);
 
   return (
-    <Form {...signInPhoneForm}>
-      <form className='grid w-full gap-6'>
+    <Form {...exactPackageSizesForm}>
+      <form
+        onSubmit={exactPackageSizesForm.handleSubmit(setSelectedPackageSize)}
+        className='grid w-full gap-6'
+      >
         <FormField
-          control={signInPhoneForm.control}
+          control={exactPackageSizesForm.control}
           name='length'
           render={({ field }) => (
             <FormItem className='grid grid-cols-[20%_1fr] items-center gap-4'>
@@ -36,7 +34,7 @@ export const ExactPackageSizesForm = () => {
           )}
         />
         <FormField
-          control={signInPhoneForm.control}
+          control={exactPackageSizesForm.control}
           name='width'
           render={({ field }) => (
             <FormItem className='grid grid-cols-[20%_1fr] items-center gap-4'>
@@ -49,7 +47,7 @@ export const ExactPackageSizesForm = () => {
           )}
         />
         <FormField
-          control={signInPhoneForm.control}
+          control={exactPackageSizesForm.control}
           name='height'
           render={({ field }) => (
             <FormItem className='grid grid-cols-[20%_1fr] items-center gap-4'>
@@ -62,7 +60,7 @@ export const ExactPackageSizesForm = () => {
           )}
         />
         <FormField
-          control={signInPhoneForm.control}
+          control={exactPackageSizesForm.control}
           name='weight'
           render={({ field }) => (
             <FormItem className='grid grid-cols-[20%_1fr] items-center gap-4'>
@@ -74,12 +72,7 @@ export const ExactPackageSizesForm = () => {
             </FormItem>
           )}
         />
-        <Button
-          //   disabled={!signInPhoneForm.formState.dirtyFields.phone || isLoading}
-          type='submit'
-          size='sm'
-          className='w-full'
-        >
+        <Button disabled={isButtonDisabled} type='submit' size='sm' className='w-full'>
           Сохранить
         </Button>
       </form>

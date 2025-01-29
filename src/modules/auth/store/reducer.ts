@@ -51,6 +51,4 @@ export const authSlice = createSlice({
   }
 });
 
-// export const { moveItem, removeIngredientFromConstructor, clearConstructor } = authSlice.actions;
-
 export const { getAuthState } = authSlice.selectors;
