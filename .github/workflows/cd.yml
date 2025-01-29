@@ -54,7 +54,7 @@ jobs:
           REPOSITORY_NAME: ${{ secrets.REPOSITORY_NAME }}
           PORT: ${{ secrets.PORT }}
         run: |
-          ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << 'EOF'
+          ssh -T ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << 'EOF'
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 
           docker container rm -f shift-delivery || true
