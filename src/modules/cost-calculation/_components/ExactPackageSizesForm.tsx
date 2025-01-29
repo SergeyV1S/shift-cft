@@ -4,19 +4,19 @@ import { Form, FormControl, FormField, FormItem, FormLabel } from "@shared/ui/fo
 import { usePackageSizeForm } from "../model/usePackageSizeForm";
 
 export const ExactPackageSizesForm = () => {
-  const { exactPackageSizesForm, setSelectedPackageSize, storedPackageSize } = usePackageSizeForm();
+  const { exactPackageSizesForm, setSelectedPackageSize } = usePackageSizeForm();
   const values = exactPackageSizesForm.watch();
 
-  const isButtonDisabled =
-    !(values.height || storedPackageSize.height) ||
-    !(values.length || storedPackageSize.length) ||
-    !(values.weight || storedPackageSize.weight) ||
-    !(values.width || storedPackageSize.width);
+  const isButtonDisabled = !values.height || !values.length || !values.weight || !values.width;
 
   return (
     <Form {...exactPackageSizesForm}>
       <form
-        onSubmit={exactPackageSizesForm.handleSubmit(setSelectedPackageSize)}
+        onSubmit={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          exactPackageSizesForm.handleSubmit(setSelectedPackageSize)(event);
+        }}
         className='grid w-full gap-6'
       >
         <FormField

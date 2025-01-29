@@ -10,8 +10,8 @@ export const CalculateDeliveryCard = () => {
   const { isLoading, error } = useAppSelector(getCostCalculationState);
 
   return (
-    <Card className='w-[500px] px-16 py-10  min-h-[490px] relative'>
-      <CardHeader className='pb-6'>
+    <Card className='w-[500px] px-16 space-y-6 py-10 min-h-[490px] relative'>
+      <CardHeader>
         <Typography variant='title_h2' tag='h2'>
           Рассчитать доставку
         </Typography>

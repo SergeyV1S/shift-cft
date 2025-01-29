@@ -6,7 +6,7 @@ export interface ICostCalculationState {
   isLoading: boolean;
   error?: string;
   activeRequests: number;
-  selectedPackageType: Partial<Omit<IPackage, "id">>;
+  selectedPackageType: Omit<IPackage, "id">;
   selectedReceiverPoint?: IPoint;
   selectedSenderPoint?: IPoint;
   isPackageSizeSelectOpen: boolean;

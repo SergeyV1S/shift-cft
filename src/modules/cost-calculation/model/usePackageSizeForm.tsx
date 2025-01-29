@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
 import { PATHS } from "@shared/constants";
 
-import { calculateDeliveryScheme } from "../lib/calculateDeliveryScheme";
 import { exactPackageSizesSchema } from "../lib/exactPackageSizesSchema";
 import {
   getCostCalculationState,
@@ -20,28 +19,21 @@ import {
 } from "../store";
 
 export const usePackageSizeForm = () => {
-  const { isPackageSizeSelectOpen } = useAppSelector(getCostCalculationState);
+  const { isPackageSizeSelectOpen, selectedSenderPoint, selectedReceiverPoint } =
+    useAppSelector(getCostCalculationState);
   const storedPackageSize = useAppSelector(getPackageType);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const calculateDeliveryForm = useForm<z.infer<typeof calculateDeliveryScheme>>({
-    resolver: zodResolver(calculateDeliveryScheme),
-    defaultValues: {
-      package: storedPackageSize,
-      receiverPoint: {
-        latitude: "",
-        longitude: ""
-      },
-      senderPoint: {
-        latitude: "",
-        longitude: ""
-      }
-    }
-  });
-
-  const calculateDeliveryFormHandler = async (data: z.infer<typeof calculateDeliveryScheme>) => {
-    dispatch(postCalculatePriceAction(data)).then(() => {
+  const calculateDeliveryFormHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch(
+      postCalculatePriceAction({
+        package: storedPackageSize,
+        receiverPoint: selectedReceiverPoint!,
+        senderPoint: selectedSenderPoint!
+      })
+    ).then(() => {
       navigate(PATHS.CREATE_ORDER);
     });
   };
@@ -49,15 +41,15 @@ export const usePackageSizeForm = () => {
   const exactPackageSizesForm = useForm<z.infer<typeof exactPackageSizesSchema>>({
     resolver: zodResolver(exactPackageSizesSchema),
     defaultValues: {
-      height: storedPackageSize.height,
-      length: storedPackageSize.length,
-      weight: storedPackageSize.weight,
-      width: storedPackageSize.width
+      height: storedPackageSize.height.toString(),
+      length: storedPackageSize.length.toString(),
+      weight: storedPackageSize.weight.toString(),
+      width: storedPackageSize.width.toString()
     }
   });
 
   const setSelectedPackageSize = (data: z.infer<typeof exactPackageSizesSchema>) => {
-    dispatch(setPackageSize({ ...data }));
+    dispatch(setPackageSize(data));
     setIsPackageSizeOpen();
   };
 
@@ -75,7 +67,6 @@ export const usePackageSizeForm = () => {
 
   return {
     storedPackageSize,
-    calculateDeliveryForm,
     exactPackageSizesForm,
     isPackageSizeSelectOpen,
     selectReceiverPoint,
