@@ -8,5 +8,6 @@ export interface ICostCalculationState {
   activeRequests: number;
   selectedPackageType: Partial<Omit<IPackage, "id">>;
   selectedReceiverPoint: IPoint | undefined;
+  selectedSenderPoint: IPoint | undefined;
   isPackageSizeSelectOpen: boolean;
 }

@@ -22,3 +22,11 @@ export interface IPoint extends ISenderPoint {
   id: string;
   name: string;
 }
+
+export interface IOptions {
+  id: string;
+  price: number;
+  days: number;
+  name: string;
+  type: string;
+}

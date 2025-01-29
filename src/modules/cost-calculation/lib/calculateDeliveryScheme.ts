@@ -17,5 +17,5 @@ const senderPointScheme = receiverPointScheme.extend({});
 export const calculateDeliveryScheme = z.object({
   senderPoint: senderPointScheme,
   receiverPoint: receiverPointScheme,
-  packageSize: packageSizeScheme
+  package: packageSizeScheme
 });

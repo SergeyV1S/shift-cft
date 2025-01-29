@@ -16,13 +16,8 @@ export const initialState: ICostCalculationState = {
     weight: "",
     width: ""
   },
-  // selectedReceiverPoint: {
-  //   id: "",
-  //   latitude: "",
-  //   longitude: "",
-  //   name: ""
-  // },
   selectedReceiverPoint: undefined,
+  selectedSenderPoint: undefined,
   isLoading: false,
   error: undefined,
   activeRequests: 0,
@@ -47,6 +42,10 @@ export const costCalculationSlice = createSlice({
     setReceiverPoint: (state, action: PayloadAction<string>) => {
       const receiverPoint = state.points.find((point) => point.id === action.payload);
       state.selectedReceiverPoint = receiverPoint;
+    },
+    setSenderPoint: (state, action: PayloadAction<string>) => {
+      const senderPoint = state.points.find((point) => point.id === action.payload);
+      state.selectedSenderPoint = senderPoint;
     }
   },
   extraReducers: (builder) => {
@@ -89,12 +88,13 @@ export const costCalculationSlice = createSlice({
   selectors: {
     getCostCalculationState: (state) => state,
     getPackageType: (state) => state.selectedPackageType,
-    getReceiverPoint: (state) => state.selectedReceiverPoint
+    getReceiverPoint: (state) => state.selectedReceiverPoint,
+    getSenderPoint: (state) => state.selectedSenderPoint
   }
 });
 
-export const { setPackageSize, togglePackageSizeSelect, setReceiverPoint } =
+export const { setPackageSize, togglePackageSizeSelect, setReceiverPoint, setSenderPoint } =
   costCalculationSlice.actions;
 
-export const { getCostCalculationState, getPackageType, getReceiverPoint } =
+export const { getCostCalculationState, getPackageType, getReceiverPoint, getSenderPoint } =
   costCalculationSlice.selectors;

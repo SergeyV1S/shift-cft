@@ -4,6 +4,7 @@ import type { z } from "zod";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
+import { postCalculatePrice } from "../api";
 import { calculateDeliveryScheme } from "../lib/calculateDeliveryScheme";
 import { exactPackageSizesSchema } from "../lib/exactPackageSizesSchema";
 import {
@@ -11,6 +12,7 @@ import {
   getPackageType,
   setPackageSize,
   setReceiverPoint,
+  setSenderPoint,
   togglePackageSizeSelect
 } from "../store";
 
@@ -22,7 +24,7 @@ export const usePackageSizeForm = () => {
   const calculateDeliveryForm = useForm<z.infer<typeof calculateDeliveryScheme>>({
     resolver: zodResolver(calculateDeliveryScheme),
     defaultValues: {
-      packageSize: storedPackageSize,
+      package: storedPackageSize,
       receiverPoint: {
         latitude: "",
         longitude: ""
@@ -33,6 +35,10 @@ export const usePackageSizeForm = () => {
       }
     }
   });
+
+  const calculateDeliveryFormHandler = async (data: z.infer<typeof calculateDeliveryScheme>) => {
+    await postCalculatePrice({ data });
+  };
 
   const exactPackageSizesForm = useForm<z.infer<typeof exactPackageSizesSchema>>({
     resolver: zodResolver(exactPackageSizesSchema),
@@ -57,12 +63,18 @@ export const usePackageSizeForm = () => {
     dispatch(setReceiverPoint(pointId));
   };
 
+  const selectSenderPoint = (pointId: string) => {
+    dispatch(setSenderPoint(pointId));
+  };
+
   return {
     storedPackageSize,
     calculateDeliveryForm,
     exactPackageSizesForm,
     isPackageSizeSelectOpen,
     selectReceiverPoint,
+    calculateDeliveryFormHandler,
+    selectSenderPoint,
     setSelectedPackageSize,
     setIsPackageSizeOpen
   };

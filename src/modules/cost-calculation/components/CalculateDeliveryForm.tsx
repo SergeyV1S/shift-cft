@@ -7,27 +7,38 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/ui/select";
 
 import { usePackageSizeForm } from "../model/usePackageSizeForm";
-import { getCostCalculationState, getPackageType, getReceiverPoint } from "../store";
+import {
+  getCostCalculationState,
+  getPackageType,
+  getReceiverPoint,
+  getSenderPoint
+} from "../store";
 import { PackageSizeSelectTabs } from "./PackageSizeSelectTabs";
 
 export const CalculateDeliveryForm = () => {
   const selectedPackageType = useAppSelector(getPackageType);
   const selectedReceiverPoint = useAppSelector(getReceiverPoint);
+  const selectedSenderPoint = useAppSelector(getSenderPoint);
   const { points } = useAppSelector(getCostCalculationState);
 
   const {
     calculateDeliveryForm,
     isPackageSizeSelectOpen,
     selectReceiverPoint,
-    setIsPackageSizeOpen
+    selectSenderPoint,
+    setIsPackageSizeOpen,
+    calculateDeliveryFormHandler
   } = usePackageSizeForm();
 
   return (
     <Form {...calculateDeliveryForm}>
-      <form className='grid w-full gap-6'>
+      <form
+        onSubmit={calculateDeliveryForm.handleSubmit(calculateDeliveryFormHandler)}
+        className='grid w-full gap-6'
+      >
         <FormField
           control={calculateDeliveryForm.control}
-          name='packageSize'
+          name='package'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Размер посылки</FormLabel>
@@ -59,26 +70,24 @@ export const CalculateDeliveryForm = () => {
         <FormField
           control={calculateDeliveryForm.control}
           name='senderPoint'
-          render={({ field }) => (
+          render={() => (
             <FormItem>
               <FormLabel>Город отправки</FormLabel>
-              <Select onValueChange={field.onChange}>
+              <Select onValueChange={selectSenderPoint}>
                 <FormControl>
                   <SelectTrigger className='h-10'>
-                    <SelectValue
-                      placeholder={
-                        <div className='flex items-center gap-2'>
-                          <MapPin className='size-5 opacity-60' />
-                          <p>{"Выберите город"}</p>
-                        </div>
-                      }
-                    />
+                    <div className='flex items-center gap-2'>
+                      <MapPin className='size-5 opacity-60' />
+                      <p>{selectedSenderPoint?.name || "Выберите город"}</p>
+                    </div>
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
-                  <SelectItem value='m@example.com'>m@example.com</SelectItem>
-                  <SelectItem value='m@google.com'>m@google.com</SelectItem>
-                  <SelectItem value='m@support.com'>m@support.com</SelectItem>
+                <SelectContent className='max-h-[250px]'>
+                  {points.map((point) => (
+                    <SelectItem key={point.id} value={point.id}>
+                      {point.name}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -113,7 +122,7 @@ export const CalculateDeliveryForm = () => {
           )}
         />
         <Button
-          //   disabled={!calculateDeliveryForm.formState.dirtyFields.phone || isLoading}
+          disabled={!selectSenderPoint || !selectedReceiverPoint || !selectedPackageType.name}
           type='submit'
           className='w-full'
         >
