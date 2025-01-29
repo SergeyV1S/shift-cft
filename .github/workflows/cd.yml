@@ -64,24 +64,15 @@ jobs:
           PORT: ${{ secrets.PORT }}
         run: |
           ssh -T ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
-          export DOCKER_USERNAME="${DOCKER_USERNAME}"
-          export REPOSITORY_NAME="${REPOSITORY_NAME}"
-          export BASE_API_URL="${BASE_API_URL}"
-          export PORT="${PORT}"
 
-          echo "Logging in to Docker..."
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 
-          echo "Removing old container..."
           docker container rm -f shift-delivery || true
 
-          echo "Cleaning system..."
           docker system prune -a -f
 
-          echo "Pulling new image..."
           docker pull $DOCKER_USERNAME/$REPOSITORY_NAME:latest
 
-          echo "Running new container..."
           docker run -d --restart unless-stopped -p ${PORT}:80 --name shift-delivery -e BASE_API_URL=$BASE_API_URL $DOCKER_USERNAME/$REPOSITORY_NAME:latest
 
           EOF
