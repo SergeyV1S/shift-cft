@@ -6,7 +6,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { PATHS } from "@shared/constants";
 import { Spinner } from "@shared/ui/spinner";
 
-import { PrivateRoute } from "./PrivateRoute";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 const CostCalculationPage = lazy(() => import("@modules/cost-calculation"));
 const SignInScreen = lazy(() => import("@modules/auth/signIn/"));
@@ -14,31 +14,46 @@ const ProfileScreen = lazy(() => import("@modules/user/profile"));
 
 export const routes = createBrowserRouter([
   {
-    element: <AuthLayout />,
+    element: <ProtectedRoute onlyUnAuth />,
     children: [
       {
-        path: PATHS.SIGNIN,
-        element: (
-          <Suspense fallback={<Spinner />}>
-            <SignInScreen />
-          </Suspense>
-        )
+        element: <AuthLayout />,
+        children: [
+          {
+            path: PATHS.SIGNIN,
+            element: (
+              <Suspense fallback={<Spinner />}>
+                <SignInScreen />
+              </Suspense>
+            )
+          }
+        ]
       }
     ]
   },
   {
-    element: <RootLayout />,
+    element: <ProtectedRoute forAll />,
     children: [
       {
-        path: "/",
-        element: (
-          <Suspense fallback={<Spinner />}>
-            <CostCalculationPage />
-          </Suspense>
-        )
-      },
+        element: <RootLayout />,
+        children: [
+          {
+            path: "/",
+            element: (
+              <Suspense fallback={<Spinner />}>
+                <CostCalculationPage />
+              </Suspense>
+            )
+          }
+        ]
+      }
+    ]
+  },
+  {
+    element: <ProtectedRoute />,
+    children: [
       {
-        element: <PrivateRoute />,
+        element: <RootLayout />,
         children: [
           {
             path: PATHS.PROFILE,

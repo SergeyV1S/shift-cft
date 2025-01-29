@@ -18,7 +18,15 @@ export const initialState: IAuthInitialState = {
 export const authSlice = createSlice({
   name: "authSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      localStorage.removeItem(ACCESS_TOKEN);
+      state.isAuth = false;
+    },
+    setAuthStatus: (state, action: PayloadAction<boolean>) => {
+      state.isAuth = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
       // Получить otp код
@@ -50,5 +58,5 @@ export const authSlice = createSlice({
     getAuthState: (state) => state
   }
 });
-
+export const { logout, setAuthStatus } = authSlice.actions;
 export const { getAuthState } = authSlice.selectors;

@@ -1,13 +1,13 @@
-import { ExitIcon } from "@radix-ui/react-icons";
+import { LogoutButton, getAuthState } from "@modules/auth";
 import { Clock, PackageOpen, User } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import { ACCESS_TOKEN, PATHS } from "@shared/constants";
+import { useAppSelector } from "@app/store/hooks";
 
-import { Button } from "./button";
+import { PATHS } from "@shared/constants";
 
 export const Header = () => {
-  const isAuth = localStorage.getItem(ACCESS_TOKEN);
+  const { isAuth } = useAppSelector(getAuthState);
 
   return (
     <header className='container grid grid-cols-[12%_1fr_10%] items-center py-5'>
@@ -28,14 +28,7 @@ export const Header = () => {
         </Link>
       </nav>
       <nav className='text-center'>
-        {isAuth ? (
-          <Button className='flex items-center gap-4' variant='link'>
-            <ExitIcon />
-            <span>Выйти</span>
-          </Button>
-        ) : (
-          <Link to={PATHS.SIGNIN}>Войти</Link>
-        )}
+        {isAuth ? <LogoutButton /> : <Link to={PATHS.SIGNIN}>Войти</Link>}
       </nav>
     </header>
   );
