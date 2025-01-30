@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { TAddressFormSchema } from "@modules/order/create-order/lib";
 import { addressFormSchema } from "@modules/order/create-order/lib";
 import { useCreateOrder } from "@modules/order/create-order/model/useCreateOrder";
+import type { IAddress } from "@modules/order/create-order/type";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 
@@ -15,16 +16,17 @@ interface IAddressFormProps {
     apartment: string;
     comment: string;
   }>;
+  address?: IAddress;
 }
 
-export const AddressForm = ({ handleSubmit }: IAddressFormProps) => {
+export const AddressForm = ({ handleSubmit, address }: IAddressFormProps) => {
   const addressForm = useForm<TAddressFormSchema>({
     resolver: zodResolver(addressFormSchema),
     defaultValues: {
-      street: "",
-      house: "",
-      apartment: "",
-      comment: ""
+      street: address?.street || "",
+      house: address?.house || "",
+      apartment: address?.apartment || "",
+      comment: address?.comment || ""
     }
   });
 
@@ -103,12 +105,7 @@ export const AddressForm = ({ handleSubmit }: IAddressFormProps) => {
           </Button>
           <Button
             type='submit'
-            disabled={
-              !addressForm.formState.dirtyFields.apartment ||
-              !addressForm.formState.dirtyFields.comment ||
-              !addressForm.formState.dirtyFields.house ||
-              !addressForm.formState.dirtyFields.street
-            }
+            disabled={!addressForm.formState.isValid}
             variant='contained_primary'
             size='lg'
             className='basis-1/2'

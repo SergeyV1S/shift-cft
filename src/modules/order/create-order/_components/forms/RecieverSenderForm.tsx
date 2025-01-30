@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { TReceiverSenderFormSchemas } from "@modules/order/create-order/lib";
 import { receiverSenderFormSchema } from "@modules/order/create-order/lib";
 import { useCreateOrder } from "@modules/order/create-order/model/useCreateOrder";
+import type { IUserSession } from "@modules/user/types";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { PatternFormat } from "react-number-format";
@@ -16,16 +17,17 @@ interface IRecieverSenderFormProps {
     lastname: string;
     phone: string;
   }>;
+  contact?: Omit<IUserSession, "email" | "city">;
 }
 
-export const RecieverSenderForm = ({ handleSubmit }: IRecieverSenderFormProps) => {
+export const RecieverSenderForm = ({ handleSubmit, contact }: IRecieverSenderFormProps) => {
   const receiverSenderForm = useForm<TReceiverSenderFormSchemas>({
     resolver: zodResolver(receiverSenderFormSchema),
     defaultValues: {
-      firstname: "",
-      lastname: "",
-      middlename: "",
-      phone: ""
+      firstname: contact?.firstname || "",
+      lastname: contact?.lastname || "",
+      middlename: contact?.middlename || "",
+      phone: contact?.phone || ""
     }
   });
 
@@ -33,14 +35,7 @@ export const RecieverSenderForm = ({ handleSubmit }: IRecieverSenderFormProps) =
 
   return (
     <Form {...receiverSenderForm}>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          receiverSenderForm.handleSubmit(handleSubmit)(event);
-          receiverSenderForm.reset();
-        }}
-        className='grid gap-5'
-      >
+      <form onSubmit={receiverSenderForm.handleSubmit(handleSubmit)} className='grid gap-5'>
         <FormField
           control={receiverSenderForm.control}
           name='lastname'
@@ -102,6 +97,7 @@ export const RecieverSenderForm = ({ handleSubmit }: IRecieverSenderFormProps) =
         />
         <nav className='flex items-center gap-6'>
           <Button
+            type='button'
             onClick={decrementStepMethod}
             variant='outline_secondary'
             size='lg'
@@ -111,12 +107,7 @@ export const RecieverSenderForm = ({ handleSubmit }: IRecieverSenderFormProps) =
           </Button>
           <Button
             type='submit'
-            disabled={
-              !receiverSenderForm.formState.dirtyFields.firstname ||
-              !receiverSenderForm.formState.dirtyFields.lastname ||
-              !receiverSenderForm.formState.dirtyFields.middlename ||
-              !receiverSenderForm.formState.dirtyFields.phone
-            }
+            disabled={!receiverSenderForm.formState.isValid}
             variant='contained_primary'
             size='lg'
             className='basis-1/2'
