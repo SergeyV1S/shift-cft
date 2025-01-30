@@ -7,14 +7,28 @@ import { postCreateOrderAction } from "./action";
 import type { ICreateOrderState } from "./type";
 
 export const initialState: ICreateOrderState = {
+  currentStep: 1,
   isLoading: false,
-  error: undefined
+  createOrder: {}
 };
 
 export const createOrderSlice = createSlice({
   name: "createOrderSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    setOrderField: <K extends keyof ICreateOrderState["createOrder"]>(
+      state: ICreateOrderState,
+      action: PayloadAction<{ field: K; value: ICreateOrderState["createOrder"][K] }>
+    ) => {
+      state.createOrder[action.payload.field] = action.payload.value;
+    },
+    setCurrentStep: (state, action: PayloadAction<number>) => {
+      state.currentStep = action.payload;
+    },
+    resetCreateOrderFields: (state) => {
+      state.createOrder = {};
+    }
+  },
   extraReducers: (builder) => {
     builder
       // Создать заказ
@@ -38,8 +52,6 @@ export const createOrderSlice = createSlice({
   }
 });
 
-// export const { setPackageSize, togglePackageSizeSelect, setReceiverPoint, setSenderPoint } =
-// createOrderSlice.actions;
+export const { setOrderField, setCurrentStep, resetCreateOrderFields } = createOrderSlice.actions;
 
-// export const { getCostCalculationState, getPackageType, getReceiverPoint, getSenderPoint } =
-// createOrderSlice.selectors;
+export const { getCreateOrderState } = createOrderSlice.selectors;

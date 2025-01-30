@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { resetCreateOrderFields } from "@modules/order";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import type { z } from "zod";
@@ -34,6 +35,7 @@ export const usePackageSizeForm = () => {
         senderPoint: selectedSenderPoint!
       })
     ).then(() => {
+      dispatch(resetCreateOrderFields());
       navigate(PATHS.CREATE_ORDER);
     });
   };
