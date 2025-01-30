@@ -9,7 +9,7 @@ import { getCreateOrderState } from "../store";
 import { ESteps } from "../store/type";
 
 export const ReviewOrderDetails = () => {
-  const { decrementStepMethod, setStep } = useCreateOrder();
+  const { decrementStepMethod, setStep, createOrderRequest } = useCreateOrder();
   const { createOrder } = useAppSelector(getCreateOrderState);
 
   return (
@@ -81,11 +81,12 @@ export const ReviewOrderDetails = () => {
         </Button>
       </div>
       <div className='text-end space-y-4'>
-        <Typography variant='title_h3'>{`Итого: ${createOrder.selectedOption?.price} ₽`}</Typography>
+        <Typography variant='title_h3'>{`Итого: ${createOrder.option?.price} ₽`}</Typography>
         <div className='space-y-1'>
-          <Typography variant='paragraph16_regular'>{`Тариф: ${createOrder.selectedOption?.name}`}</Typography>
-          <Typography variant='paragraph16_regular'>{`Срок: ${createOrder.selectedOption?.days} рабочий день`}</Typography>
+          <Typography variant='paragraph16_regular'>{`Тариф: ${createOrder.option?.name}`}</Typography>
+          <Typography variant='paragraph16_regular'>{`Срок: ${createOrder.option?.days} рабочий день`}</Typography>
         </div>
+        option
       </div>
       <nav className='flex items-center justify-between pb-20'>
         <Button
@@ -96,7 +97,12 @@ export const ReviewOrderDetails = () => {
         >
           Назад
         </Button>
-        <Button variant='contained_primary' size='lg' className='w-1/3'>
+        <Button
+          onClick={() => createOrderRequest()}
+          variant='contained_primary'
+          size='lg'
+          className='w-1/3'
+        >
           Отправить
         </Button>
       </nav>

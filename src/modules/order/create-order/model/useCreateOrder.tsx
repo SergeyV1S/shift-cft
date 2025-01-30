@@ -1,3 +1,4 @@
+import { getCostCalculationState } from "@modules/cost-calculation/store";
 import type { IOption } from "@modules/cost-calculation/type";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
@@ -7,12 +8,19 @@ import type {
   TDeliveryPaymentFormSchema,
   TReceiverSenderFormSchemas
 } from "../lib";
-import { decrementStep, getCreateOrderState, setCurrentStep, setOrderField } from "../store";
+import {
+  decrementStep,
+  getCreateOrderState,
+  postCreateOrderAction,
+  setCurrentStep,
+  setOrderField
+} from "../store";
 import { ESteps } from "../store/type";
 
 export const useCreateOrder = () => {
   const dispatch = useAppDispatch();
-  const { currentStep } = useAppSelector(getCreateOrderState);
+  const { selectedReceiverPoint, selectedSenderPoint } = useAppSelector(getCostCalculationState);
+  const { currentStep, createOrder } = useAppSelector(getCreateOrderState);
 
   const setStep = (step: ESteps) => {
     dispatch(setCurrentStep(step));
@@ -21,7 +29,7 @@ export const useCreateOrder = () => {
   const decrementStepMethod = () => dispatch(decrementStep(currentStep));
 
   const selectDeliveryMethod = (option: IOption) => {
-    dispatch(setOrderField({ field: "selectedOption", value: option }));
+    dispatch(setOrderField({ field: "option", value: option }));
     setStep(ESteps.RECEIVER);
   };
 
@@ -50,7 +58,23 @@ export const useCreateOrder = () => {
     setStep(ESteps.ORDER_REVIEW);
   };
 
+  const createOrderRequest = () => {
+    dispatch(
+      postCreateOrderAction({
+        option: createOrder.option!,
+        payer: createOrder.payer!,
+        receiver: createOrder.receiver!,
+        receiverAddress: createOrder.receiverAddress!,
+        sender: createOrder.sender!,
+        senderAddress: createOrder.senderAddress!,
+        senderPoint: selectedSenderPoint!,
+        receiverPoint: selectedReceiverPoint!
+      })
+    );
+  };
+
   return {
+    createOrderRequest,
     setStep,
     selectDeliveryMethod,
     setReceiver,

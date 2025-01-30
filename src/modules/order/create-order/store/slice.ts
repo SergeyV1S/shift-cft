@@ -49,7 +49,7 @@ export const createOrderSlice = createSlice({
         postCreateOrderAction.fulfilled,
         (state, action: PayloadAction<IPostCreateOrderResponse>) => {
           state.isLoading = false;
-          console.log(action.payload.order);
+          state.createdOrder = action.payload.order;
         }
       )
       .addCase(postCreateOrderAction.rejected, (state, action) => {

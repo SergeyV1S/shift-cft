@@ -23,4 +23,7 @@ export interface IOrder {
   payer: EPayer;
   status: number;
   cancellable: boolean;
+  updated: string;
+  _id: string;
+  created: string;
 }
