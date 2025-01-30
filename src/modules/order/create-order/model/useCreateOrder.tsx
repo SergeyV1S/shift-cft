@@ -26,20 +26,27 @@ export const useCreateOrder = () => {
     dispatch(setCurrentStep("Откуда забрать"));
   };
 
-  // const setReceiverAddress = (data: any) => {
-  //   dispatch(setCurrentStep("Куда доставить"));
-  //   dispatch(setOrderField({ field: "receiverAddress", value: data }));
-  // };
+  const setReceiverAddress = (data: any) => {
+    dispatch(setOrderField({ field: "receiverAddress", value: data }));
+    dispatch(setCurrentStep("Куда доставить"));
+  };
 
-  // const setSenderAddress = (data: any) => {
-  //   dispatch(setCurrentStep("Оплата доставки"));
-  //   dispatch(setOrderField({ field: "sender", value: data }));
-  // };
+  const setSenderAddress = (data: any) => {
+    dispatch(setOrderField({ field: "senderAddress", value: data }));
+    dispatch(setCurrentStep("Оплата доставки"));
+  };
 
   // const setPayer = (data: any) => {
   //   dispatch(setCurrentStep("Проверка данных заказа"));
   //   dispatch(setOrderField({ field: "sender", value: data }));
   // };
 
-  return { selectDeliveryMethod, setReceiver, setSender, decrementStepMethod };
+  return {
+    selectDeliveryMethod,
+    setReceiver,
+    setSender,
+    decrementStepMethod,
+    setReceiverAddress,
+    setSenderAddress
+  };
 };

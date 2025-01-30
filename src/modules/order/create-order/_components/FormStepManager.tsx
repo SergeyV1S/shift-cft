@@ -6,18 +6,18 @@ import { steps } from "../constants/steps";
 import { useCreateOrder } from "../model/useCreateOrder";
 import { getCreateOrderState } from "../store";
 import type { TSteps } from "../store/type";
-import { DeliverMethodForm, RecieverSenderForm } from "./forms";
+import { AddressForm, DeliverMethodForm, RecieverSenderForm } from "./forms";
 
 export const FormStepManager = () => {
   const { currentStep } = useAppSelector(getCreateOrderState);
-  const { setReceiver, setSender } = useCreateOrder();
+  const { setReceiver, setSender, setReceiverAddress, setSenderAddress } = useCreateOrder();
 
   const stepComponents: Record<TSteps, React.JSX.Element> = {
     "Способ отправки": <DeliverMethodForm />,
     Получатель: <RecieverSenderForm handleSubmit={setReceiver} />,
     Отправитель: <RecieverSenderForm handleSubmit={setSender} />,
-    "Откуда забрать": <div className=''>4</div>,
-    "Куда доставить": <div className=''>5</div>,
+    "Откуда забрать": <AddressForm handleSubmit={setReceiverAddress} />,
+    "Куда доставить": <AddressForm handleSubmit={setSenderAddress} />,
     "Оплата доставки": <div className=''>6</div>,
     "Проверка данных заказа": <div className=''>7</div>
   };
