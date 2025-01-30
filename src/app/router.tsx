@@ -8,10 +8,11 @@ import { Spinner } from "@shared/ui";
 
 import { ProtectedRoute } from "./ProtectedRoute";
 
-const CostCalculationPage = lazy(() => import("@modules/cost-calculation"));
-const SignInScreen = lazy(() => import("@modules/auth/signIn/"));
+const CostCalculationPage = lazy(() => import("@modules/cost-calculation/pages/CostCalculation"));
+const SignInScreen = lazy(() => import("@modules/auth/signIn"));
 const ProfileScreen = lazy(() => import("@modules/user/profile"));
-const CreateOrderScreen = lazy(() => import("@modules/order/create-order"));
+const CreateOrderScreen = lazy(() => import("@modules/order/create-order/pages/CreateOrder"));
+const RequestSentScreen = lazy(() => import("@modules/order/create-order/pages/RequestSent"));
 
 export const routes = createBrowserRouter([
   {
@@ -51,6 +52,14 @@ export const routes = createBrowserRouter([
             element: (
               <Suspense fallback={<Spinner />}>
                 <CreateOrderScreen />
+              </Suspense>
+            )
+          },
+          {
+            path: PATHS.REQUESTED_SENT,
+            element: (
+              <Suspense fallback={<Spinner />}>
+                <RequestSentScreen />
               </Suspense>
             )
           }

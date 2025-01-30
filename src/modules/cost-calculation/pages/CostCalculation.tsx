@@ -6,8 +6,8 @@ import { useAppDispatch } from "@app/store/hooks";
 
 import { Typography } from "@shared/ui";
 
-import { CalculateDeliveryCard } from "./_components/CalculateDeliveryCard";
-import { getPackageTypesAction, getPointsAction, resetDeliveryCost } from "./store";
+import { CalculateDeliveryCard } from "../_components/CalculateDeliveryCard";
+import { getPackageTypesAction, getPointsAction, resetDeliveryCost } from "../store";
 
 const CostCalculationPage = () => {
   const dispatch = useAppDispatch();

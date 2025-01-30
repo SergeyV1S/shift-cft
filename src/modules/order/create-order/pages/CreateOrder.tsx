@@ -1,4 +1,4 @@
-import { FormStepManager } from "./_components/FormStepManager";
+import { FormStepManager } from "../_components/FormStepManager";
 
 const CreateOrderPage = () => (
   <div className='container mt-12'>

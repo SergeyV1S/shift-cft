@@ -1,7 +1,10 @@
 import { getCostCalculationState } from "@modules/cost-calculation/store";
 import type { IOption } from "@modules/cost-calculation/type";
+import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
+
+import { PATHS } from "@shared/constants";
 
 import type {
   TAddressFormSchema,
@@ -21,6 +24,7 @@ export const useCreateOrder = () => {
   const dispatch = useAppDispatch();
   const { selectedReceiverPoint, selectedSenderPoint } = useAppSelector(getCostCalculationState);
   const { currentStep, createOrder } = useAppSelector(getCreateOrderState);
+  const navigate = useNavigate();
 
   const setStep = (step: ESteps) => {
     dispatch(setCurrentStep(step));
@@ -58,7 +62,7 @@ export const useCreateOrder = () => {
     setStep(ESteps.ORDER_REVIEW);
   };
 
-  const createOrderRequest = () => {
+  const createOrderRequest = async () => {
     dispatch(
       postCreateOrderAction({
         option: createOrder.option!,
@@ -70,7 +74,9 @@ export const useCreateOrder = () => {
         senderPoint: selectedSenderPoint!,
         receiverPoint: selectedReceiverPoint!
       })
-    );
+    ).then(() => {
+      navigate(PATHS.REQUESTED_SENT);
+    });
   };
 
   return {
