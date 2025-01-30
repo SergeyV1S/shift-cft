@@ -2,7 +2,7 @@ import { getDeliveryCost } from "@modules/cost-calculation/store";
 
 import { useAppSelector } from "@app/store/hooks";
 
-import { Progress, Typography } from "@shared/ui";
+import { Typography } from "@shared/ui";
 
 import { DeliveryVariant } from "../DeliveryVariant";
 
@@ -11,13 +11,6 @@ export const DeliverMethodForm = () => {
 
   return (
     <>
-      <Typography tag='h2' variant='title_h2'>
-        Способ отправки
-      </Typography>
-      <div className='space-y-2'>
-        <Typography variant='paragraph12_regular'>Шаг 1 из 7</Typography>
-        <Progress value={14} />
-      </div>
       <div className='flex flex-col gap-6'>
         {deliveryCost.map((cost) => (
           <DeliveryVariant key={cost.id} option={cost} />
