@@ -1,4 +1,5 @@
 import { getDeliveryCost } from "@modules/cost-calculation/store";
+import { Navigate } from "react-router-dom";
 
 import { useAppSelector } from "@app/store/hooks";
 
@@ -8,6 +9,7 @@ import { DeliveryVariant } from "../DeliveryVariant";
 
 export const DeliverMethodForm = () => {
   const deliveryCost = useAppSelector(getDeliveryCost);
+  if (deliveryCost.length === 0) return <Navigate to='/' />;
 
   return (
     <>

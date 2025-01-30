@@ -61,6 +61,9 @@ export const costCalculationSlice = createSlice({
     setSenderPoint: (state, action: PayloadAction<string>) => {
       const senderPoint = state.points.find((point) => point.id === action.payload);
       state.selectedSenderPoint = senderPoint;
+    },
+    resetDeliveryCost: (state) => {
+      state.deliveryCost = [];
     }
   },
   extraReducers: (builder) => {
@@ -123,8 +126,13 @@ export const costCalculationSlice = createSlice({
   }
 });
 
-export const { setPackageSize, togglePackageSizeSelect, setReceiverPoint, setSenderPoint } =
-  costCalculationSlice.actions;
+export const {
+  setPackageSize,
+  togglePackageSizeSelect,
+  setReceiverPoint,
+  setSenderPoint,
+  resetDeliveryCost
+} = costCalculationSlice.actions;
 
 export const {
   getCostCalculationState,

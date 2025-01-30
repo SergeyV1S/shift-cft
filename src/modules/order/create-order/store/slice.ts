@@ -26,11 +26,6 @@ export const createOrderSlice = createSlice({
     setCurrentStep: (state, action: PayloadAction<TSteps>) => {
       state.currentStep = action.payload;
     },
-    incrementStep: (state, action: PayloadAction<TSteps>) => {
-      const currentStepIndex = steps.indexOf(action.payload);
-      const nextStep = steps[currentStepIndex + 1];
-      state.currentStep = nextStep as TSteps;
-    },
     decrementStep: (state, action: PayloadAction<TSteps>) => {
       const currentStepIndex = steps.indexOf(action.payload);
       const nextStep = steps[currentStepIndex - 1];
@@ -38,6 +33,9 @@ export const createOrderSlice = createSlice({
     },
     resetCreateOrderFields: (state) => {
       state.createOrder = {};
+    },
+    resetcurrentStep: (state) => {
+      state.currentStep = "Способ отправки";
     }
   },
   extraReducers: (builder) => {
@@ -68,7 +66,7 @@ export const {
   setCurrentStep,
   resetCreateOrderFields,
   decrementStep,
-  incrementStep
+  resetcurrentStep
 } = createOrderSlice.actions;
 
 export const { getCreateOrderState } = createOrderSlice.selectors;

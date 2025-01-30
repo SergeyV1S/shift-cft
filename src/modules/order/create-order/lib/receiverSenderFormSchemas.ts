@@ -12,6 +12,4 @@ export const receiverSenderFormSchema = z.object({
   }, "Неверный номер телефона")
 });
 
-// export const senderFormSchema = receiverFormSchema.extend({});
-
 export type TReceiverSenderFormSchemas = z.infer<typeof receiverSenderFormSchema>;

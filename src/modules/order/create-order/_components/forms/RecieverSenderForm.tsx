@@ -1,11 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { TReceiverSenderFormSchemas } from "@modules/order/create-order/lib";
 import { receiverSenderFormSchema } from "@modules/order/create-order/lib";
+import { useCreateOrder } from "@modules/order/create-order/model/useCreateOrder";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { PatternFormat } from "react-number-format";
 
-import { Input } from "@shared/ui";
+import { Button, Input } from "@shared/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
 
 interface IRecieverSenderFormProps {
@@ -28,9 +29,18 @@ export const RecieverSenderForm = ({ handleSubmit }: IRecieverSenderFormProps) =
     }
   });
 
+  const { decrementStepMethod } = useCreateOrder();
+
   return (
     <Form {...receiverSenderForm}>
-      <form onSubmit={receiverSenderForm.handleSubmit(handleSubmit)} className='grid gap-5'>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          receiverSenderForm.handleSubmit(handleSubmit)(event);
+          receiverSenderForm.reset();
+        }}
+        className='grid gap-5'
+      >
         <FormField
           control={receiverSenderForm.control}
           name='lastname'
@@ -90,6 +100,30 @@ export const RecieverSenderForm = ({ handleSubmit }: IRecieverSenderFormProps) =
             </FormItem>
           )}
         />
+        <nav className='flex items-center gap-6'>
+          <Button
+            onClick={decrementStepMethod}
+            variant='outline_secondary'
+            size='lg'
+            className='basis-1/2'
+          >
+            Назад
+          </Button>
+          <Button
+            type='submit'
+            disabled={
+              !receiverSenderForm.formState.dirtyFields.firstname ||
+              !receiverSenderForm.formState.dirtyFields.lastname ||
+              !receiverSenderForm.formState.dirtyFields.middlename ||
+              !receiverSenderForm.formState.dirtyFields.phone
+            }
+            variant='contained_primary'
+            size='lg'
+            className='basis-1/2'
+          >
+            Продолжить
+          </Button>
+        </nav>
       </form>
     </Form>
   );

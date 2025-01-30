@@ -1,6 +1,6 @@
 import { useAppSelector } from "@app/store/hooks";
 
-import { Button, Progress, Typography } from "@shared/ui";
+import { Progress, Typography } from "@shared/ui";
 
 import { steps } from "../constants/steps";
 import { useCreateOrder } from "../model/useCreateOrder";
@@ -10,12 +10,12 @@ import { DeliverMethodForm, RecieverSenderForm } from "./forms";
 
 export const FormStepManager = () => {
   const { currentStep } = useAppSelector(getCreateOrderState);
-  const { setReceiver, setSender, incrementStepMethod, decrementStepMethod } = useCreateOrder();
+  const { setReceiver, setSender } = useCreateOrder();
 
   const stepComponents: Record<TSteps, React.JSX.Element> = {
     "Способ отправки": <DeliverMethodForm />,
-    Отправитель: <RecieverSenderForm handleSubmit={setReceiver} />,
-    Получатель: <RecieverSenderForm handleSubmit={setSender} />,
+    Получатель: <RecieverSenderForm handleSubmit={setReceiver} />,
+    Отправитель: <RecieverSenderForm handleSubmit={setSender} />,
     "Откуда забрать": <div className=''>4</div>,
     "Куда доставить": <div className=''>5</div>,
     "Оплата доставки": <div className=''>6</div>,
@@ -32,26 +32,6 @@ export const FormStepManager = () => {
         <Progress value={Math.ceil(((steps.indexOf(currentStep) + 1) / 7) * 100)} />
       </div>
       {stepComponents[currentStep]}
-      {currentStep !== "Способ отправки" && (
-        <nav className='flex items-center gap-6'>
-          <Button
-            onClick={decrementStepMethod}
-            variant='outline_secondary'
-            size='lg'
-            className='basis-1/2'
-          >
-            Назад
-          </Button>
-          <Button
-            onClick={incrementStepMethod}
-            variant='contained_primary'
-            size='lg'
-            className='basis-1/2'
-          >
-            Продолжить
-          </Button>
-        </nav>
-      )}
     </>
   );
 };

@@ -1,3 +1,4 @@
+import { resetcurrentStep } from "@modules/order";
 import { PackageOpen } from "lucide-react";
 import { useEffect } from "react";
 
@@ -6,7 +7,7 @@ import { useAppDispatch } from "@app/store/hooks";
 import { Typography } from "@shared/ui";
 
 import { CalculateDeliveryCard } from "./_components/CalculateDeliveryCard";
-import { getPackageTypesAction, getPointsAction } from "./store";
+import { getPackageTypesAction, getPointsAction, resetDeliveryCost } from "./store";
 
 const CostCalculationPage = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,8 @@ const CostCalculationPage = () => {
   useEffect(() => {
     dispatch(getPackageTypesAction());
     dispatch(getPointsAction());
+    dispatch(resetDeliveryCost());
+    dispatch(resetcurrentStep());
   }, []);
 
   return (
