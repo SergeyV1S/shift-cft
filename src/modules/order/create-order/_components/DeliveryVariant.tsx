@@ -1,5 +1,5 @@
 import type { IOption } from "@modules/cost-calculation/type";
-import { PlaneIcon } from "lucide-react";
+import { Plane, Train } from "lucide-react";
 
 import { Typography } from "@shared/ui";
 
@@ -7,9 +7,10 @@ import { useCreateOrder } from "../model/useCreateOrder";
 
 interface IDeliveryVariantProps {
   option: IOption;
+  index: number;
 }
 
-export const DeliveryVariant = ({ option }: IDeliveryVariantProps) => {
+export const DeliveryVariant = ({ option, index }: IDeliveryVariantProps) => {
   const { selectDeliveryMethod } = useCreateOrder();
 
   return (
@@ -18,8 +19,12 @@ export const DeliveryVariant = ({ option }: IDeliveryVariantProps) => {
       className='rounded-3xl border border-slate-300 hover:shadow-lg hover:border-blue-300 hover:bg-blue-50'
     >
       <div className='flex gap-4 p-4'>
-        <div className='relative rounded-full bg-slate-200 size-14'>
-          <PlaneIcon className='absolute size-7 stroke-slate-400 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2' />
+        <div className='relative rounded-full bg-slate-100 size-14'>
+          {index === 0 ? (
+            <Plane className='absolute size-7 stroke-slate-400 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2' />
+          ) : (
+            <Train className='absolute size-7 stroke-slate-400 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2' />
+          )}
         </div>
         <div className='space-y-2 text-left'>
           <Typography variant='paragraph16_regular' tag='h2'>

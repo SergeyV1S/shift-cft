@@ -27,7 +27,7 @@ export const DeliveryPaymentForm = () => {
           addressForm.handleSubmit(setPayer)(event);
           addressForm.reset();
         }}
-        className='grid gap-5 w-1/2'
+        className='grid gap-6 w-1/2'
       >
         <FormField
           control={addressForm.control}
@@ -64,16 +64,16 @@ export const DeliveryPaymentForm = () => {
           )}
         />
 
-        <nav className='flex items-center gap-6'>
+        <nav className='flex items-center gap-6 pt-4'>
           <Button
             onClick={decrementStepMethod}
             variant='outline_secondary'
-            size='lg'
+            size='xl'
             className='basis-1/2'
           >
             Назад
           </Button>
-          <Button type='submit' variant='contained_primary' size='lg' className='basis-1/2'>
+          <Button type='submit' variant='contained_primary' size='xl' className='basis-1/2'>
             Продолжить
           </Button>
         </nav>

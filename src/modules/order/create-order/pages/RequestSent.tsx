@@ -45,19 +45,13 @@ const RequestSentPage = () => {
         <nav className='space-x-6'>
           <Link
             to='#'
-            className={cn(
-              buttonVariants({ variant: "outline_secondary", size: "lg" }),
-              "w-1/3 h-14"
-            )}
+            className={cn(buttonVariants({ variant: "outline_secondary", size: "xl" }), "w-1/3")}
           >
             Посмотреть статус
           </Link>
           <Link
             to='/'
-            className={cn(
-              buttonVariants({ variant: "contained_primary", size: "lg" }),
-              "w-1/3 h-14"
-            )}
+            className={cn(buttonVariants({ variant: "contained_primary", size: "xl" }), "w-1/3")}
           >
             На главную
           </Link>

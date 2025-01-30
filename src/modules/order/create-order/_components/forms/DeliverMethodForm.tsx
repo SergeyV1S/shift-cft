@@ -14,8 +14,8 @@ export const DeliverMethodForm = () => {
   return (
     <div className='w-1/2 space-y-6'>
       <div className='flex flex-col gap-6'>
-        {deliveryCost.map((cost) => (
-          <DeliveryVariant key={cost.id} option={cost} />
+        {deliveryCost.map((cost, index) => (
+          <DeliveryVariant key={cost.id} index={index} option={cost} />
         ))}
       </div>
       <div className='relative rounded-2xl bg-gradient-to-r from-[#1975FF] to-[#92BEFF]'>

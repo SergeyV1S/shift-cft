@@ -40,7 +40,7 @@ export const AddressForm = ({ handleSubmit, address }: IAddressFormProps) => {
           addressForm.handleSubmit(handleSubmit)(event);
           addressForm.reset();
         }}
-        className='grid gap-5 w-1/2'
+        className='grid gap-6 w-1/2'
       >
         <FormField
           control={addressForm.control}
@@ -94,11 +94,11 @@ export const AddressForm = ({ handleSubmit, address }: IAddressFormProps) => {
             </FormItem>
           )}
         />
-        <nav className='flex items-center gap-6'>
+        <nav className='flex items-center gap-6 pt-4'>
           <Button
             onClick={decrementStepMethod}
             variant='outline_secondary'
-            size='lg'
+            size='xl'
             className='basis-1/2'
           >
             Назад
@@ -107,7 +107,7 @@ export const AddressForm = ({ handleSubmit, address }: IAddressFormProps) => {
             type='submit'
             disabled={!addressForm.formState.isValid}
             variant='contained_primary'
-            size='lg'
+            size='xl'
             className='basis-1/2'
           >
             Продолжить

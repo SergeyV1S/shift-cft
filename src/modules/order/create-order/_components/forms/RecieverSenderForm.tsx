@@ -35,7 +35,7 @@ export const RecieverSenderForm = ({ handleSubmit, contact }: IRecieverSenderFor
 
   return (
     <Form {...receiverSenderForm}>
-      <form onSubmit={receiverSenderForm.handleSubmit(handleSubmit)} className='grid gap-5 w-1/2'>
+      <form onSubmit={receiverSenderForm.handleSubmit(handleSubmit)} className='grid gap-6 w-1/2'>
         <FormField
           control={receiverSenderForm.control}
           name='lastname'
@@ -95,12 +95,12 @@ export const RecieverSenderForm = ({ handleSubmit, contact }: IRecieverSenderFor
             </FormItem>
           )}
         />
-        <nav className='flex items-center gap-6'>
+        <nav className='flex items-center gap-6 pt-4'>
           <Button
             type='button'
             onClick={decrementStepMethod}
             variant='outline_secondary'
-            size='lg'
+            size='xl'
             className='basis-1/2'
           >
             Назад
@@ -109,7 +109,7 @@ export const RecieverSenderForm = ({ handleSubmit, contact }: IRecieverSenderFor
             type='submit'
             disabled={!receiverSenderForm.formState.isValid}
             variant='contained_primary'
-            size='lg'
+            size='xl'
             className='basis-1/2'
           >
             Продолжить

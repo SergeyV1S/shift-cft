@@ -2,7 +2,7 @@ import { Pencil } from "lucide-react";
 
 import { useAppSelector } from "@app/store/hooks";
 
-import { Button, Typography } from "@shared/ui";
+import { Button, Spinner, Typography } from "@shared/ui";
 
 import { useCreateOrder } from "../model/useCreateOrder";
 import { getCreateOrderState } from "../store";
@@ -10,11 +10,11 @@ import { ESteps } from "../store/type";
 
 export const ReviewOrderDetails = () => {
   const { decrementStepMethod, setStep, createOrderRequest } = useCreateOrder();
-  const { createOrder } = useAppSelector(getCreateOrderState);
+  const { createOrder, isLoading } = useAppSelector(getCreateOrderState);
 
   return (
     <div className='w-full space-y-7'>
-      <div className='rounded-3xl bg-gray-200 py-6 px-10 flex items-center justify-between'>
+      <div className='rounded-3xl bg-gray-100 py-6 px-10 grid grid-cols-[30%_1fr_30%_5%] items-center text-left'>
         <Typography variant='paragraph16_medium'>{ESteps.RECEIVER}</Typography>
         <div className='block'>
           <Typography variant='paragraph12_regular'>ФИО</Typography>
@@ -28,7 +28,7 @@ export const ReviewOrderDetails = () => {
           <Pencil className='size-5' />
         </Button>
       </div>
-      <div className='rounded-3xl bg-gray-200 py-6 px-10 flex items-center justify-between'>
+      <div className='rounded-3xl bg-gray-100 py-6 px-10 grid grid-cols-[30%_1fr_30%_5%] items-center text-left'>
         <Typography variant='paragraph16_medium'>{ESteps.SENDER}</Typography>
         <div className='block'>
           <Typography variant='paragraph12_regular'>ФИО</Typography>
@@ -42,7 +42,7 @@ export const ReviewOrderDetails = () => {
           <Pencil className='size-5' />
         </Button>
       </div>
-      <div className='rounded-3xl bg-gray-200 py-6 px-10 flex items-center justify-between'>
+      <div className='rounded-3xl bg-gray-100 py-6 px-10 grid grid-cols-[30%_1fr_30%_5%] items-center text-left'>
         <Typography variant='paragraph16_medium'>{ESteps.PICKUP_LOCATION}</Typography>
         <div className='block'>
           <Typography variant='paragraph12_regular'>Адрес</Typography>
@@ -60,7 +60,7 @@ export const ReviewOrderDetails = () => {
           <Pencil className='size-5' />
         </Button>
       </div>
-      <div className='rounded-3xl bg-gray-200 py-6 px-10 flex items-center justify-between'>
+      <div className='rounded-3xl bg-gray-100 py-6 px-10 grid grid-cols-[30%_1fr_30%_5%] items-center text-left'>
         <Typography variant='paragraph16_medium'>{ESteps.DELIVERY_LOCATION}</Typography>
         <div className='block'>
           <Typography variant='paragraph12_regular'>Адрес</Typography>
@@ -92,18 +92,20 @@ export const ReviewOrderDetails = () => {
         <Button
           onClick={decrementStepMethod}
           variant='outline_secondary'
-          size='lg'
-          className='w-1/3'
+          size='xl'
+          disabled={isLoading}
+          className='w-1/3 relative'
         >
-          Назад
+          {isLoading ? <Spinner size={30} /> : "Назад"}
         </Button>
         <Button
           onClick={() => createOrderRequest()}
           variant='contained_primary'
-          size='lg'
-          className='w-1/3'
+          size='xl'
+          disabled={isLoading}
+          className='w-1/3 relative'
         >
-          Отправить
+          {isLoading ? <Spinner size={30} /> : "Отправить"}
         </Button>
       </nav>
     </div>
