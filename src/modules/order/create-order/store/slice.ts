@@ -5,10 +5,11 @@ import type { IPostCreateOrderResponse } from "@shared/api";
 
 import { steps } from "../constants/steps";
 import { postCreateOrderAction } from "./action";
-import type { ICreateOrderState, TSteps } from "./type";
+import type { ICreateOrderState } from "./type";
+import { ESteps } from "./type";
 
 export const initialState: ICreateOrderState = {
-  currentStep: "Способ отправки",
+  currentStep: ESteps.DELIVERY_METHOD,
   isLoading: false,
   createOrder: {}
 };
@@ -23,19 +24,19 @@ export const createOrderSlice = createSlice({
     ) => {
       state.createOrder[action.payload.field] = action.payload.value;
     },
-    setCurrentStep: (state, action: PayloadAction<TSteps>) => {
+    setCurrentStep: (state, action: PayloadAction<ESteps>) => {
       state.currentStep = action.payload;
     },
-    decrementStep: (state, action: PayloadAction<TSteps>) => {
+    decrementStep: (state, action: PayloadAction<ESteps>) => {
       const currentStepIndex = steps.indexOf(action.payload);
       const nextStep = steps[currentStepIndex - 1];
-      state.currentStep = nextStep as TSteps;
+      state.currentStep = nextStep as ESteps;
     },
     resetCreateOrderFields: (state) => {
       state.createOrder = {};
     },
     resetcurrentStep: (state) => {
-      state.currentStep = "Способ отправки";
+      state.currentStep = ESteps.DELIVERY_METHOD;
     }
   },
   extraReducers: (builder) => {

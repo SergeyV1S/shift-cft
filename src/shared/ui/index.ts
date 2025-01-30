@@ -9,3 +9,4 @@ export * from "./toaster";
 export * from "./toast";
 export * from "./typography";
 export * from "./progress";
+export * from "./radio-group";

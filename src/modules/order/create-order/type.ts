@@ -9,8 +9,8 @@ export interface IAddress {
 }
 
 export enum EPayer {
-  RECEIVER,
-  SENDER
+  RECEIVER = "RECEIVER",
+  SENDER = "SENDER"
 }
 
 export interface IOrder {

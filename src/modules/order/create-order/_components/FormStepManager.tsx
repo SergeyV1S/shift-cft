@@ -5,21 +5,21 @@ import { Progress, Typography } from "@shared/ui";
 import { steps } from "../constants/steps";
 import { useCreateOrder } from "../model/useCreateOrder";
 import { getCreateOrderState } from "../store";
-import type { TSteps } from "../store/type";
-import { AddressForm, DeliverMethodForm, RecieverSenderForm } from "./forms";
+import { ESteps } from "../store/type";
+import { AddressForm, DeliverMethodForm, DeliveryPaymentForm, RecieverSenderForm } from "./forms";
 
 export const FormStepManager = () => {
   const { currentStep } = useAppSelector(getCreateOrderState);
   const { setReceiver, setSender, setReceiverAddress, setSenderAddress } = useCreateOrder();
 
-  const stepComponents: Record<TSteps, React.JSX.Element> = {
-    "Способ отправки": <DeliverMethodForm />,
-    Получатель: <RecieverSenderForm handleSubmit={setReceiver} />,
-    Отправитель: <RecieverSenderForm handleSubmit={setSender} />,
-    "Откуда забрать": <AddressForm handleSubmit={setReceiverAddress} />,
-    "Куда доставить": <AddressForm handleSubmit={setSenderAddress} />,
-    "Оплата доставки": <div className=''>6</div>,
-    "Проверка данных заказа": <div className=''>7</div>
+  const stepComponents: Record<ESteps, React.JSX.Element> = {
+    [ESteps.DELIVERY_METHOD]: <DeliverMethodForm />,
+    [ESteps.RECEIVER]: <RecieverSenderForm handleSubmit={setReceiver} />,
+    [ESteps.SENDER]: <RecieverSenderForm handleSubmit={setSender} />,
+    [ESteps.PICKUP_LOCATION]: <AddressForm handleSubmit={setReceiverAddress} />,
+    [ESteps.DELIVERY_LOCATION]: <AddressForm handleSubmit={setSenderAddress} />,
+    [ESteps.PAYMENT]: <DeliveryPaymentForm />,
+    [ESteps.ORDER_REVIEW]: <div className=''>7</div>
   };
 
   return (

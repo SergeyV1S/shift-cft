@@ -3,19 +3,20 @@ import type { IUserSession } from "@modules/user/types";
 
 import type { EPayer, IAddress } from "../type";
 
-export type TSteps =
-  | "Способ отправки"
-  | "Получатель"
-  | "Отправитель"
-  | "Откуда забрать"
-  | "Куда доставить"
-  | "Оплата доставки"
-  | "Проверка данных заказа";
+export enum ESteps {
+  DELIVERY_METHOD = "Способ отправки",
+  RECEIVER = "Получатель",
+  SENDER = "Отправитель",
+  PICKUP_LOCATION = "Откуда забрать",
+  DELIVERY_LOCATION = "Куда доставить",
+  PAYMENT = "Оплата доставки",
+  ORDER_REVIEW = "Проверка данных заказа"
+}
 
 export interface ICreateOrderState {
   isLoading: boolean;
   error?: string;
-  currentStep: TSteps;
+  currentStep: ESteps;
   createOrder: {
     selectedOption?: IOption;
     receiver?: Omit<IUserSession, "email" | "city">;
