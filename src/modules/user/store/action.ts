@@ -1,7 +1,7 @@
 import { setAuthStatus } from "@modules/auth";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { getUserSession } from "../api";
+import { getUserSession } from "@shared/api";
 
 export const getUserSessionAction = createAsyncThunk(
   "userSlice/getUserSession",

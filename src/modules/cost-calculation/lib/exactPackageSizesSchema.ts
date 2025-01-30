@@ -1,3 +1,8 @@
-import { packageSizeScheme } from "./calculateDeliveryScheme";
+import { z } from "zod";
 
-export const exactPackageSizesSchema = packageSizeScheme.extend({});
+export const exactPackageSizesSchema = z.object({
+  length: z.string(),
+  width: z.string(),
+  weight: z.string(),
+  height: z.string()
+});

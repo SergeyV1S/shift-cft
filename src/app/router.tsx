@@ -4,13 +4,14 @@ import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import { PATHS } from "@shared/constants";
-import { Spinner } from "@shared/ui/spinner";
+import { Spinner } from "@shared/ui";
 
 import { ProtectedRoute } from "./ProtectedRoute";
 
 const CostCalculationPage = lazy(() => import("@modules/cost-calculation"));
 const SignInScreen = lazy(() => import("@modules/auth/signIn/"));
 const ProfileScreen = lazy(() => import("@modules/user/profile"));
+const CreateOrderScreen = lazy(() => import("@modules/order/create-order"));
 
 export const routes = createBrowserRouter([
   {
@@ -42,6 +43,14 @@ export const routes = createBrowserRouter([
             element: (
               <Suspense fallback={<Spinner />}>
                 <CostCalculationPage />
+              </Suspense>
+            )
+          },
+          {
+            path: PATHS.CREATE_ORDER,
+            element: (
+              <Suspense fallback={<Spinner />}>
+                <CreateOrderScreen />
               </Suspense>
             )
           }

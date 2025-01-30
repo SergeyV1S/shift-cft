@@ -23,10 +23,16 @@ export interface IPoint extends ISenderPoint {
   name: string;
 }
 
-export interface IOptions {
+export interface IOption {
   id: string;
   price: number;
   days: number;
   name: string;
   type: string;
+}
+
+export interface IDeliveryCost {
+  package: IPackageSize;
+  senderPoint: ISenderPoint;
+  receiverPoint: IReceiverPoint;
 }
