@@ -14,39 +14,44 @@ export const useCreateOrder = () => {
   const dispatch = useAppDispatch();
   const { currentStep } = useAppSelector(getCreateOrderState);
 
+  const setStep = (step: ESteps) => {
+    dispatch(setCurrentStep(step));
+  };
+
   const decrementStepMethod = () => dispatch(decrementStep(currentStep));
 
   const selectDeliveryMethod = (option: IOption) => {
     dispatch(setOrderField({ field: "selectedOption", value: option }));
-    dispatch(setCurrentStep(ESteps.RECEIVER));
+    setStep(ESteps.RECEIVER);
   };
 
   const setReceiver = (data: TReceiverSenderFormSchemas) => {
     dispatch(setOrderField({ field: "receiver", value: data }));
-    dispatch(setCurrentStep(ESteps.SENDER));
+    setStep(ESteps.SENDER);
   };
 
   const setSender = (data: TReceiverSenderFormSchemas) => {
     dispatch(setOrderField({ field: "sender", value: data }));
-    dispatch(setCurrentStep(ESteps.PICKUP_LOCATION));
+    setStep(ESteps.PICKUP_LOCATION);
   };
 
   const setReceiverAddress = (data: TAddressFormSchema) => {
     dispatch(setOrderField({ field: "receiverAddress", value: data }));
-    dispatch(setCurrentStep(ESteps.DELIVERY_LOCATION));
+    setStep(ESteps.DELIVERY_LOCATION);
   };
 
   const setSenderAddress = (data: TAddressFormSchema) => {
     dispatch(setOrderField({ field: "senderAddress", value: data }));
-    dispatch(setCurrentStep(ESteps.PAYMENT));
+    setStep(ESteps.PAYMENT);
   };
 
   const setPayer = ({ payer }: TDeliveryPaymentFormSchema) => {
-    dispatch(setCurrentStep(ESteps.ORDER_REVIEW));
     dispatch(setOrderField({ field: "payer", value: payer }));
+    setStep(ESteps.ORDER_REVIEW);
   };
 
   return {
+    setStep,
     selectDeliveryMethod,
     setReceiver,
     setSender,

@@ -35,7 +35,7 @@ export const RecieverSenderForm = ({ handleSubmit, contact }: IRecieverSenderFor
 
   return (
     <Form {...receiverSenderForm}>
-      <form onSubmit={receiverSenderForm.handleSubmit(handleSubmit)} className='grid gap-5'>
+      <form onSubmit={receiverSenderForm.handleSubmit(handleSubmit)} className='grid gap-5 w-1/2'>
         <FormField
           control={receiverSenderForm.control}
           name='lastname'

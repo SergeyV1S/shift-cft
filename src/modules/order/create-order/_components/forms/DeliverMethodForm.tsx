@@ -12,7 +12,7 @@ export const DeliverMethodForm = () => {
   if (deliveryCost.length === 0) return <Navigate to='/' />;
 
   return (
-    <>
+    <div className='w-1/2 space-y-6'>
       <div className='flex flex-col gap-6'>
         {deliveryCost.map((cost) => (
           <DeliveryVariant key={cost.id} option={cost} />
@@ -30,6 +30,6 @@ export const DeliverMethodForm = () => {
         <img className='absolute right-3 bottom-0' src='/img/Gift1.png' alt='gift image' />
         <img className='absolute right-0 top-0' src='/img/Gift2.png' alt='gift image' />
       </div>
-    </>
+    </div>
   );
 };

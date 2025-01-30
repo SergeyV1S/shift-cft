@@ -40,7 +40,7 @@ export const AddressForm = ({ handleSubmit, address }: IAddressFormProps) => {
           addressForm.handleSubmit(handleSubmit)(event);
           addressForm.reset();
         }}
-        className='grid gap-5'
+        className='grid gap-5 w-1/2'
       >
         <FormField
           control={addressForm.control}
