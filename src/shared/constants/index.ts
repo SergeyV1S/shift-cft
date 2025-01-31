@@ -1,2 +1,2 @@
-export * from "./PATHS.constant";
-export * from "./localStorage.constant";
+export * from "./paths";
+export * from "./localStorage";

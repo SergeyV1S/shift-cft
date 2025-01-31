@@ -41,7 +41,6 @@ export const OrderDetailsBlock = ({
       <Typography variant='paragraph12_regular'>Тип доставки</Typography>
       <Typography variant='paragraph16_regular'>{optionName}</Typography>
     </div>
-    <Typography variant='paragraph12_regular'>Вся информация была продублирована в SMS</Typography>
     {children}
   </div>
 );
