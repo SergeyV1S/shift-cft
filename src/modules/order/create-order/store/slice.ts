@@ -8,7 +8,7 @@ import { postCreateOrderAction } from "./action";
 import type { ICreateOrderState } from "./type";
 import { ESteps } from "./type";
 
-export const initialState: ICreateOrderState = {
+const initialState: ICreateOrderState = {
   currentStep: ESteps.DELIVERY_METHOD,
   isLoading: false,
   createOrder: {}

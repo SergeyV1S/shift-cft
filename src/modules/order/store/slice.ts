@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import type { IOrder } from "@shared/types";
 
-import { getOrdersAction } from "./action";
+import { getCurrentOrderAction, getOrdersAction } from "./action";
 import type { IOrderState } from "./type";
 
 export const initialState: IOrderState = {
@@ -30,6 +30,20 @@ export const orderSlice = createSlice({
         state.orders = action.payload;
       })
       .addCase(getOrdersAction.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error?.message;
+        state.error = undefined;
+      })
+      // Получить данные заказа по id
+      .addCase(getCurrentOrderAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCurrentOrderAction.fulfilled, (state, action: PayloadAction<IOrder>) => {
+        state.isLoading = false;
+        state.currentOrder = action.payload;
+        state.error = undefined;
+      })
+      .addCase(getCurrentOrderAction.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error?.message;
       });

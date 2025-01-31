@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "@app/store/hooks";
 
 import { createOrderSliceSelectors } from "@modules/order";
+import { OrderDetailsBlock } from "@modules/order/_components/OrderDetailsBlock";
 
+import { PATHS } from "@shared/constants";
 import { cn } from "@shared/lib";
 import { Typography, buttonVariants } from "@shared/ui";
 
@@ -24,30 +26,20 @@ const RequestSentPage = () => {
         <Typography variant='paragraph12_regular'>
           Вы можете оплатить ваш заказ в разделе «Профиль»
         </Typography>
-        <div className='space-y-6 px-12 py-6 border border-slate-200 rounded-3xl'>
-          <div className='space-y-2'>
-            <Typography variant='paragraph12_regular'>Номер заказа</Typography>
-            <Typography variant='paragraph16_regular'>{createdOrder?._id}</Typography>
-          </div>
-          <div className='space-y-2'>
-            <Typography variant='paragraph12_regular'>Статус</Typography>
-            <Typography variant='paragraph16_regular'>{createdOrder?.status}</Typography>
-          </div>
-          <div className='space-y-2'>
-            <Typography variant='paragraph12_regular'>Адрес доставки</Typography>
-            <Typography variant='paragraph16_regular'>{`Россия, г. ${createdOrder?.receiverPoint.name}, ул. ${createdOrder?.receiverAddress.street}, д. ${createdOrder?.receiverAddress.house}`}</Typography>
-          </div>
-          <div className='space-y-2'>
-            <Typography variant='paragraph12_regular'>Тип доставки</Typography>
-            <Typography variant='paragraph16_regular'>{createOrder.option?.name}</Typography>
-          </div>
+        <OrderDetailsBlock
+          optionName={createOrder!.option!.name}
+          _id={createdOrder!._id}
+          status={createdOrder!.status}
+          receiverAddress={createdOrder!.receiverAddress}
+          receiverPoint={createdOrder!.receiverPoint}
+        >
           <Typography variant='paragraph12_regular'>
             Вся информация была продублирована в SMS
           </Typography>
-        </div>
+        </OrderDetailsBlock>
         <nav className='space-x-6'>
           <Link
-            to='#'
+            to={PATHS.ORDER_HISTORY}
             className={cn(buttonVariants({ variant: "outline_secondary", size: "xl" }), "w-1/3")}
           >
             Посмотреть статус
