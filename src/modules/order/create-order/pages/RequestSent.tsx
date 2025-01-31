@@ -1,13 +1,16 @@
-import { getCreateOrderState } from "@modules/order";
 import { Link } from "react-router-dom";
 
 import { useAppSelector } from "@app/store/hooks";
 
-import { cn } from "@shared/lib/utils";
+import { createOrderSliceSelectors } from "@modules/order";
+
+import { cn } from "@shared/lib";
 import { Typography, buttonVariants } from "@shared/ui";
 
 const RequestSentPage = () => {
-  const { createdOrder, createOrder } = useAppSelector(getCreateOrderState);
+  const { createdOrder, createOrder } = useAppSelector(
+    createOrderSliceSelectors.getCreateOrderState
+  );
 
   return (
     <div className='container'>

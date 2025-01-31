@@ -1,4 +1,4 @@
-import type { IOption, IPackage, IPoint } from "../type";
+import type { IOption, IPackage, IPoint } from "@shared/types";
 
 export interface ICostCalculationState {
   packagesTypes: IPackage[];

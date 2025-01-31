@@ -1,7 +1,7 @@
 export interface IAuthInitialState {
-  phoneNumber: string | null;
-  otp: number | null;
+  phoneNumber?: string;
+  otp?: number;
   isLoading: boolean;
-  retryDelay: number | null;
+  retryDelay?: number;
   isAuth: boolean;
 }

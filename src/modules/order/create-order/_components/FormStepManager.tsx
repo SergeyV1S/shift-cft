@@ -4,7 +4,7 @@ import { Progress, Typography } from "@shared/ui";
 
 import { steps } from "../constants/steps";
 import { useCreateOrder } from "../model/useCreateOrder";
-import { getCreateOrderState } from "../store";
+import { createOrderSliceSelectors } from "../store";
 import { ESteps } from "../store/type";
 import { ReviewOrderDetails } from "./ReviewOrderDetails";
 import { AddressForm, DeliverMethodForm, DeliveryPaymentForm, RecieverSenderForm } from "./forms";
@@ -13,7 +13,7 @@ export const FormStepManager = () => {
   const {
     currentStep,
     createOrder: { sender, receiver, receiverAddress, senderAddress }
-  } = useAppSelector(getCreateOrderState);
+  } = useAppSelector(createOrderSliceSelectors.getCreateOrderState);
   const { setReceiver, setSender, setReceiverAddress, setSenderAddress } = useCreateOrder();
 
   const stepComponents: Record<ESteps, React.JSX.Element> = {

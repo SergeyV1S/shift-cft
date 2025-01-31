@@ -1,11 +1,11 @@
 import { z } from "zod";
 
-import { formatePhone } from "@shared/lib/formatePhone";
+import { formatePhone } from "@shared/lib";
 
 export const receiverSenderFormSchema = z.object({
-  firstname: z.string(),
-  middlename: z.string(),
-  lastname: z.string(),
+  firstname: z.string().min(1, "Обязательное поле"),
+  middlename: z.string().min(1, "Обязательное поле"),
+  lastname: z.string().min(1, "Обязательное поле"),
   phone: z.string().refine((phone) => {
     const formatedPhone = formatePhone(phone);
     return formatedPhone.length === 11;

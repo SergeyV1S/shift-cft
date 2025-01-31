@@ -1,7 +1,7 @@
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
 
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 
 const Select = SelectPrimitive.Root;
 
@@ -84,7 +84,6 @@ const SelectContent = ({
       position={position}
       {...props}
     >
-      <SelectScrollUpButton />
       <SelectPrimitive.Viewport
         className={cn(
           "p-1",
@@ -94,7 +93,6 @@ const SelectContent = ({
       >
         {children}
       </SelectPrimitive.Viewport>
-      <SelectScrollDownButton />
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
 );

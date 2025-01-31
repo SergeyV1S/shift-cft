@@ -1,10 +1,7 @@
-import type { IDeliveryCost, IOption } from "@modules/cost-calculation/type";
-
 import { api } from "@shared/api/instance";
+import type { IDeliveryCost } from "@shared/types";
 
-export interface ICalculatePriceResponse extends IDefaultResponse {
-  options: IOption[];
-}
+import type { ICalculatePriceResponse } from "./types";
 
 type TCalculatePriceConfig = IMutationSettings<IDeliveryCost>;
 

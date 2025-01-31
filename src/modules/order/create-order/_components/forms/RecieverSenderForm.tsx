@@ -1,12 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { TReceiverSenderFormSchemas } from "@modules/order/create-order/lib";
-import { receiverSenderFormSchema } from "@modules/order/create-order/lib";
-import { useCreateOrder } from "@modules/order/create-order/model/useCreateOrder";
-import type { IUserSession } from "@modules/user/types";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { PatternFormat } from "react-number-format";
 
+import type { TReceiverSenderFormSchemas } from "@modules/order/create-order/lib";
+import { receiverSenderFormSchema } from "@modules/order/create-order/lib";
+import { useCreateOrder } from "@modules/order/create-order/model/useCreateOrder";
+
+import type { IUserContact } from "@shared/types";
 import { Button, Input } from "@shared/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
 
@@ -17,7 +18,7 @@ interface IRecieverSenderFormProps {
     lastname: string;
     phone: string;
   }>;
-  contact?: Omit<IUserSession, "email" | "city">;
+  contact?: IUserContact;
 }
 
 export const RecieverSenderForm = ({ handleSubmit, contact }: IRecieverSenderFormProps) => {

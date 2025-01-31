@@ -1,28 +1,26 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { resetCreateOrderFields } from "@modules/order";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import type { z } from "zod";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
+import { createOrderSliceActions } from "@modules/order";
+
 import { PATHS } from "@shared/constants";
 
-import { exactPackageSizesSchema } from "../lib/exactPackageSizesSchema";
+import { exactPackageSizesSchema } from "../lib";
 import {
-  getCostCalculationState,
-  getPackageType,
-  postCalculatePriceAction,
-  setPackageSize,
-  setReceiverPoint,
-  setSenderPoint,
-  togglePackageSizeSelect
+  costCalculationSliceActions,
+  costCalculationSliceSelectors,
+  postCalculatePriceAction
 } from "../store";
 
 export const usePackageSizeForm = () => {
-  const { isPackageSizeSelectOpen, selectedSenderPoint, selectedReceiverPoint } =
-    useAppSelector(getCostCalculationState);
-  const storedPackageSize = useAppSelector(getPackageType);
+  const { isPackageSizeSelectOpen, selectedSenderPoint, selectedReceiverPoint } = useAppSelector(
+    costCalculationSliceSelectors.getCostCalculationState
+  );
+  const storedPackageSize = useAppSelector(costCalculationSliceSelectors.getPackageType);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -35,7 +33,7 @@ export const usePackageSizeForm = () => {
         senderPoint: selectedSenderPoint!
       })
     ).then(() => {
-      dispatch(resetCreateOrderFields());
+      dispatch(createOrderSliceActions.resetCreateOrderFields());
       navigate(PATHS.CREATE_ORDER);
     });
   };
@@ -51,20 +49,20 @@ export const usePackageSizeForm = () => {
   });
 
   const setSelectedPackageSize = (data: z.infer<typeof exactPackageSizesSchema>) => {
-    dispatch(setPackageSize(data));
+    dispatch(costCalculationSliceActions.setPackageSize(data));
     setIsPackageSizeOpen();
   };
 
   const setIsPackageSizeOpen = () => {
-    dispatch(togglePackageSizeSelect());
+    dispatch(costCalculationSliceActions.togglePackageSizeSelect());
   };
 
   const selectReceiverPoint = (pointId: string) => {
-    dispatch(setReceiverPoint(pointId));
+    dispatch(costCalculationSliceActions.setReceiverPoint(pointId));
   };
 
   const selectSenderPoint = (pointId: string) => {
-    dispatch(setSenderPoint(pointId));
+    dispatch(costCalculationSliceActions.setSenderPoint(pointId));
   };
 
   return {

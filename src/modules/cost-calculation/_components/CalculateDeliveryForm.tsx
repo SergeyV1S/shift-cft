@@ -5,34 +5,29 @@ import { useAppSelector } from "@app/store/hooks";
 import { Button, Typography } from "@shared/ui";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/ui/select";
 
-import { usePackageSizeForm } from "../model/usePackageSizeForm";
-import {
-  getCostCalculationState,
-  getPackageType,
-  getReceiverPoint,
-  getSenderPoint
-} from "../store";
+import { usePackageSizeForm } from "../model";
+import { costCalculationSliceSelectors } from "../store";
 import { PackageSizeSelectTabs } from "./PackageSizeSelectTabs";
 
 export const CalculateDeliveryForm = () => {
-  const selectedPackageType = useAppSelector(getPackageType);
-  const selectedReceiverPoint = useAppSelector(getReceiverPoint);
-  const selectedSenderPoint = useAppSelector(getSenderPoint);
-  const { points } = useAppSelector(getCostCalculationState);
+  const selectedPackageType = useAppSelector(costCalculationSliceSelectors.getPackageType);
+  const selectedReceiverPoint = useAppSelector(costCalculationSliceSelectors.getReceiverPoint);
+  const selectedSenderPoint = useAppSelector(costCalculationSliceSelectors.getSenderPoint);
+  const { points } = useAppSelector(costCalculationSliceSelectors.getCostCalculationState);
 
-  const {
-    isPackageSizeSelectOpen,
-    selectReceiverPoint,
-    selectSenderPoint,
-    setIsPackageSizeOpen,
-    calculateDeliveryFormHandler
-  } = usePackageSizeForm();
+  const packageSizeFormModel = usePackageSizeForm();
 
   return (
-    <form onSubmit={calculateDeliveryFormHandler} className='grid w-full gap-6'>
+    <form
+      onSubmit={packageSizeFormModel.calculateDeliveryFormHandler}
+      className='grid w-full gap-6'
+    >
       <div className='space-y-2'>
         <Typography variant='paragraph_Smedium'>Размер посылки</Typography>
-        <Select onOpenChange={setIsPackageSizeOpen} open={isPackageSizeSelectOpen}>
+        <Select
+          onOpenChange={packageSizeFormModel.setIsPackageSizeOpen}
+          open={packageSizeFormModel.isPackageSizeSelectOpen}
+        >
           <SelectTrigger className='h-10'>
             <SelectValue
               placeholder={
@@ -53,7 +48,7 @@ export const CalculateDeliveryForm = () => {
 
       <div className='space-y-2'>
         <Typography variant='paragraph_Smedium'>Город отправки</Typography>
-        <Select onValueChange={selectSenderPoint}>
+        <Select onValueChange={packageSizeFormModel.selectSenderPoint}>
           <SelectTrigger className='h-10'>
             <div className='flex items-center gap-2'>
               <MapPin className='size-5 opacity-60' />
@@ -78,7 +73,7 @@ export const CalculateDeliveryForm = () => {
               variant='link_secondary'
               size='xs'
               className='p-0 opacity-70'
-              onClick={() => selectSenderPoint(point.id)}
+              onClick={() => packageSizeFormModel.selectSenderPoint(point.id)}
             >
               {point.name}
             </Button>
@@ -88,7 +83,7 @@ export const CalculateDeliveryForm = () => {
 
       <div className='space-y-2'>
         <Typography variant='paragraph_Smedium'>Город назначения</Typography>
-        <Select onValueChange={selectReceiverPoint}>
+        <Select onValueChange={packageSizeFormModel.selectReceiverPoint}>
           <SelectTrigger className='h-10'>
             <div className='flex items-center gap-2'>
               <Send className='size-5 opacity-60' />
@@ -113,7 +108,7 @@ export const CalculateDeliveryForm = () => {
               variant='link_secondary'
               size='xs'
               className='p-0 opacity-70'
-              onClick={() => selectReceiverPoint(point.id)}
+              onClick={() => packageSizeFormModel.selectReceiverPoint(point.id)}
             >
               {point.name}
             </Button>
@@ -122,7 +117,11 @@ export const CalculateDeliveryForm = () => {
       </div>
 
       <Button
-        disabled={!selectSenderPoint || !selectedReceiverPoint || !selectedPackageType.name}
+        disabled={
+          !packageSizeFormModel.selectSenderPoint ||
+          !selectedReceiverPoint ||
+          !selectedPackageType.name
+        }
         type='submit'
         className='w-full'
         size='lg'

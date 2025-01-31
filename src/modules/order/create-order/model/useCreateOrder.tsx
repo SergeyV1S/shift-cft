@@ -1,10 +1,11 @@
-import { getCostCalculationState } from "@modules/cost-calculation/store";
-import type { IOption } from "@modules/cost-calculation/type";
 import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
+import { costCalculationSliceSelectors } from "@modules/cost-calculation";
+
 import { PATHS } from "@shared/constants";
+import type { IOption } from "@shared/types";
 
 import type {
   TAddressFormSchema,
@@ -12,53 +13,55 @@ import type {
   TReceiverSenderFormSchemas
 } from "../lib";
 import {
-  decrementStep,
-  getCreateOrderState,
-  postCreateOrderAction,
-  setCurrentStep,
-  setOrderField
+  createOrderSliceActions,
+  createOrderSliceSelectors,
+  postCreateOrderAction
 } from "../store";
 import { ESteps } from "../store/type";
 
 export const useCreateOrder = () => {
   const dispatch = useAppDispatch();
-  const { selectedReceiverPoint, selectedSenderPoint } = useAppSelector(getCostCalculationState);
-  const { currentStep, createOrder } = useAppSelector(getCreateOrderState);
+  const { selectedReceiverPoint, selectedSenderPoint } = useAppSelector(
+    costCalculationSliceSelectors.getCostCalculationState
+  );
+  const { currentStep, createOrder } = useAppSelector(
+    createOrderSliceSelectors.getCreateOrderState
+  );
   const navigate = useNavigate();
 
   const setStep = (step: ESteps) => {
-    dispatch(setCurrentStep(step));
+    dispatch(createOrderSliceActions.setCurrentStep(step));
   };
 
-  const decrementStepMethod = () => dispatch(decrementStep(currentStep));
+  const decrementStepMethod = () => dispatch(createOrderSliceActions.decrementStep(currentStep));
 
   const selectDeliveryMethod = (option: IOption) => {
-    dispatch(setOrderField({ field: "option", value: option }));
+    dispatch(createOrderSliceActions.setOrderField({ field: "option", value: option }));
     setStep(ESteps.RECEIVER);
   };
 
   const setReceiver = (data: TReceiverSenderFormSchemas) => {
-    dispatch(setOrderField({ field: "receiver", value: data }));
+    dispatch(createOrderSliceActions.setOrderField({ field: "receiver", value: data }));
     setStep(ESteps.SENDER);
   };
 
   const setSender = (data: TReceiverSenderFormSchemas) => {
-    dispatch(setOrderField({ field: "sender", value: data }));
+    dispatch(createOrderSliceActions.setOrderField({ field: "sender", value: data }));
     setStep(ESteps.PICKUP_LOCATION);
   };
 
   const setReceiverAddress = (data: TAddressFormSchema) => {
-    dispatch(setOrderField({ field: "receiverAddress", value: data }));
+    dispatch(createOrderSliceActions.setOrderField({ field: "receiverAddress", value: data }));
     setStep(ESteps.DELIVERY_LOCATION);
   };
 
   const setSenderAddress = (data: TAddressFormSchema) => {
-    dispatch(setOrderField({ field: "senderAddress", value: data }));
+    dispatch(createOrderSliceActions.setOrderField({ field: "senderAddress", value: data }));
     setStep(ESteps.PAYMENT);
   };
 
   const setPayer = ({ payer }: TDeliveryPaymentFormSchema) => {
-    dispatch(setOrderField({ field: "payer", value: payer }));
+    dispatch(createOrderSliceActions.setOrderField({ field: "payer", value: payer }));
     setStep(ESteps.ORDER_REVIEW);
   };
 

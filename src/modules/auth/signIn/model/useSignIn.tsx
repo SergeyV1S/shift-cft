@@ -1,12 +1,13 @@
-import { getAuthState, postOtpAction, postSignInAction } from "@modules/auth";
 import { useNavigate } from "react-router-dom";
 import type { z } from "zod";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
-import { formatePhone } from "@shared/lib/formatePhone";
+import { getAuthState, postOtpAction, postSignInAction } from "@modules/auth";
 
-import type { signInPhoneSchema, signInSchema } from "../lib/signInSchemas";
+import { formatePhone } from "@shared/lib";
+
+import type { signInPhoneSchema, signInSchema } from "../lib";
 
 export const useSignIn = () => {
   const navigate = useNavigate();

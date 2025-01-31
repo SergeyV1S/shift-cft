@@ -1,17 +1,7 @@
-import type { IUserSession } from "@modules/user/types";
-
 import { api } from "@shared/api/instance";
-import { toast } from "@shared/lib/hooks/use-toast";
+import { toast } from "@shared/lib";
 
-export interface IPostSignInParams {
-  phone: string;
-  code: number;
-}
-
-export interface IPostSignInResponse extends IDefaultResponse {
-  user: IUserSession;
-  token: string;
-}
+import type { IPostSignInParams, IPostSignInResponse } from "./types/postSignIn";
 
 type TPostSignInConfig = IMutationSettings<IPostSignInParams>;
 

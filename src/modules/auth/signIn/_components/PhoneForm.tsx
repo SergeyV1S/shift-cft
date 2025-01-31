@@ -6,7 +6,7 @@ import type { z } from "zod";
 import { Button, Input } from "@shared/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
 
-import { signInPhoneSchema } from "../lib/signInSchemas";
+import { signInPhoneSchema } from "../lib";
 
 interface IPhoneFormProps {
   onSubmit: (values: z.infer<typeof signInPhoneSchema>) => Promise<void>;

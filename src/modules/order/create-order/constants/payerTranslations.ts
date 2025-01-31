@@ -1,4 +1,4 @@
-import { EPayer } from "@modules/order/create-order/type";
+import { EPayer } from "@shared/types";
 
 export const payerTranslation: Record<EPayer, string> = {
   [EPayer.RECEIVER]: "Получатель",

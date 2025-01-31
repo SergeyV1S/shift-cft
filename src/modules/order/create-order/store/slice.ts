@@ -35,7 +35,7 @@ export const createOrderSlice = createSlice({
     resetCreateOrderFields: (state) => {
       state.createOrder = {};
     },
-    resetcurrentStep: (state) => {
+    resetCurrentStep: (state) => {
       state.currentStep = ESteps.DELIVERY_METHOD;
     }
   },
@@ -62,12 +62,6 @@ export const createOrderSlice = createSlice({
   }
 });
 
-export const {
-  setOrderField,
-  setCurrentStep,
-  resetCreateOrderFields,
-  decrementStep,
-  resetcurrentStep
-} = createOrderSlice.actions;
+export const createOrderSliceActions = createOrderSlice.actions;
 
-export const { getCreateOrderState } = createOrderSlice.selectors;
+export const createOrderSliceSelectors = createOrderSlice.selectors;

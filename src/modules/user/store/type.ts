@@ -1,4 +1,4 @@
-import type { IUserSession } from "../types";
+import type { IUserSession } from "@shared/types";
 
 export interface IUserInitialState {
   userSession: IUserSession | null;

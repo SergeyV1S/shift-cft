@@ -1,10 +1,11 @@
-import { removeUserFormState } from "@modules/user";
 import { ExitIcon } from "@radix-ui/react-icons";
 import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "@app/store/hooks";
 
-import { cn } from "@shared/lib/utils";
+import { removeUserFormState } from "@modules/user";
+
+import { cn } from "@shared/lib";
 import { Button, buttonVariants, typographyVariants } from "@shared/ui";
 
 import { logout } from "../store";

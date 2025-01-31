@@ -1,11 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
 import { payerTranslation } from "@modules/order/create-order/constants";
 import type { TDeliveryPaymentFormSchema } from "@modules/order/create-order/lib";
 import { deliveryPaymentFormSchema } from "@modules/order/create-order/lib";
 import { useCreateOrder } from "@modules/order/create-order/model/useCreateOrder";
-import { EPayer } from "@modules/order/create-order/type";
-import { useForm } from "react-hook-form";
 
+import { EPayer } from "@shared/types";
 import { Button, Label, RadioInput, Typography } from "@shared/ui";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@shared/ui/form";
 

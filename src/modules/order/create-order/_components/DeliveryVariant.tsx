@@ -1,6 +1,6 @@
-import type { IOption } from "@modules/cost-calculation/type";
 import { Plane, Train } from "lucide-react";
 
+import type { IOption } from "@shared/types";
 import { Typography } from "@shared/ui";
 
 import { useCreateOrder } from "../model/useCreateOrder";

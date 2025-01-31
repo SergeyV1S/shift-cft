@@ -1,11 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { TAddressFormSchema } from "@modules/order/create-order/lib";
-import { addressFormSchema } from "@modules/order/create-order/lib";
-import { useCreateOrder } from "@modules/order/create-order/model/useCreateOrder";
-import type { IAddress } from "@modules/order/create-order/type";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 
+import type { TAddressFormSchema } from "@modules/order/create-order/lib";
+import { addressFormSchema } from "@modules/order/create-order/lib";
+import { useCreateOrder } from "@modules/order/create-order/model/useCreateOrder";
+
+import type { IAddress } from "@shared/types";
 import { Button, Input } from "@shared/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
 
@@ -14,7 +15,7 @@ interface IAddressFormProps {
     street: string;
     house: string;
     apartment: string;
-    comment: string;
+    comment?: string;
   }>;
   address?: IAddress;
 }

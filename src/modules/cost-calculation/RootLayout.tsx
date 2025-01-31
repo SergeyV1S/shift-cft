@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 import { Header } from "@shared/ui";
 
 export const RootLayout = () => {

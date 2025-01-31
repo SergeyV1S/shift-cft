@@ -1,8 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { getPackageTypes, getPoints, postCalculatePrice } from "@shared/api";
-
-import type { IDeliveryCost } from "../type";
+import type { IDeliveryCost } from "@shared/types";
 
 export const getPackageTypesAction = createAsyncThunk(
   "costCalculationSlice/getPackageTypesAction",

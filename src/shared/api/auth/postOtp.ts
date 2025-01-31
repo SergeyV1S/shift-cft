@@ -1,12 +1,6 @@
 import { api } from "@shared/api/instance";
 
-export interface IPostOtpParams {
-  phone: string;
-}
-
-export interface IPostOtpResponse extends IDefaultResponse {
-  retryDelay: number;
-}
+import type { IPostOtpParams, IPostOtpResponse } from "./types/postOtp";
 
 type TPostOtpConfig = IMutationSettings<IPostOtpParams>;
 

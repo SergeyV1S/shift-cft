@@ -1,15 +1,6 @@
-import type { IUserProfile, IUserSession } from "@modules/user/types";
-
 import { api } from "@shared/api/instance";
 
-interface IPatchProfileResponse extends IDefaultResponse {
-  user: IUserSession;
-}
-
-interface IPatchProfileRequest {
-  profile: Partial<IUserProfile>;
-  phone: string;
-}
+import type { IPatchProfileRequest, IPatchProfileResponse } from "./type";
 
 type TPatchProfileConfig = IMutationSettings<Partial<IPatchProfileRequest>>;
 

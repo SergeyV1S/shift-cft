@@ -1,7 +1,4 @@
-import type { IOption } from "@modules/cost-calculation/type";
-import type { IUserSession } from "@modules/user/types";
-
-import type { EPayer, IAddress, IOrder } from "../type";
+import type { EPayer, IAddress, IOption, IOrder, IUserContact } from "@shared/types";
 
 export enum ESteps {
   DELIVERY_METHOD = "Способ отправки",
@@ -19,8 +16,8 @@ export interface ICreateOrderState {
   currentStep: ESteps;
   createOrder: {
     option?: IOption;
-    receiver?: Omit<IUserSession, "email" | "city">;
-    sender?: Omit<IUserSession, "email" | "city">;
+    receiver?: IUserContact;
+    sender?: IUserContact;
     receiverAddress?: IAddress; // куда доставить?
     senderAddress?: IAddress; // откуда забрать?
     payer?: EPayer;

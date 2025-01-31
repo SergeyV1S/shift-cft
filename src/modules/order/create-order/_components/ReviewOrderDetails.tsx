@@ -5,12 +5,12 @@ import { useAppSelector } from "@app/store/hooks";
 import { Button, Spinner, Typography } from "@shared/ui";
 
 import { useCreateOrder } from "../model/useCreateOrder";
-import { getCreateOrderState } from "../store";
+import { createOrderSliceSelectors } from "../store";
 import { ESteps } from "../store/type";
 
 export const ReviewOrderDetails = () => {
   const { decrementStepMethod, setStep, createOrderRequest } = useCreateOrder();
-  const { createOrder, isLoading } = useAppSelector(getCreateOrderState);
+  const { createOrder, isLoading } = useAppSelector(createOrderSliceSelectors.getCreateOrderState);
 
   return (
     <div className='w-full space-y-7'>
@@ -50,7 +50,11 @@ export const ReviewOrderDetails = () => {
         </div>
         <div className='block'>
           <Typography variant='paragraph12_regular'>Заметка</Typography>
-          <Typography variant='paragraph16_medium'>{createOrder.senderAddress?.comment}</Typography>
+          <Typography variant='paragraph16_medium'>
+            {createOrder.senderAddress?.comment
+              ? createOrder.senderAddress.comment
+              : "Заметка не указана"}
+          </Typography>
         </div>
         <Button
           onClick={() => setStep(ESteps.PICKUP_LOCATION)}
@@ -69,7 +73,9 @@ export const ReviewOrderDetails = () => {
         <div className='block'>
           <Typography variant='paragraph12_regular'>Заметка</Typography>
           <Typography variant='paragraph16_medium'>
-            {createOrder.receiverAddress?.comment}
+            {createOrder.receiverAddress?.comment
+              ? createOrder.receiverAddress.comment
+              : "Заметка не указана"}
           </Typography>
         </div>
         <Button
@@ -86,7 +92,6 @@ export const ReviewOrderDetails = () => {
           <Typography variant='paragraph16_regular'>{`Тариф: ${createOrder.option?.name}`}</Typography>
           <Typography variant='paragraph16_regular'>{`Срок: ${createOrder.option?.days} рабочий день`}</Typography>
         </div>
-        option
       </div>
       <nav className='flex items-center justify-between pb-20'>
         <Button

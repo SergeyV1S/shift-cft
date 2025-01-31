@@ -8,10 +8,7 @@ import { postOtpAction, postSignInAction } from "./action";
 import type { IAuthInitialState } from "./type";
 
 export const initialState: IAuthInitialState = {
-  phoneNumber: null,
-  otp: null,
   isLoading: false,
-  retryDelay: null,
   isAuth: false
 };
 

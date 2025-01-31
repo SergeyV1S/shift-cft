@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { EPayer } from "../type";
+import { EPayer } from "@shared/types";
 
 export const deliveryPaymentFormSchema = z.object({
   payer: z.nativeEnum(EPayer)
