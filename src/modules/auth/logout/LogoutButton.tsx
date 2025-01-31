@@ -1,10 +1,12 @@
-import { removeUserFormState } from "@modules/user";
 import { ExitIcon } from "@radix-ui/react-icons";
 import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "@app/store/hooks";
 
-import { Button } from "@shared/ui/button";
+import { removeUserFormState } from "@modules/user";
+
+import { cn } from "@shared/lib";
+import { Button, buttonVariants, typographyVariants } from "@shared/ui";
 
 import { logout } from "../store";
 
@@ -19,8 +21,16 @@ export const LogoutButton = () => {
   };
 
   return (
-    <Button onClick={logoutHandler} className='flex items-center gap-2' variant='link'>
-      <ExitIcon />
+    <Button
+      onClick={logoutHandler}
+      className={cn(
+        buttonVariants({ variant: "link_secondary" }),
+        typographyVariants({ variant: "paragraph16_medium" }),
+        "flex items-center gap-1"
+      )}
+      variant='link_secondary'
+    >
+      <ExitIcon className='size-5' />
       <span>Выйти</span>
     </Button>
   );

@@ -1,7 +1,7 @@
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 
-import { Toaster } from "@shared/ui/toaster";
+import { Toaster } from "@shared/ui";
 
 import { routes } from "./router";
 import { store } from "./store";

@@ -1,16 +1,12 @@
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 
 const Card = ({ className, ref, ...props }: THTMLElementPropsWithRef<HTMLDivElement>) => (
-  <div
-    ref={ref}
-    className={cn("rounded-xl border bg-card text-card-foreground shadow", className)}
-    {...props}
-  />
+  <div ref={ref} className={cn("rounded-3xl bg-white shadow-md", className)} {...props} />
 );
 Card.displayName = "Card";
 
 const CardHeader = ({ className, ref, ...props }: THTMLElementPropsWithRef<HTMLDivElement>) => (
-  <div ref={ref} className={cn("flex flex-col space-y-1.5 p-6", className)} {...props} />
+  <div ref={ref} className={cn("flex flex-col text-center space-y-1.5", className)} {...props} />
 );
 CardHeader.displayName = "CardHeader";
 

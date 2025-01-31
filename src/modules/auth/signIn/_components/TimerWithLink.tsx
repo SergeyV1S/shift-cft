@@ -1,13 +1,14 @@
-import { getAuthState } from "@modules/auth/store";
 import { useEffect, useState } from "react";
 import type { z } from "zod";
 
 import { useAppSelector } from "@app/store/hooks";
 
-import { Button } from "@shared/ui/button";
+import { getAuthState } from "@modules/auth";
+
+import { Button } from "@shared/ui";
 import { CardFooter } from "@shared/ui/card";
 
-import type { signInPhoneSchema } from "../lib/signInSchemas";
+import type { signInPhoneSchema } from "../lib";
 
 interface ITimerWithLink {
   onSubmit: (values: z.infer<typeof signInPhoneSchema>) => Promise<void>;
@@ -38,7 +39,7 @@ export const TimerWithLink = ({ onSubmit }: ITimerWithLink) => {
   return (
     <CardFooter className='text-sm opacity-75 flex items-center justify-center'>
       {isTimeUp ? (
-        <Button onClick={() => onSubmit({ phone: phoneNumber! })} variant='link'>
+        <Button onClick={() => onSubmit({ phone: phoneNumber! })} variant='link_secondary'>
           Отправить код повторно
         </Button>
       ) : (

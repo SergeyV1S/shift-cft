@@ -1,75 +1,72 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import type { z } from "zod";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
-import { postCalculatePrice } from "../api";
-import { calculateDeliveryScheme } from "../lib/calculateDeliveryScheme";
-import { exactPackageSizesSchema } from "../lib/exactPackageSizesSchema";
+import { createOrderSliceActions } from "@modules/order";
+
+import { PATHS } from "@shared/constants";
+
+import { exactPackageSizesSchema } from "../lib";
 import {
-  getCostCalculationState,
-  getPackageType,
-  setPackageSize,
-  setReceiverPoint,
-  setSenderPoint,
-  togglePackageSizeSelect
+  costCalculationSliceActions,
+  costCalculationSliceSelectors,
+  postCalculatePriceAction
 } from "../store";
 
 export const usePackageSizeForm = () => {
-  const { isPackageSizeSelectOpen } = useAppSelector(getCostCalculationState);
-  const storedPackageSize = useAppSelector(getPackageType);
+  const { isPackageSizeSelectOpen, selectedSenderPoint, selectedReceiverPoint } = useAppSelector(
+    costCalculationSliceSelectors.getCostCalculationState
+  );
+  const storedPackageSize = useAppSelector(costCalculationSliceSelectors.getPackageType);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const calculateDeliveryForm = useForm<z.infer<typeof calculateDeliveryScheme>>({
-    resolver: zodResolver(calculateDeliveryScheme),
-    defaultValues: {
-      package: storedPackageSize,
-      receiverPoint: {
-        latitude: "",
-        longitude: ""
-      },
-      senderPoint: {
-        latitude: "",
-        longitude: ""
-      }
-    }
-  });
-
-  const calculateDeliveryFormHandler = async (data: z.infer<typeof calculateDeliveryScheme>) => {
-    await postCalculatePrice({ data });
+  const calculateDeliveryFormHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch(
+      postCalculatePriceAction({
+        package: storedPackageSize,
+        receiverPoint: selectedReceiverPoint!,
+        senderPoint: selectedSenderPoint!
+      })
+    ).then(() => {
+      dispatch(createOrderSliceActions.resetCreateOrderFields());
+      navigate(PATHS.CREATE_ORDER);
+    });
   };
 
   const exactPackageSizesForm = useForm<z.infer<typeof exactPackageSizesSchema>>({
     resolver: zodResolver(exactPackageSizesSchema),
     defaultValues: {
-      height: storedPackageSize.height,
-      length: storedPackageSize.length,
-      weight: storedPackageSize.weight,
-      width: storedPackageSize.width
+      height: storedPackageSize.height.toString(),
+      length: storedPackageSize.length.toString(),
+      weight: storedPackageSize.weight.toString(),
+      width: storedPackageSize.width.toString()
     }
   });
 
   const setSelectedPackageSize = (data: z.infer<typeof exactPackageSizesSchema>) => {
-    dispatch(setPackageSize({ ...data }));
+    dispatch(costCalculationSliceActions.setPackageSize(data));
     setIsPackageSizeOpen();
   };
 
   const setIsPackageSizeOpen = () => {
-    dispatch(togglePackageSizeSelect());
+    dispatch(costCalculationSliceActions.togglePackageSizeSelect());
   };
 
   const selectReceiverPoint = (pointId: string) => {
-    dispatch(setReceiverPoint(pointId));
+    dispatch(costCalculationSliceActions.setReceiverPoint(pointId));
   };
 
   const selectSenderPoint = (pointId: string) => {
-    dispatch(setSenderPoint(pointId));
+    dispatch(costCalculationSliceActions.setSenderPoint(pointId));
   };
 
   return {
     storedPackageSize,
-    calculateDeliveryForm,
     exactPackageSizesForm,
     isPackageSizeSelectOpen,
     selectReceiverPoint,
