@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 import { costCalculationSliceSelectors } from "@modules/cost-calculation";
 
 import { PATHS } from "@shared/constants";
-import { formatePhone } from "@shared/lib";
+import { formatePhone } from "@shared/helpers";
 import type { IOption } from "@shared/types";
 
 import type {

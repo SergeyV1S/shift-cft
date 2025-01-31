@@ -24,7 +24,7 @@ const RequestSentPage = () => {
     <div className='container'>
       <div className='mt-12 space-y-6 w-2/3'>
         <div className='flex items-center gap-9'>
-          <img className='size-14' src='/svg/checkmark.svg' alt='check mark' />
+          <img className='size-14' src='/svg/check.svg' alt='check mark' />
           <Typography tag='h1' variant='title_h2'>
             Заявка отправлена
           </Typography>

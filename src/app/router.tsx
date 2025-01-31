@@ -1,13 +1,11 @@
 import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
-import { AuthLayout } from "@modules/auth";
-import { RootLayout } from "@modules/cost-calculation/RootLayout";
-
 import { PATHS } from "@shared/constants";
 import { Spinner } from "@shared/ui";
 
 import { ProtectedRoute } from "./ProtectedRoute";
+import { AuthLayout, RootLayout } from "./layouts";
 
 const CostCalculationPage = lazy(() => import("@modules/cost-calculation/pages/CostCalculation"));
 const SignInScreen = lazy(() => import("@modules/auth/signIn"));

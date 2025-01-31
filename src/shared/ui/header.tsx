@@ -23,14 +23,15 @@ export const Header = () => {
             ШИФТ <br /> Delivery
           </p>
         </Link>
-        <nav className='flex items-center gap-8 pl-8'>
+        <nav className='flex items-center gap-8 pl-[10%]'>
           <NavLink
             to={PATHS.PROFILE}
             className={({ isActive }) =>
               cn(
                 typographyVariants({ variant: "paragraph16_medium" }),
-                "flex items-center gap-4",
-                isActive && "text-blue-500"
+                buttonVariants({ variant: "link_secondary" }),
+                "flex items-center gap-2 hover:text-blue-500 duration-200 p-0 hover:before:bg-blue-500",
+                isActive && "text-blue-700"
               )
             }
           >
@@ -41,9 +42,10 @@ export const Header = () => {
             to={PATHS.ORDER_HISTORY}
             className={({ isActive }) =>
               cn(
-                isActive && "text-blue-500",
                 typographyVariants({ variant: "paragraph16_medium" }),
-                "flex items-center gap-4"
+                buttonVariants({ variant: "link_secondary" }),
+                "flex items-center gap-2 hover:text-blue-500 duration-200 p-0 hover:before:bg-blue-500",
+                isActive && "text-blue-700"
               )
             }
           >

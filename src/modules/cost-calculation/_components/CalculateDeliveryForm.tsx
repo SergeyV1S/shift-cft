@@ -3,11 +3,13 @@ import { MailIcon, MapPin, Send } from "lucide-react";
 import { useAppSelector } from "@app/store/hooks";
 
 import { Button, Typography } from "@shared/ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@shared/ui";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/ui/select";
 
 import { usePackageSizeForm } from "../model";
 import { costCalculationSliceSelectors } from "../store";
-import { PackageSizeSelectTabs } from "./PackageSizeSelectTabs";
+import { ApproximatePackageSizesList } from "./ApproximatePackageSizesList";
+import { ExactPackageSizesForm } from "./ExactPackageSizesForm";
 
 export const CalculateDeliveryForm = () => {
   const selectedPackageType = useAppSelector(costCalculationSliceSelectors.getPackageType);
@@ -41,7 +43,18 @@ export const CalculateDeliveryForm = () => {
             />
           </SelectTrigger>
           <SelectContent className='bg-transparent border-none ring-0 shadow-transparent'>
-            <PackageSizeSelectTabs />
+            <Tabs defaultValue='approximate' className='w-full'>
+              <TabsList className='grid w-full grid-cols-2'>
+                <TabsTrigger value='approximate'>Примерные</TabsTrigger>
+                <TabsTrigger value='exact'>Точные</TabsTrigger>
+              </TabsList>
+              <TabsContent value='approximate' className='px-4 py-2'>
+                <ApproximatePackageSizesList />
+              </TabsContent>
+              <TabsContent value='exact' className='px-4 py-2'>
+                <ExactPackageSizesForm />
+              </TabsContent>
+            </Tabs>
           </SelectContent>
         </Select>
       </div>

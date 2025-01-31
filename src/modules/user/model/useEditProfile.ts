@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
-import { formatePhone } from "@shared/lib";
+import { formatePhone } from "@shared/helpers";
 
 import type { IEditProfileSormSchema } from "../lib";
 import { editProfileSormSchema, getChangedFields } from "../lib";

@@ -26,7 +26,7 @@ export const LogoutButton = () => {
       className={cn(
         buttonVariants({ variant: "link_secondary" }),
         typographyVariants({ variant: "paragraph16_medium" }),
-        "flex items-center gap-1"
+        "flex items-center gap-1 hover:text-blue-500 duration-200 p-0 hover:before:bg-blue-500"
       )}
       variant='link_secondary'
     >

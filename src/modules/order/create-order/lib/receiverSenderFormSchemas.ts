@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { formatePhone } from "@shared/lib";
+import { formatePhone } from "@shared/helpers";
 
 export const receiverSenderFormSchema = z.object({
   firstname: z.string().min(1, "Обязательное поле"),

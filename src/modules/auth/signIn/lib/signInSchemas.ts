@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { formatePhone } from "@shared/lib";
+import { formatePhone } from "@shared/helpers";
 
 export const signInPhoneSchema = z.object({
   phone: z.string().refine((phone) => {

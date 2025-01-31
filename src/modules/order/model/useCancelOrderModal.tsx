@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
 import { putCancelOrder } from "@shared/api";
 import { PATHS } from "@shared/constants";
-import { toast } from "@shared/lib";
+import { toast } from "@shared/hooks";
 
 import { orderSliceActions, orderSliceSelectors } from "../store";
 
