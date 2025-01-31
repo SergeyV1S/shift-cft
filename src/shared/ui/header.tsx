@@ -31,7 +31,7 @@ export const Header = () => {
                 typographyVariants({ variant: "paragraph16_medium" }),
                 buttonVariants({ variant: "link_secondary" }),
                 "flex items-center gap-2 hover:text-blue-500 duration-200 p-0 hover:before:bg-blue-500",
-                isActive && "text-blue-700"
+                isActive && "!text-blue-800 before:!bg-blue-800 hover:before:!bg-blue-800"
               )
             }
           >
@@ -45,7 +45,7 @@ export const Header = () => {
                 typographyVariants({ variant: "paragraph16_medium" }),
                 buttonVariants({ variant: "link_secondary" }),
                 "flex items-center gap-2 hover:text-blue-500 duration-200 p-0 hover:before:bg-blue-500",
-                isActive && "text-blue-700"
+                isActive && "!text-blue-800 before:!bg-blue-800 hover:before:!bg-blue-800"
               )
             }
           >
