@@ -5,8 +5,9 @@ import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
 import { PATHS } from "@shared/constants";
 import { cn } from "@shared/lib";
-import { Button, Spinner, Typography, buttonVariants } from "@shared/ui";
+import { Spinner, Typography, buttonVariants } from "@shared/ui";
 
+import { CancelOrderModal } from "../_components/CancelOrderModal";
 import { OrderDetailsBlock } from "../_components/OrderDetailsBlock";
 import { getCurrentOrderAction, orderSliceSelectors } from "../store";
 
@@ -48,9 +49,7 @@ const OrderDetailsPage = () => {
               >
                 Назад
               </Link>
-              <Button variant='contained_primary' size='xl' className='w-1/2'>
-                Отменить заказ
-              </Button>
+              <CancelOrderModal />
             </nav>
           </OrderDetailsBlock>
         )}

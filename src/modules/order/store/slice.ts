@@ -8,7 +8,8 @@ import type { IOrderState } from "./type";
 
 export const initialState: IOrderState = {
   isLoading: false,
-  orders: []
+  orders: [],
+  isCancelOrderModal: false
 };
 
 export const orderSlice = createSlice({
@@ -17,6 +18,9 @@ export const orderSlice = createSlice({
   reducers: {
     setCurrentOrder: (state, action: PayloadAction<IOrder>) => {
       state.currentOrder = action.payload;
+    },
+    toggleCancelOrderModal: (state) => {
+      state.isCancelOrderModal = !state.isCancelOrderModal;
     }
   },
   extraReducers: (builder) => {
