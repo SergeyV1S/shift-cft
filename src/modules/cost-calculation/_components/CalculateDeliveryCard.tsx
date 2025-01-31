@@ -3,11 +3,13 @@ import { useAppSelector } from "@app/store/hooks";
 import { Spinner, Typography } from "@shared/ui";
 import { Card, CardContent, CardHeader } from "@shared/ui/card";
 
-import { getCostCalculationState } from "../store";
+import { costCalculationSliceSelectors } from "../store";
 import { CalculateDeliveryForm } from "./CalculateDeliveryForm";
 
 export const CalculateDeliveryCard = () => {
-  const { isLoading, error } = useAppSelector(getCostCalculationState);
+  const { isLoading, error } = useAppSelector(
+    costCalculationSliceSelectors.getCostCalculationState
+  );
 
   return (
     <Card className='w-[500px] px-16 space-y-6 py-10 min-h-[490px] relative'>

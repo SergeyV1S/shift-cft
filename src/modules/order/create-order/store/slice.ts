@@ -3,18 +3,42 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import type { IPostCreateOrderResponse } from "@shared/api";
 
+import { steps } from "../constants/steps";
 import { postCreateOrderAction } from "./action";
 import type { ICreateOrderState } from "./type";
+import { ESteps } from "./type";
 
 export const initialState: ICreateOrderState = {
+  currentStep: ESteps.DELIVERY_METHOD,
   isLoading: false,
-  error: undefined
+  createOrder: {}
 };
 
 export const createOrderSlice = createSlice({
   name: "createOrderSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    setOrderField: <K extends keyof ICreateOrderState["createOrder"]>(
+      state: ICreateOrderState,
+      action: PayloadAction<{ field: K; value: ICreateOrderState["createOrder"][K] }>
+    ) => {
+      state.createOrder[action.payload.field] = action.payload.value;
+    },
+    setCurrentStep: (state, action: PayloadAction<ESteps>) => {
+      state.currentStep = action.payload;
+    },
+    decrementStep: (state, action: PayloadAction<ESteps>) => {
+      const currentStepIndex = steps.indexOf(action.payload);
+      const nextStep = steps[currentStepIndex - 1];
+      state.currentStep = nextStep as ESteps;
+    },
+    resetCreateOrderFields: (state) => {
+      state.createOrder = {};
+    },
+    resetCurrentStep: (state) => {
+      state.currentStep = ESteps.DELIVERY_METHOD;
+    }
+  },
   extraReducers: (builder) => {
     builder
       // Создать заказ
@@ -25,7 +49,7 @@ export const createOrderSlice = createSlice({
         postCreateOrderAction.fulfilled,
         (state, action: PayloadAction<IPostCreateOrderResponse>) => {
           state.isLoading = false;
-          console.log(action.payload.order);
+          state.createdOrder = action.payload.order;
         }
       )
       .addCase(postCreateOrderAction.rejected, (state, action) => {
@@ -38,8 +62,6 @@ export const createOrderSlice = createSlice({
   }
 });
 
-// export const { setPackageSize, togglePackageSizeSelect, setReceiverPoint, setSenderPoint } =
-// createOrderSlice.actions;
+export const createOrderSliceActions = createOrderSlice.actions;
 
-// export const { getCostCalculationState, getPackageType, getReceiverPoint, getSenderPoint } =
-// createOrderSlice.selectors;
+export const createOrderSliceSelectors = createOrderSlice.selectors;

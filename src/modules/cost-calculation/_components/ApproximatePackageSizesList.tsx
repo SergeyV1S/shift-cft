@@ -1,10 +1,10 @@
 import { useAppSelector } from "@app/store/hooks";
 
-import { usePackageSizeForm } from "../model/usePackageSizeForm";
-import { getCostCalculationState } from "../store";
+import { usePackageSizeForm } from "../model";
+import { costCalculationSliceSelectors } from "../store";
 
 export const ApproximatePackageSizesList = () => {
-  const { packagesTypes } = useAppSelector(getCostCalculationState);
+  const { packagesTypes } = useAppSelector(costCalculationSliceSelectors.getCostCalculationState);
 
   const { setSelectedPackageSize } = usePackageSizeForm();
 

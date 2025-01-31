@@ -1,7 +1,7 @@
 import { Button, Input } from "@shared/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@shared/ui/form";
 
-import { usePackageSizeForm } from "../model/usePackageSizeForm";
+import { usePackageSizeForm } from "../model";
 
 export const ExactPackageSizesForm = () => {
   const { exactPackageSizesForm, setSelectedPackageSize } = usePackageSizeForm();
@@ -17,7 +17,7 @@ export const ExactPackageSizesForm = () => {
           event.stopPropagation();
           exactPackageSizesForm.handleSubmit(setSelectedPackageSize)(event);
         }}
-        className='grid w-full gap-6'
+        className='grid w-full gap-6 max-h-[300px] overflow-y-scroll'
       >
         <FormField
           control={exactPackageSizesForm.control}

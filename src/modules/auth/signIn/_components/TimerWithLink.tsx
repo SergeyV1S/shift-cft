@@ -1,13 +1,14 @@
-import { getAuthState } from "@modules/auth/store";
 import { useEffect, useState } from "react";
 import type { z } from "zod";
 
 import { useAppSelector } from "@app/store/hooks";
 
+import { getAuthState } from "@modules/auth";
+
 import { Button } from "@shared/ui";
 import { CardFooter } from "@shared/ui/card";
 
-import type { signInPhoneSchema } from "../lib/signInSchemas";
+import type { signInPhoneSchema } from "../lib";
 
 interface ITimerWithLink {
   onSubmit: (values: z.infer<typeof signInPhoneSchema>) => Promise<void>;

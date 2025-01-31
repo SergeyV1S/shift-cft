@@ -1,5 +1,6 @@
-import { setAuthStatus } from "@modules/auth";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
+import { setAuthStatus } from "@modules/auth";
 
 import { getUserSession } from "@shared/api";
 

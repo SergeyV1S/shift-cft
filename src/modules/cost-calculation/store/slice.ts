@@ -6,8 +6,8 @@ import type {
   IGetPackageTypesResponse,
   IGetPointsResponse
 } from "@shared/api";
+import type { IPackage } from "@shared/types";
 
-import type { IPackage } from "../type";
 import { getPackageTypesAction, getPointsAction, postCalculatePriceAction } from "./action";
 import type { ICostCalculationState } from "./type";
 
@@ -61,6 +61,9 @@ export const costCalculationSlice = createSlice({
     setSenderPoint: (state, action: PayloadAction<string>) => {
       const senderPoint = state.points.find((point) => point.id === action.payload);
       state.selectedSenderPoint = senderPoint;
+    },
+    resetDeliveryCost: (state) => {
+      state.deliveryCost = [];
     }
   },
   extraReducers: (builder) => {
@@ -123,13 +126,6 @@ export const costCalculationSlice = createSlice({
   }
 });
 
-export const { setPackageSize, togglePackageSizeSelect, setReceiverPoint, setSenderPoint } =
-  costCalculationSlice.actions;
+export const costCalculationSliceActions = costCalculationSlice.actions;
 
-export const {
-  getCostCalculationState,
-  getPackageType,
-  getReceiverPoint,
-  getSenderPoint,
-  getDeliveryCost
-} = costCalculationSlice.selectors;
+export const costCalculationSliceSelectors = costCalculationSlice.selectors;

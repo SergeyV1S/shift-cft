@@ -8,10 +8,7 @@ import { postOtpAction, postSignInAction } from "./action";
 import type { IAuthInitialState } from "./type";
 
 export const initialState: IAuthInitialState = {
-  phoneNumber: null,
-  otp: null,
   isLoading: false,
-  retryDelay: null,
   isAuth: false
 };
 
@@ -45,6 +42,9 @@ export const authSlice = createSlice({
       .addCase(postSignInAction.fulfilled, (state, action: PayloadAction<IPostSignInResponse>) => {
         state.isLoading = false;
         state.isAuth = true;
+        state.phoneNumber = undefined;
+        state.retryDelay = undefined;
+        state.otp = undefined;
         localStorage.setItem(ACCESS_TOKEN, action.payload.token);
       })
       .addCase(postSignInAction.pending, (state) => {

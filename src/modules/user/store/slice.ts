@@ -1,7 +1,8 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
-import type { IUserSession } from "../types";
+import type { IUserSession } from "@shared/types";
+
 import { getUserSessionAction } from "./action";
 import type { IUserInitialState } from "./type";
 

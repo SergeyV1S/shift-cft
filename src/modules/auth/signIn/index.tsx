@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@shared/ui/card";
 import { PhoneForm } from "./_components/PhoneForm";
 import { SignInForm } from "./_components/SignInForm";
 import { TimerWithLink } from "./_components/TimerWithLink";
-import { useSignIn } from "./model/useSignIn";
+import { useSignIn } from "./model";
 
 const SignInPage = () => {
   const {
@@ -14,7 +14,7 @@ const SignInPage = () => {
 
   return (
     <Card className='m-auto w-full max-w-sm'>
-      <CardHeader className='text-center border border-slate-200'>
+      <CardHeader className='text-center border-b py-4 border-b-slate-200'>
         <CardTitle className='text-2xl'>Авторизация</CardTitle>
       </CardHeader>
       <CardContent className='mt-5'>

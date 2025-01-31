@@ -1,4 +1,4 @@
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 
 const Card = ({ className, ref, ...props }: THTMLElementPropsWithRef<HTMLDivElement>) => (
   <div ref={ref} className={cn("rounded-3xl bg-white shadow-md", className)} {...props} />

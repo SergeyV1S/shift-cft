@@ -1,6 +1,8 @@
-import { getUserSessionAction, getUserState } from "@modules/user";
 import { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+
+import { getAuthState } from "@modules/auth";
+import { getUserSessionAction } from "@modules/user";
 
 import { PATHS } from "@shared/constants";
 
@@ -15,7 +17,7 @@ export const ProtectedRoute = ({
 }) => {
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const { userSession } = useAppSelector(getUserState);
+  const { isAuth } = useAppSelector(getAuthState);
 
   useEffect(() => {
     dispatch(getUserSessionAction());
@@ -23,11 +25,11 @@ export const ProtectedRoute = ({
 
   if (forAll) return <Outlet />;
 
-  if (!userSession && !onlyUnAuth) {
+  if (!isAuth && !onlyUnAuth) {
     return <Navigate to={PATHS.SIGNIN} state={{ from: location }} replace />;
   }
 
-  if (onlyUnAuth && userSession) {
+  if (onlyUnAuth && isAuth) {
     const { from } = location.state ?? { from: { pathname: "/" } };
     return <Navigate to={from} />;
   }

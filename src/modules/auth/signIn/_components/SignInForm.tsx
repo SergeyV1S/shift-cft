@@ -1,16 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getAuthState } from "@modules/auth/store";
 import { useForm } from "react-hook-form";
 import { PatternFormat } from "react-number-format";
 import type { z } from "zod";
 
 import { useAppSelector } from "@app/store/hooks";
 
+import { getAuthState } from "@modules/auth";
+
 import { Button, Input } from "@shared/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@shared/ui/input-otp";
 
-import { signInSchema } from "../lib/signInSchemas";
+import { signInSchema } from "../lib";
 
 interface ISignInFormProps {
   onSubmit: (values: z.infer<typeof signInSchema>) => Promise<void>;

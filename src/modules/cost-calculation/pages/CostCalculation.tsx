@@ -3,10 +3,12 @@ import { useEffect } from "react";
 
 import { useAppDispatch } from "@app/store/hooks";
 
+import { createOrderSliceActions } from "@modules/order";
+
 import { Typography } from "@shared/ui";
 
-import { CalculateDeliveryCard } from "./_components/CalculateDeliveryCard";
-import { getPackageTypesAction, getPointsAction } from "./store";
+import { CalculateDeliveryCard } from "../_components/CalculateDeliveryCard";
+import { costCalculationSliceActions, getPackageTypesAction, getPointsAction } from "../store";
 
 const CostCalculationPage = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +16,8 @@ const CostCalculationPage = () => {
   useEffect(() => {
     dispatch(getPackageTypesAction());
     dispatch(getPointsAction());
+    dispatch(costCalculationSliceActions.resetDeliveryCost());
+    dispatch(createOrderSliceActions.resetCurrentStep());
   }, []);
 
   return (

@@ -1,11 +1,12 @@
-import { LogoutButton, getAuthState } from "@modules/auth";
 import { Clock, PackageOpen, User } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { useAppSelector } from "@app/store/hooks";
 
+import { LogoutButton, getAuthState } from "@modules/auth";
+
 import { PATHS } from "@shared/constants";
-import { cn } from "@shared/lib/utils";
+import { cn } from "@shared/lib";
 
 import { buttonVariants } from "./button";
 import { typographyVariants } from "./typography";
@@ -53,7 +54,8 @@ export const Header = () => {
             to={PATHS.SIGNIN}
             className={cn(
               buttonVariants({ variant: "link_secondary" }),
-              typographyVariants({ variant: "paragraph16_medium" })
+              typographyVariants({ variant: "paragraph16_medium" }),
+              "h-9 py-2 px-4"
             )}
           >
             Войти
