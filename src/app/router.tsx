@@ -9,10 +9,16 @@ import {
 import { createOrderDetailsScreenRoute, createOrderHistoryScreenRoute } from "@modules/order/pages";
 import { createProfileScreenRoute } from "@modules/user/pages";
 
+import { NotFoundPage } from "@shared/ui";
+
 import { ProtectedRoute } from "./ProtectedRoute";
 import { AuthLayout, RootLayout } from "./layouts";
 
 export const routes = createBrowserRouter([
+  {
+    path: "*",
+    element: <NotFoundPage />
+  },
   {
     element: <ProtectedRoute onlyUnAuth />,
     children: [
