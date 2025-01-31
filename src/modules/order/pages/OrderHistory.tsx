@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
-import { Spinner, Typography } from "@shared/ui";
+import { cn } from "@shared/lib";
+import { Spinner, Typography, typographyVariants } from "@shared/ui";
 import {
   Table,
   TableBody,
@@ -40,7 +41,7 @@ const OrderHistoryPage = () => {
           </TableCaption>
           <TableHeader>
             <TableRow className='hover:bg-none py-2'>
-              <TableHead className='w-[200px] py-6'>Номер заказа</TableHead>
+              <TableHead className='w-[250px] py-6'>Номер заказа</TableHead>
               <TableHead>Адрес доставки</TableHead>
               <TableHead>Статус заказа</TableHead>
               <TableHead />
@@ -52,8 +53,16 @@ const OrderHistoryPage = () => {
                 <TableCell className='font-medium py-6'>{order._id}</TableCell>
                 <TableCell>{`Россия, г. ${order.receiverPoint.name}, ул. ${order.receiverAddress.street}, д. ${order.receiverAddress.house}`}</TableCell>
                 <TableCell>{`${order.status}`}</TableCell>
-                <TableCell className='text-right'>
-                  <Link to={order._id}>Подробнее</Link>
+                <TableCell className='text-right pr-5'>
+                  <Link
+                    to={order._id}
+                    className={cn(
+                      typographyVariants({ variant: "paragraph12_regular" }),
+                      "opacity-60 border-b border-b-black py-[1px]"
+                    )}
+                  >
+                    Подробнее
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}

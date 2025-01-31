@@ -27,6 +27,7 @@ const RequestSentPage = () => {
           Вы можете оплатить ваш заказ в разделе «Профиль»
         </Typography>
         <OrderDetailsBlock
+          className='w-full'
           optionName={createOrder!.option!.name}
           _id={createdOrder!._id}
           status={createdOrder!.status}

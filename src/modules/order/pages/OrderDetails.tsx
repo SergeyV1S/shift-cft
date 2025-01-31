@@ -1,9 +1,11 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
-import { Button, Spinner, Typography } from "@shared/ui";
+import { PATHS } from "@shared/constants";
+import { cn } from "@shared/lib";
+import { Button, Spinner, Typography, buttonVariants } from "@shared/ui";
 
 import { OrderDetailsBlock } from "../_components/OrderDetailsBlock";
 import { getCurrentOrderAction, orderSliceSelectors } from "../store";
@@ -11,15 +13,14 @@ import { getCurrentOrderAction, orderSliceSelectors } from "../store";
 const OrderDetailsPage = () => {
   const dispatch = useAppDispatch();
   const params = useParams();
-  const navigate = useNavigate();
 
   const { isLoading, currentOrder } = useAppSelector(orderSliceSelectors.getOrderState);
 
   useEffect(() => {
-    dispatch(getCurrentOrderAction(params.order_id!));
+    if (params.order_id) dispatch(getCurrentOrderAction(params.order_id));
   }, []);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || !currentOrder) return <Spinner />;
 
   return (
     <div className='container'>
@@ -37,17 +38,18 @@ const OrderDetailsPage = () => {
             receiverAddress={currentOrder!.receiverAddress}
             receiverPoint={currentOrder!.receiverPoint}
           >
-            <nav className='space-x-6'>
-              <Button
-                role='link'
-                onClick={() => navigate(-1)}
-                variant='contained_primary'
-                size='xl'
+            <nav className='flex items-center gap-6 w-1/2'>
+              <Link
+                to={PATHS.ORDER_HISTORY}
+                className={cn(
+                  buttonVariants({ variant: "outline_secondary", size: "xl" }),
+                  "w-1/2"
+                )}
               >
                 Назад
-              </Button>
-              <Button variant='contained_primary' size='xl'>
-                На главную
+              </Link>
+              <Button variant='contained_primary' size='xl' className='w-1/2'>
+                Отменить заказ
               </Button>
             </nav>
           </OrderDetailsBlock>

@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 import { costCalculationSliceSelectors } from "@modules/cost-calculation";
 
 import { PATHS } from "@shared/constants";
+import { formatePhone } from "@shared/lib";
 import type { IOption } from "@shared/types";
 
 import type {
@@ -41,12 +42,22 @@ export const useCreateOrder = () => {
   };
 
   const setReceiver = (data: TReceiverSenderFormSchemas) => {
-    dispatch(createOrderSliceActions.setOrderField({ field: "receiver", value: data }));
+    dispatch(
+      createOrderSliceActions.setOrderField({
+        field: "receiver",
+        value: { ...data, phone: formatePhone(data.phone) }
+      })
+    );
     setStep(ESteps.SENDER);
   };
 
   const setSender = (data: TReceiverSenderFormSchemas) => {
-    dispatch(createOrderSliceActions.setOrderField({ field: "sender", value: data }));
+    dispatch(
+      createOrderSliceActions.setOrderField({
+        field: "sender",
+        value: { ...data, phone: formatePhone(data.phone) }
+      })
+    );
     setStep(ESteps.PICKUP_LOCATION);
   };
 

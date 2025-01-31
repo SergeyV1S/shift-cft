@@ -1,7 +1,8 @@
+import { cn } from "@shared/lib";
 import type { IAddress, IPoint } from "@shared/types";
 import { Typography } from "@shared/ui";
 
-interface IOrderDetailsBlockProps {
+interface IOrderDetailsBlockProps extends React.ComponentProps<"div"> {
   _id: string;
   status: number;
   receiverAddress: IAddress;
@@ -16,9 +17,14 @@ export const OrderDetailsBlock = ({
   receiverAddress,
   receiverPoint,
   optionName,
-  children
+  children,
+  className,
+  ...props
 }: IOrderDetailsBlockProps) => (
-  <div className='space-y-6 px-12 py-6 w-1/2 border border-slate-200 rounded-3xl'>
+  <div
+    className={cn("space-y-6 px-12 py-6 border border-slate-200 rounded-3xl", className)}
+    {...props}
+  >
     <div className='space-y-2'>
       <Typography variant='paragraph12_regular'>Номер заказа</Typography>
       <Typography variant='paragraph16_regular'>{_id}</Typography>
