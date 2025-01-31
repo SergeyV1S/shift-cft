@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
@@ -23,6 +23,8 @@ const OrderDetailsPage = () => {
 
   if (isLoading || !currentOrder) return <Spinner />;
 
+  if (!currentOrder) return <Navigate to={PATHS.ORDER_HISTORY} />;
+
   return (
     <div className='container'>
       <div className='mt-12 space-y-6'>
@@ -34,10 +36,10 @@ const OrderDetailsPage = () => {
         ) : (
           <OrderDetailsBlock
             optionName='С сервера не приходит option'
-            _id={currentOrder!._id}
-            status={currentOrder!.status}
-            receiverAddress={currentOrder!.receiverAddress}
-            receiverPoint={currentOrder!.receiverPoint}
+            _id={currentOrder._id}
+            status={currentOrder.status}
+            receiverAddress={currentOrder.receiverAddress}
+            receiverPoint={currentOrder.receiverPoint}
           >
             <nav className='flex items-center gap-6 w-1/2'>
               <Link
