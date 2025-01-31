@@ -1,8 +1,8 @@
 import type { IUserProfile, IUserSession } from "@shared/types";
 
 export interface IUserInitialState {
-  userSession: IUserSession | null;
+  userSession?: IUserSession;
   userProfile?: IUserProfile;
   isLoading: boolean;
-  error: string | undefined;
+  error?: string;
 }

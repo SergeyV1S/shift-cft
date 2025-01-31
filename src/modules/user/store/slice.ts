@@ -7,9 +7,7 @@ import { getUserSessionAction } from "./action";
 import type { IUserInitialState } from "./type";
 
 export const initialState: IUserInitialState = {
-  userSession: null,
-  isLoading: false,
-  error: undefined
+  isLoading: false
 };
 
 export const userSlice = createSlice({
@@ -17,7 +15,12 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     removeUserFromState: (state) => {
-      state.userSession = null;
+      state.userSession = undefined;
+      state.userProfile = undefined;
+    },
+    setUser: (state, action: PayloadAction<IUserSession>) => {
+      state.userSession = action.payload;
+      state.userProfile = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -41,6 +44,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const { removeUserFromState } = userSlice.actions;
+export const { removeUserFromState, setUser } = userSlice.actions;
 
 export const { getUserState } = userSlice.selectors;
