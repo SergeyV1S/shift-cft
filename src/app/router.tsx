@@ -11,7 +11,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 
 const CostCalculationPage = lazy(() => import("@modules/cost-calculation/pages/CostCalculation"));
 const SignInScreen = lazy(() => import("@modules/auth/signIn"));
-const ProfileScreen = lazy(() => import("@modules/user/profile"));
+const ProfileScreen = lazy(() => import("@modules/user/pages/Profile"));
 const CreateOrderScreen = lazy(() => import("@modules/order/create-order/pages/CreateOrder"));
 const RequestSentScreen = lazy(() => import("@modules/order/create-order/pages/RequestSent"));
 const OrderHistoryScreen = lazy(() => import("@modules/order/pages/OrderHistory"));
