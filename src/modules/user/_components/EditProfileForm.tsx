@@ -76,7 +76,7 @@ export const EditProfileForm = () => {
           name='middlename'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Фамилия</FormLabel>
+              <FormLabel>Отчество</FormLabel>
               <FormControl>
                 <Input type='text' placeholder='Отчество' {...field} />
               </FormControl>
