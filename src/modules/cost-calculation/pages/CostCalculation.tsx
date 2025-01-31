@@ -1,5 +1,6 @@
 import { PackageOpen } from "lucide-react";
 import { useEffect } from "react";
+import QRCode from "react-qr-code";
 
 import { useAppDispatch } from "@app/store/hooks";
 
@@ -34,7 +35,7 @@ const CostCalculationPage = () => {
           </div>
           <div className='bg-white flex items-center gap-5 rounded-2xl p-5 shadow-md'>
             <PackageOpen className='size-16 text-blue-500' />
-            <img className='size-16' src='/img/QR_Code.png' alt='QR Code' />
+            <QRCode value='https://igniz.ru/' size={64} fgColor='#3b82f6' level='M' />
             <Typography variant='paragraph16_regular' className='opacity-80'>
               Наведите камеру телефона на QR-код
             </Typography>
