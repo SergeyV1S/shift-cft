@@ -14,7 +14,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 interface IRecieverSenderFormProps {
   handleSubmit: SubmitHandler<{
     firstname: string;
-    middlename: string;
+    middlename?: string;
     lastname: string;
     phone: string;
   }>;
@@ -68,9 +68,9 @@ export const RecieverSenderForm = ({ handleSubmit, contact }: IRecieverSenderFor
           name='middlename'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Отчество*</FormLabel>
+              <FormLabel>Отчество</FormLabel>
               <FormControl>
-                <Input type='text' placeholder='Введите отчество' {...field} />
+                <Input type='text' placeholder='Введите отчество (если есть)' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -106,13 +106,7 @@ export const RecieverSenderForm = ({ handleSubmit, contact }: IRecieverSenderFor
           >
             Назад
           </Button>
-          <Button
-            type='submit'
-            disabled={!receiverSenderForm.formState.isValid}
-            variant='contained_primary'
-            size='xl'
-            className='basis-1/2'
-          >
+          <Button type='submit' variant='contained_primary' size='xl' className='basis-1/2'>
             Продолжить
           </Button>
         </nav>

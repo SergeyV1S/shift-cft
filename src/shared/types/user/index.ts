@@ -1,6 +1,6 @@
 interface IDefaultUser {
   firstname: string;
-  middlename: string;
+  middlename?: string;
   lastname: string;
 }
 

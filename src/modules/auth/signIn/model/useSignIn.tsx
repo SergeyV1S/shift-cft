@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
 import { getAuthState, postOtpAction, postSignInAction } from "@modules/auth";
 
-import { formatePhone } from "@shared/lib";
+import { formatePhone } from "@shared/helpers";
 
 import type { signInPhoneSchema, signInSchema } from "../lib";
 

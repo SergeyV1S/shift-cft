@@ -4,7 +4,7 @@ import { setAuthStatus } from "@modules/auth";
 
 import type { IPatchProfileRequest } from "@shared/api";
 import { getUserSession, patchUserProfile } from "@shared/api";
-import { toast } from "@shared/lib";
+import { toast } from "@shared/hooks";
 
 export const getUserSessionAction = createAsyncThunk(
   "userSlice/getUserSession",

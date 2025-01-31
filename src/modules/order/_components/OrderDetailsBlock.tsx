@@ -1,3 +1,4 @@
+import { translateStatus } from "@shared/constants";
 import { cn } from "@shared/lib";
 import type { IAddress, IPoint } from "@shared/types";
 import { Typography } from "@shared/ui";
@@ -31,7 +32,13 @@ export const OrderDetailsBlock = ({
     </div>
     <div className='space-y-2'>
       <Typography variant='paragraph12_regular'>Статус</Typography>
-      <Typography variant='paragraph16_regular'>{status}</Typography>
+      <Typography variant='paragraph16_regular' className='flex items-center gap-2'>
+        <div
+          style={{ background: translateStatus[status].color }}
+          className='rounded-full size-2'
+        />
+        {translateStatus[status].value}
+      </Typography>
     </div>
     <div className='space-y-2'>
       <Typography variant='paragraph12_regular'>Адрес доставки</Typography>
@@ -41,7 +48,6 @@ export const OrderDetailsBlock = ({
       <Typography variant='paragraph12_regular'>Тип доставки</Typography>
       <Typography variant='paragraph16_regular'>{optionName}</Typography>
     </div>
-    <Typography variant='paragraph12_regular'>Вся информация была продублирована в SMS</Typography>
     {children}
   </div>
 );

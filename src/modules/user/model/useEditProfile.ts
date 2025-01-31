@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
-import { formatePhone } from "@shared/lib";
+import { formatePhone } from "@shared/helpers";
 
 import type { IEditProfileSormSchema } from "../lib";
 import { editProfileSormSchema, getChangedFields } from "../lib";
@@ -21,7 +21,7 @@ export const useEditProfile = () => {
       firstname: userSession?.firstname || "",
       lastname: userSession?.lastname || "",
       middlename: userSession?.middlename || "",
-      phone: userSession?.phone.slice(1, 11) || ""
+      phone: userSession?.phone || ""
     }
   });
 
@@ -33,7 +33,7 @@ export const useEditProfile = () => {
     }
 
     await dispatch(
-      patchUserProfileAction({ phone: `7${formatePhone(userData.phone!)}`, profile: userData })
+      patchUserProfileAction({ phone: formatePhone(userData.phone!), profile: userData })
     );
   };
 

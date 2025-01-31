@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
@@ -22,8 +22,6 @@ const OrderDetailsPage = () => {
   }, []);
 
   if (isLoading || !currentOrder) return <Spinner />;
-
-  if (!currentOrder) return <Navigate to={PATHS.ORDER_HISTORY} />;
 
   return (
     <div className='container'>
