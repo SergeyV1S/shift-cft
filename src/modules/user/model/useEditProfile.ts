@@ -21,7 +21,7 @@ export const useEditProfile = () => {
       firstname: userSession?.firstname || "",
       lastname: userSession?.lastname || "",
       middlename: userSession?.middlename || "",
-      phone: userSession?.phone.slice(1, 11) || ""
+      phone: userSession?.phone || ""
     }
   });
 
@@ -33,7 +33,7 @@ export const useEditProfile = () => {
     }
 
     await dispatch(
-      patchUserProfileAction({ phone: `7${formatePhone(userData.phone!)}`, profile: userData })
+      patchUserProfileAction({ phone: formatePhone(userData.phone!), profile: userData })
     );
   };
 

@@ -14,7 +14,7 @@ interface IAddressFormProps {
   handleSubmit: SubmitHandler<{
     street: string;
     house: string;
-    apartment: string;
+    apartment?: string;
     comment?: string;
   }>;
   address?: IAddress;
@@ -23,12 +23,14 @@ interface IAddressFormProps {
 export const AddressForm = ({ handleSubmit, address }: IAddressFormProps) => {
   const addressForm = useForm<TAddressFormSchema>({
     resolver: zodResolver(addressFormSchema),
+    mode: "onBlur",
     defaultValues: {
       street: address?.street || "",
       house: address?.house || "",
       apartment: address?.apartment || "",
       comment: address?.comment || ""
-    }
+    },
+    reValidateMode: "onChange"
   });
 
   const { decrementStepMethod } = useCreateOrder();
@@ -74,7 +76,7 @@ export const AddressForm = ({ handleSubmit, address }: IAddressFormProps) => {
           name='apartment'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Номер квартиры*</FormLabel>
+              <FormLabel>Номер квартиры</FormLabel>
               <FormControl>
                 <Input type='text' placeholder='Квартира' {...field} />
               </FormControl>
@@ -104,13 +106,7 @@ export const AddressForm = ({ handleSubmit, address }: IAddressFormProps) => {
           >
             Назад
           </Button>
-          <Button
-            type='submit'
-            disabled={!addressForm.formState.isValid}
-            variant='contained_primary'
-            size='xl'
-            className='basis-1/2'
-          >
+          <Button type='submit' variant='contained_primary' size='xl' className='basis-1/2'>
             Продолжить
           </Button>
         </nav>
