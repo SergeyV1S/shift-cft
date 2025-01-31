@@ -1,0 +1,67 @@
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+
+import { useAppDispatch, useAppSelector } from "@app/store/hooks";
+
+import { Spinner, Typography } from "@shared/ui";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@shared/ui/table";
+
+import { getOrdersAction, orderSliceSelectors } from "../store";
+
+const OrderHistoryPage = () => {
+  const dispatch = useAppDispatch();
+  const { isLoading, orders } = useAppSelector(orderSliceSelectors.getOrderState);
+
+  useEffect(() => {
+    dispatch(getOrdersAction());
+  }, []);
+
+  if (isLoading) return <Spinner />;
+
+  return (
+    <div className='container'>
+      <div className='mt-12 space-y-6'>
+        <Typography variant='title_h2' tag='h1' className='text-left'>
+          История
+        </Typography>
+        <Table>
+          <TableCaption>
+            {orders.length === 0
+              ? "Список заказов пуст"
+              : "Список ваших заказов за последнее время"}
+          </TableCaption>
+          <TableHeader>
+            <TableRow className='hover:bg-none py-2'>
+              <TableHead className='w-[200px] py-6'>Номер заказа</TableHead>
+              <TableHead>Адрес доставки</TableHead>
+              <TableHead>Статус заказа</TableHead>
+              <TableHead />
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {orders.map((order) => (
+              <TableRow key={order._id}>
+                <TableCell className='font-medium py-6'>{order._id}</TableCell>
+                <TableCell>{`Россия, г. ${order.receiverPoint.name}, ул. ${order.receiverAddress.street}, д. ${order.receiverAddress.house}`}</TableCell>
+                <TableCell>{`${order.status}`}</TableCell>
+                <TableCell className='text-right'>
+                  <Link to={order._id}>Подробнее</Link>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  );
+};
+
+export default OrderHistoryPage;

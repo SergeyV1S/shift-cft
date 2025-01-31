@@ -1,7 +1,8 @@
-import { AuthLayout } from "@modules/auth";
-import { RootLayout } from "@modules/cost-calculation/RootLayout";
 import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
+
+import { AuthLayout } from "@modules/auth";
+import { RootLayout } from "@modules/cost-calculation/RootLayout";
 
 import { PATHS } from "@shared/constants";
 import { Spinner } from "@shared/ui";
@@ -13,6 +14,7 @@ const SignInScreen = lazy(() => import("@modules/auth/signIn"));
 const ProfileScreen = lazy(() => import("@modules/user/profile"));
 const CreateOrderScreen = lazy(() => import("@modules/order/create-order/pages/CreateOrder"));
 const RequestSentScreen = lazy(() => import("@modules/order/create-order/pages/RequestSent"));
+const OrderHistoryScreen = lazy(() => import("@modules/order/history/pages/OrderHistory"));
 
 export const routes = createBrowserRouter([
   {
@@ -78,6 +80,14 @@ export const routes = createBrowserRouter([
             element: (
               <Suspense fallback={<Spinner />}>
                 <ProfileScreen />
+              </Suspense>
+            )
+          },
+          {
+            path: PATHS.ORDER_HISTORY,
+            element: (
+              <Suspense fallback={<Spinner />}>
+                <OrderHistoryScreen />
               </Suspense>
             )
           }

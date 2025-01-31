@@ -35,7 +35,7 @@ export const Header = () => {
           <span>Профиль</span>
         </Link>
         <Link
-          to={PATHS.HISTORY}
+          to={PATHS.ORDER_HISTORY}
           className={cn(
             buttonVariants({ variant: "link_secondary" }),
             typographyVariants({ variant: "paragraph16_medium" }),
