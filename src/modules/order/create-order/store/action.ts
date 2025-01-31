@@ -5,5 +5,5 @@ import { postCreateOrder } from "@shared/api";
 
 export const postCreateOrderAction = createAsyncThunk(
   "createOrderSlice/postCreateOrderAction",
-  async (data: IPostCreateOrderParams) => postCreateOrder({ data })
+  async (data: IPostCreateOrderParams) => postCreateOrder({ data }).then((res) => res.data)
 );

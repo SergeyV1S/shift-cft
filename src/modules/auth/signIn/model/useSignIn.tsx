@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { z } from "zod";
 
@@ -13,16 +14,18 @@ export const useSignIn = () => {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  const { isLoading, otp, phoneNumber, retryDelay } = useAppSelector(getAuthState);
+  const { isLoading, otp, phoneNumber, retryDelay, isAuth } = useAppSelector(getAuthState);
 
   const onOtpSubmit = async ({ phone }: z.infer<typeof signInPhoneSchema>) => {
     dispatch(postOtpAction({ phone: formatePhone(phone) }));
   };
 
+  useEffect(() => {
+    if (isAuth) navigate(0);
+  }, [isAuth]);
+
   const signIn = async (values: z.infer<typeof signInSchema>) => {
-    dispatch(postSignInAction({ phone: values.phone, code: +values.otp })).then(() => {
-      navigate(0);
-    });
+    dispatch(postSignInAction({ phone: values.phone, code: +values.otp }));
   };
 
   return { onOtpSubmit, signIn, state: { isLoading, otp, phoneNumber, retryDelay } };

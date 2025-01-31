@@ -29,6 +29,7 @@ module.exports = {
     "@typescript-eslint/no-empty-function": "error",
     "arrow-body-style": ["error", "as-needed"],
     "@typescript-eslint/no-empty-object-type": "off",
+    "react-hooks/exhaustive-deps": "off",
     "react/self-closing-comp": ["error", { component: true, html: true }],
     "@typescript-eslint/consistent-type-imports": [
       "error",
