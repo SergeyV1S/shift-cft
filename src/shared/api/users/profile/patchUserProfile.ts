@@ -5,4 +5,4 @@ import type { IPatchProfileRequest, IPatchProfileResponse } from "./type";
 type TPatchProfileConfig = IMutationSettings<Partial<IPatchProfileRequest>>;
 
 export const patchUserProfile = ({ data, config }: TPatchProfileConfig) =>
-  api.patch<IPatchProfileResponse>(`/api/users/profile`, data, config);
+  api.patch<IPatchProfileResponse>(`/users/profile`, data, config);

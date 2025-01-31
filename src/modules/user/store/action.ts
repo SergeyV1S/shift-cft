@@ -2,7 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { setAuthStatus } from "@modules/auth";
 
-import { getUserSession } from "@shared/api";
+import type { IPatchProfileRequest } from "@shared/api";
+import { getUserSession, patchUserProfile } from "@shared/api";
+import { toast } from "@shared/lib";
 
 export const getUserSessionAction = createAsyncThunk(
   "userSlice/getUserSession",
@@ -18,4 +20,25 @@ export const getUserSessionAction = createAsyncThunk(
 
     return user;
   }
+);
+
+export const patchUserProfileAction = createAsyncThunk(
+  "userSlice/patchUserProfile",
+  async (data: IPatchProfileRequest) =>
+    patchUserProfile({ data: data })
+      .then((res) => {
+        if (res.data.success) {
+          toast({
+            className: "bg-green-600 text-white hover:bg-green-700",
+            title: "Данные профиля обновлены"
+          });
+        }
+      })
+      .catch((error) =>
+        toast({
+          className: "bg-red-800 text-white hover:bg-red-700",
+          title: "Не удалось обновить профиль",
+          description: `${error.response.data.reason}`
+        })
+      )
 );
