@@ -16,7 +16,7 @@ export const userSlice = createSlice({
   name: "userSlice",
   initialState,
   reducers: {
-    removeUserFormState: (state) => {
+    removeUserFromState: (state) => {
       state.userSession = null;
     }
   },
@@ -26,6 +26,7 @@ export const userSlice = createSlice({
       .addCase(getUserSessionAction.fulfilled, (state, action: PayloadAction<IUserSession>) => {
         state.isLoading = false;
         state.userSession = action.payload;
+        state.userProfile = action.payload;
       })
       .addCase(getUserSessionAction.pending, (state) => {
         state.isLoading = true;
@@ -40,6 +41,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const { removeUserFormState } = userSlice.actions;
+export const { removeUserFromState } = userSlice.actions;
 
 export const { getUserState } = userSlice.selectors;

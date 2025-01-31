@@ -6,5 +6,5 @@ export interface IPatchProfileResponse extends IDefaultResponse {
 
 export interface IPatchProfileRequest {
   profile: Partial<IUserProfile>;
-  phone: string;
+  phone?: string;
 }

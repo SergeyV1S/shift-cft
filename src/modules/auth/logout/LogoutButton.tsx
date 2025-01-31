@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "@app/store/hooks";
 
-import { removeUserFormState } from "@modules/user";
+import { removeUserFromState } from "@modules/user";
 
 import { cn } from "@shared/lib";
 import { Button, buttonVariants, typographyVariants } from "@shared/ui";
@@ -16,7 +16,7 @@ export const LogoutButton = () => {
 
   const logoutHandler = () => {
     dispatch(logout());
-    dispatch(removeUserFormState());
+    dispatch(removeUserFromState());
     navigate("/");
   };
 
