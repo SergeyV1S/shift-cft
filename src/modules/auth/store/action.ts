@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+import { setUser } from "@modules/user";
+
 import type { IPostOtpParams, IPostSignInParams } from "@shared/api";
 import { postOtp, postSignIn } from "@shared/api";
 import { toast } from "@shared/hooks";
@@ -10,9 +12,12 @@ export const postOtpAction = createAsyncThunk("authSlice/postOtp", async (data: 
 
 export const postSignInAction = createAsyncThunk(
   "authSlice/postSignIn",
-  async (data: IPostSignInParams) =>
+  async (data: IPostSignInParams, { dispatch }) =>
     postSignIn({ data })
-      .then((res) => res.data)
+      .then((res) => {
+        dispatch(setUser(res.data.user));
+        return res.data;
+      })
       .catch((error) => {
         if (error?.response?.data?.reason) {
           toast({

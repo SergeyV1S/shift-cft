@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@shared/ui/card";
 
-import { PhoneForm } from "./_components/PhoneForm";
-import { SignInForm } from "./_components/SignInForm";
-import { TimerWithLink } from "./_components/TimerWithLink";
-import { useSignIn } from "./model";
+import { PhoneForm } from "../_components/PhoneForm";
+import { SignInForm } from "../_components/SignInForm";
+import { TimerWithLink } from "../_components/TimerWithLink";
+import { useSignIn } from "../model";
 
 const SignInPage = () => {
   const {
