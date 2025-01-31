@@ -1,5 +1,5 @@
 import { Clock, PackageOpen, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { useAppSelector } from "@app/store/hooks";
 
@@ -24,28 +24,32 @@ export const Header = () => {
           </p>
         </Link>
         <nav className='flex items-center gap-8 pl-8'>
-          <Link
+          <NavLink
             to={PATHS.PROFILE}
-            className={cn(
-              buttonVariants({ variant: "link_secondary" }),
-              typographyVariants({ variant: "paragraph16_medium" }),
-              "flex items-center gap-4"
-            )}
+            className={({ isActive }) =>
+              cn(
+                typographyVariants({ variant: "paragraph16_medium" }),
+                "flex items-center gap-4",
+                isActive && "text-blue-500"
+              )
+            }
           >
             <User />
             <span>Профиль</span>
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to={PATHS.ORDER_HISTORY}
-            className={cn(
-              buttonVariants({ variant: "link_secondary" }),
-              typographyVariants({ variant: "paragraph16_medium" }),
-              "flex items-center gap-4"
-            )}
+            className={({ isActive }) =>
+              cn(
+                isActive && "text-blue-500",
+                typographyVariants({ variant: "paragraph16_medium" }),
+                "flex items-center gap-4"
+              )
+            }
           >
             <Clock />
             <span>История</span>
-          </Link>
+          </NavLink>
         </nav>
         <nav className='text-center'>
           {isAuth ? (

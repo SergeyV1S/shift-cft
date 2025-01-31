@@ -5,6 +5,7 @@ import { getAuthState } from "@modules/auth";
 import { getUserSessionAction } from "@modules/user";
 
 import { PATHS } from "@shared/constants";
+import { Spinner } from "@shared/ui";
 
 import { useAppDispatch, useAppSelector } from "./store/hooks";
 
@@ -17,7 +18,7 @@ export const ProtectedRoute = ({
 }) => {
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const { isAuth } = useAppSelector(getAuthState);
+  const { isAuth, isLoading } = useAppSelector(getAuthState);
 
   useEffect(() => {
     dispatch(getUserSessionAction());
@@ -25,13 +26,15 @@ export const ProtectedRoute = ({
 
   if (forAll) return <Outlet />;
 
-  if (!isAuth && !onlyUnAuth) {
-    return <Navigate to={PATHS.SIGNIN} state={{ from: location }} replace />;
-  }
+  if (isLoading) return <Spinner />;
 
   if (onlyUnAuth && isAuth) {
     const { from } = location.state ?? { from: { pathname: "/" } };
     return <Navigate to={from} />;
+  }
+
+  if (!isAuth && !onlyUnAuth) {
+    return <Navigate to={PATHS.SIGNIN} state={{ from: location }} replace />;
   }
 
   return <Outlet />;
