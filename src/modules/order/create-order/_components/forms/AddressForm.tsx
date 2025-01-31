@@ -14,7 +14,7 @@ interface IAddressFormProps {
   handleSubmit: SubmitHandler<{
     street: string;
     house: string;
-    apartment?: string;
+    apartment: string;
     comment?: string;
   }>;
   address?: IAddress;
@@ -76,7 +76,7 @@ export const AddressForm = ({ handleSubmit, address }: IAddressFormProps) => {
           name='apartment'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Номер квартиры</FormLabel>
+              <FormLabel>Номер квартиры*</FormLabel>
               <FormControl>
                 <Input type='text' placeholder='Квартира' {...field} />
               </FormControl>

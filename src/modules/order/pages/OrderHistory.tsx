@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
+import { translateStatus } from "@shared/constants";
 import { cn } from "@shared/lib";
 import { Spinner, Typography, typographyVariants } from "@shared/ui";
 import {
@@ -52,7 +53,15 @@ const OrderHistoryPage = () => {
               <TableRow key={order._id}>
                 <TableCell className='font-medium py-6'>{order._id}</TableCell>
                 <TableCell>{`Россия, г. ${order.receiverPoint.name}, ул. ${order.receiverAddress.street}, д. ${order.receiverAddress.house}`}</TableCell>
-                <TableCell>{`${order.status}`}</TableCell>
+                <TableCell className='flex items-center gap-2 pt-5'>
+                  <div
+                    style={{ background: translateStatus[order.status].color }}
+                    className='rounded-full size-2'
+                  />
+                  <Typography variant='paragraph16_regular'>
+                    {translateStatus[order.status].value}
+                  </Typography>
+                </TableCell>
                 <TableCell className='text-right pr-5'>
                   <Link
                     to={order._id}

@@ -18,7 +18,11 @@ export const addressFormSchema = z
       .min(1, "Обязательное поле")
       .max(100, "Максимально 100 символов")
       .refine(validateAlphabetWithDigits, "Некорректный формат"),
-    apartment: z.string().optional(),
+    apartment: z
+      .string()
+      .min(1, "Обязательное поле")
+      .max(100, "Максимально 100 символов")
+      .refine(validateAlphabetWithDigits, "Некорректный формат"),
     comment: z.string().optional()
   })
   .refine(
