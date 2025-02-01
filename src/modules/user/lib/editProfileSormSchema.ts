@@ -9,25 +9,28 @@ export const editProfileSormSchema = z.object({
     .refine((phone) => {
       const formatedPhone = formatePhone(phone);
       return formatedPhone.length === 11;
-    }, "Неверный номер телефона")
-    .optional(),
+    }, "Неверный номер телефона"),
   firstname: z
     .string()
+    .min(1, "Обязательное поле")
     .max(60, "Максимально 60 символов")
-    .refine(validateAlphabet, "Некорректный формат")
-    .optional(),
+    .refine(validateAlphabet, "Некорректный формат"),
   middlename: z
     .string()
     .max(60, "Максимально 60 символов")
     .refine(validateAlphabet, "Некорректный формат")
     .optional(),
-  lastname: z.string().optional(),
-  email: z.string().email("Некорректный формат").optional(),
+  lastname: z
+    .string()
+    .min(1, "Обязательное поле")
+    .max(60, "Максимально 60 символов")
+    .refine(validateAlphabet, "Некорректный формат"),
+  email: z.string().min(1, "Обязательное поле").email("Некорректный формат"),
   city: z
     .string()
+    .min(1, "Обязательное поле")
     .max(60, "Максимально 60 символов")
     .refine(validateAlphabet, "Некорректный формат")
-    .optional()
 });
 
 export type IEditProfileSormSchema = z.infer<typeof editProfileSormSchema>;
