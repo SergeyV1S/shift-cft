@@ -102,7 +102,7 @@ export const EditProfileForm = () => {
           disabled={isDisabled}
           variant='contained_primary'
           size='xl'
-          className='w-2/3 mt-10 relative'
+          className='w-2/3 max-md:w-full relative'
         >
           {isLoading ? <Spinner size={10} /> : "Обновить данные"}
         </Button>

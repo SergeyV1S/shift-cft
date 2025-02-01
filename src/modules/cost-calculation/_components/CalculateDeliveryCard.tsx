@@ -12,13 +12,13 @@ export const CalculateDeliveryCard = () => {
   );
 
   return (
-    <Card className='w-[500px] px-16 space-y-6 py-10 min-h-[490px] relative'>
+    <Card className='max-w-[600px] w-full max-md:w-full px-16 max-sm:px-5 space-y-6 py-10 min-h-[490px] relative'>
       <CardHeader>
         <Typography variant='title_h2' tag='h2'>
           Рассчитать доставку
         </Typography>
       </CardHeader>
-      <CardContent className='w-[356px] p-0'>
+      <CardContent className='w-full p-0'>
         {isLoading ? (
           <Spinner />
         ) : error ? (
