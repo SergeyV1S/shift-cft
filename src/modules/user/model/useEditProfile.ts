@@ -10,7 +10,7 @@ import { editProfileSormSchema, getChangedFields } from "../lib";
 import { getUserState, patchUserProfileAction } from "../store";
 
 export const useEditProfile = () => {
-  const { userSession, userProfile, isLoading } = useAppSelector(getUserState);
+  const { userSession, isLoading } = useAppSelector(getUserState);
   const dispatch = useAppDispatch();
 
   const editProfileForm = useForm<IEditProfileSormSchema>({
@@ -26,7 +26,7 @@ export const useEditProfile = () => {
   });
 
   const updateUser = async (userData: IEditProfileSormSchema) => {
-    const changedFields = getChangedFields(userProfile!, userData);
+    const changedFields = getChangedFields(userSession!, userData);
 
     if (Object.keys(changedFields).length === 0) {
       return;
@@ -34,11 +34,10 @@ export const useEditProfile = () => {
 
     await dispatch(
       patchUserProfileAction({ phone: formatePhone(userData.phone!), profile: userData })
-    );
+    ).then(() => editProfileForm.reset(userData));
   };
 
-  const isDisabled =
-    !Object.values(editProfileForm.formState.dirtyFields).some(Boolean) || isLoading;
+  const isDisabled = !Object.values(editProfileForm.formState.dirtyFields).some(Boolean);
 
-  return { editProfileForm, updateUser, isDisabled };
+  return { editProfileForm, updateUser, isDisabled, isLoading };
 };

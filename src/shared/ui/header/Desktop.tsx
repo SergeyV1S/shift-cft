@@ -8,10 +8,9 @@ import { LogoutButton, getAuthState } from "@modules/auth";
 import { PATHS } from "@shared/constants";
 import { cn } from "@shared/lib";
 
-import { buttonVariants } from "./button";
-import { typographyVariants } from "./typography";
+import { buttonVariants, typographyVariants } from "..";
 
-export const Header = () => {
+export const DesktopHeader = () => {
   const { isAuth } = useAppSelector(getAuthState);
 
   return (

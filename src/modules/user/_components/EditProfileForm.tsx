@@ -1,12 +1,12 @@
 import { PatternFormat } from "react-number-format";
 
-import { Button, Input } from "@shared/ui";
+import { Button, Input, Spinner } from "@shared/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
 
 import { useEditProfile } from "../model";
 
 export const EditProfileForm = () => {
-  const { editProfileForm, updateUser, isDisabled } = useEditProfile();
+  const { editProfileForm, updateUser, isDisabled, isLoading } = useEditProfile();
 
   return (
     <Form {...editProfileForm}>
@@ -16,7 +16,7 @@ export const EditProfileForm = () => {
           name='lastname'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Фамилия</FormLabel>
+              <FormLabel>Фамилия*</FormLabel>
               <FormControl>
                 <Input type='text' placeholder='Фамилия' {...field} />
               </FormControl>
@@ -29,7 +29,7 @@ export const EditProfileForm = () => {
           name='phone'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Номер телефона</FormLabel>
+              <FormLabel>Номер телефона*</FormLabel>
               <FormControl>
                 <Input
                   type='text'
@@ -50,7 +50,7 @@ export const EditProfileForm = () => {
           name='firstname'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Имя</FormLabel>
+              <FormLabel>Имя*</FormLabel>
               <FormControl>
                 <Input type='text' placeholder='Имя' {...field} />
               </FormControl>
@@ -63,7 +63,7 @@ export const EditProfileForm = () => {
           name='email'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Email*</FormLabel>
               <FormControl>
                 <Input type='text' placeholder='Email' {...field} />
               </FormControl>
@@ -89,7 +89,7 @@ export const EditProfileForm = () => {
           name='city'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Город</FormLabel>
+              <FormLabel>Город*</FormLabel>
               <FormControl>
                 <Input type='text' placeholder='Город' {...field} />
               </FormControl>
@@ -102,9 +102,9 @@ export const EditProfileForm = () => {
           disabled={isDisabled}
           variant='contained_primary'
           size='xl'
-          className='w-2/3 mt-10'
+          className='w-2/3 max-md:w-full relative'
         >
-          Обновить данные
+          {isLoading ? <Spinner size={10} /> : "Обновить данные"}
         </Button>
       </form>
     </Form>

@@ -30,7 +30,7 @@ export const CalculateDeliveryForm = () => {
           onOpenChange={packageSizeFormModel.setIsPackageSizeOpen}
           open={packageSizeFormModel.isPackageSizeSelectOpen}
         >
-          <SelectTrigger className='h-10'>
+          <SelectTrigger className='h-10 w-full'>
             <SelectValue
               placeholder={
                 <div className='flex items-center gap-2'>
@@ -78,7 +78,7 @@ export const CalculateDeliveryForm = () => {
             ))}
           </SelectContent>
         </Select>
-        <div className='flex items-center gap-4'>
+        <div className='flex gap-4 flex-wrap'>
           {points.slice(0, 3).map((point) => (
             <Button
               key={point.id}

@@ -1,4 +1,4 @@
-import type { IEditProfileSormSchema } from "@modules/user/lib";
+import type { IEditProfileSormSchema } from ".";
 
 export const getChangedFields = (
   original: IEditProfileSormSchema,
@@ -9,4 +9,4 @@ export const getChangedFields = (
       ([key, value]) =>
         value !== undefined && value !== original[key as keyof IEditProfileSormSchema]
     )
-  ) as Partial<IEditProfileSormSchema>;
+  ) as IEditProfileSormSchema;

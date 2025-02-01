@@ -7,7 +7,7 @@ import { addressFormSchema } from "@modules/order/create-order/lib";
 import { useCreateOrder } from "@modules/order/create-order/model/useCreateOrder";
 
 import type { IAddress } from "@shared/types";
-import { Button, Input } from "@shared/ui";
+import { Button, Input, Textarea } from "@shared/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
 
 interface IAddressFormProps {
@@ -91,7 +91,7 @@ export const AddressForm = ({ handleSubmit, address }: IAddressFormProps) => {
             <FormItem>
               <FormLabel>Заметка для курьера</FormLabel>
               <FormControl>
-                <Input type='text' placeholder='Заметка для курьера' {...field} />
+                <Textarea placeholder='Заметка для курьера' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
