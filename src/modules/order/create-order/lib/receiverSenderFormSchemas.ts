@@ -23,8 +23,15 @@ export const receiverSenderFormSchema = z
       return formattedPhone.length === 11;
     }, "Неверный номер телефона")
   })
-  .refine(
-    (data) => validateSameAlphabet([data.firstname, data.middlename || "", data.lastname]),
-    "Значения заданы с использованием разных алфавитов"
-  );
+  .superRefine((data, context) => {
+    if (!validateSameAlphabet([data.firstname, data.lastname, data.middlename || ""])) {
+      ["firstname", "lastname", "middlename"].forEach((field) => {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Значения заданы с использованием разных алфавитов",
+          path: [field]
+        });
+      });
+    }
+  });
 export type TReceiverSenderFormSchemas = z.infer<typeof receiverSenderFormSchema>;

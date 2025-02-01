@@ -23,11 +23,22 @@ export const addressFormSchema = z
       .min(1, "Обязательное поле")
       .max(100, "Максимально 100 символов")
       .refine(validateAlphabetWithDigits, "Некорректный формат"),
-    comment: z.string().optional()
+    comment: z
+      .string()
+      .max(300, "Максимально 300 символов")
+      .refine(validateAlphabetWithDigits, "Некорректный формат")
+      .optional()
   })
-  .refine(
-    (data) => validateSameAlphabetAndDigits([data.house, data.street]),
-    "Значения заданы с использованием разных алфавитов"
-  );
+  .superRefine((data, context) => {
+    if (!validateSameAlphabetAndDigits([data.house, data.street])) {
+      ["house", "street"].forEach((field) => {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Значения заданы с использованием разных алфавитов",
+          path: [field]
+        });
+      });
+    }
+  });
 
 export type TAddressFormSchema = z.infer<typeof addressFormSchema>;
