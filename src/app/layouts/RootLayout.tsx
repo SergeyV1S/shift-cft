@@ -14,7 +14,7 @@ export const RootLayout = () => {
   return (
     <>
       <RootNavigation />
-      <main className={cn("flex w-full", minHeight, bgColor)}>
+      <main className={cn("flex w-full px-10", minHeight, bgColor)}>
         <Outlet />
       </main>
     </>

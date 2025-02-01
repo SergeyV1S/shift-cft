@@ -14,7 +14,7 @@ export const DesktopHeader = () => {
   const { isAuth } = useAppSelector(getAuthState);
 
   return (
-    <header className='border-b border-b-slate-100'>
+    <header className='border-b border-b-slate-100 px-5'>
       <div className='container grid grid-cols-[12%_1fr_10%] items-center py-5'>
         <Link to='/' className='flex items-center gap-2 text-center'>
           <PackageOpen className='size-[35px] text-blue-500' />
@@ -52,16 +52,15 @@ export const DesktopHeader = () => {
             <span>История</span>
           </NavLink>
         </nav>
-        <nav className='text-center'>
+        <nav className='flex items-center justify-end'>
           {isAuth ? (
             <LogoutButton />
           ) : (
             <Link
               to={PATHS.SIGNIN}
               className={cn(
-                buttonVariants({ variant: "link_secondary" }),
                 typographyVariants({ variant: "paragraph16_medium" }),
-                "h-9 py-2 px-4"
+                "flex items-center gap-1 flex-col hover:text-blue-500 duration-200 p-0"
               )}
             >
               Войти

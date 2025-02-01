@@ -15,7 +15,7 @@ export const typographyVariants = cva("", {
       paragraph16_regular: "text-base font-normal font-roboto leading-6 opacity-50",
       paragraph24_regular: "text-2xl font-light font-inter leading-8 opacity-50 max-xs:text-lg",
       paragraph_Smedium: "text-sm font-medium font-inter leading-5 opacity-70",
-      paragraph16_medium: "text-base font-medium font-inter leading-6"
+      paragraph16_medium: "text-base font-medium font-inter leading-6 max-md:text-sm"
     }
   },
   defaultVariants: {
