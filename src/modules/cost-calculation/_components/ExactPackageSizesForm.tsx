@@ -17,7 +17,7 @@ export const ExactPackageSizesForm = () => {
           event.stopPropagation();
           exactPackageSizesForm.handleSubmit(setSelectedPackageSize)(event);
         }}
-        className='grid w-full gap-6 max-h-[300px] overflow-y-scroll'
+        className='space-y-4 w-full max-h-[300px] overflow-y-scroll'
       >
         <FormField
           control={exactPackageSizesForm.control}
