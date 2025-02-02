@@ -30,8 +30,8 @@ export const LogoutButton = () => {
       )}
       variant='link_secondary'
     >
-      <ExitIcon className='size-5' />
-      <span>Выйти</span>
+      <ExitIcon className='md:size-5 max-md:size-4' />
+      <span className={typographyVariants({ variant: "paragraph16_medium" })}>Выйти</span>
     </Button>
   );
 };
