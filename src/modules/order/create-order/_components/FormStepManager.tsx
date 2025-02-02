@@ -43,7 +43,7 @@ export const FormStepManager = () => {
   };
 
   return (
-    <div className='grid grid-cols-2 gap-y-6'>
+    <div className='grid grid-cols-2 gap-y-6 max-md:flex max-md:flex-col'>
       <div className='col-span-1 space-y-6'>
         <Typography tag='h2' variant='title_h2'>
           {currentStep}

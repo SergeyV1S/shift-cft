@@ -24,7 +24,7 @@ const SignInPage = () => {
           <PhoneForm onSubmit={onOtpSubmit} isLoading={isLoading} />
         )}
       </CardContent>
-      {retryDelay && phoneNumber && <TimerWithLink onSubmit={onOtpSubmit} />}
+      {retryDelay && phoneNumber && <TimerWithLink sendCode={onOtpSubmit} />}
     </Card>
   );
 };

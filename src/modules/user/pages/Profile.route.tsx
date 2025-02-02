@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react";
 import type { RouteObject } from "react-router-dom";
 
+import { getPoints } from "@shared/api";
 import { PATHS } from "@shared/constants";
 import { Spinner } from "@shared/ui";
 
@@ -13,5 +14,10 @@ export const createProfileScreenRoute = (): RouteObject => ({
       <ProfileScreen />
     </Suspense>
   ),
+  loader: async () => {
+    const res = await getPoints({});
+    return res;
+  },
+  HydrateFallback: () => <Spinner />,
   errorElement: <div className=''>Error</div>
 });

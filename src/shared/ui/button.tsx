@@ -13,7 +13,7 @@ const buttonVariants = cva(
         text_primary:
           "text-blue-500 bg-transparent hover:bg-blue-100 hover:text-blue-700 focus:text-blue-600 focus:border focus:border-slate-100 disabled:opacity-60",
         link_primary:
-          "text-blue-500 px-0 w-fit no-underline relative before:content-[''] before:bottom-[2px] before:transition-all before:duration-200 before:left-0 before:absolute before:rounded-xl before:w-0 before:h-[2px] before:bg-blue-500 focus:before:bg-blue-600 focus:text-blue-600 hover:text-blue-800 hover:before:bg-blue-800 hover:before:w-full disabled:opacity-60",
+          "text-slate-700 px-0 w-fit no-underline relative before:content-[''] before:bottom-[2px] before:transition-all before:duration-200 before:left-0 before:absolute before:rounded-xl before:w-0 before:h-[2px] before:bg-blue-500 focus:before:bg-blue-600 focus:text-blue-600 hover:text-blue-500 hover:before:bg-blue-500 hover:before:w-full disabled:opacity-60 flex items-center gap-2 duration-200 p-0",
         outline_secondary:
           "text-slate-700 bg-transparent border border-slate-200 hover:bg-slate-100 hover:border-slate-300 disabled:opacity-60",
         contained_secondary:

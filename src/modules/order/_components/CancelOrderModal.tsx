@@ -10,7 +10,7 @@ export const CancelOrderModal = () => {
     <Dialog open={isCancelOrderModal} onOpenChange={closeModal}>
       <DialogTrigger asChild>
         <Button variant='contained_primary' size='xl' className='w-1/2'>
-          Отменить заказ
+          Отменить
         </Button>
       </DialogTrigger>
       <DialogContent aria-describedby={undefined}>

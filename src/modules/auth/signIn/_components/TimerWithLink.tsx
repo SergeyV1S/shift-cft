@@ -11,10 +11,10 @@ import { CardFooter } from "@shared/ui/card";
 import type { signInPhoneSchema } from "../lib";
 
 interface ITimerWithLink {
-  onSubmit: (values: z.infer<typeof signInPhoneSchema>) => Promise<void>;
+  sendCode: (values: z.infer<typeof signInPhoneSchema>) => Promise<void>;
 }
 
-export const TimerWithLink = ({ onSubmit }: ITimerWithLink) => {
+export const TimerWithLink = ({ sendCode }: ITimerWithLink) => {
   const { phoneNumber, retryDelay } = useAppSelector(getAuthState);
 
   const [timeLeft, setTimeLeft] = useState(retryDelay! / 1000);
@@ -37,9 +37,15 @@ export const TimerWithLink = ({ onSubmit }: ITimerWithLink) => {
   const seconds = timeLeft % 60;
 
   return (
-    <CardFooter className='text-sm opacity-75 flex items-center justify-center'>
+    <CardFooter className='text-sm opacity-75 flex items-center justify-center max-md:text-center'>
       {isTimeUp ? (
-        <Button onClick={() => onSubmit({ phone: phoneNumber! })} variant='link_secondary'>
+        <Button
+          onClick={() => {
+            setTimeLeft(retryDelay! / 1000);
+            sendCode({ phone: phoneNumber! });
+          }}
+          variant='link_secondary'
+        >
           Отправить код повторно
         </Button>
       ) : (

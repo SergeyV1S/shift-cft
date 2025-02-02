@@ -21,15 +21,13 @@ const OrderDetailsPage = () => {
     if (params.order_id) dispatch(getCurrentOrderAction(params.order_id));
   }, []);
 
-  if (isLoading || !currentOrder) return <Spinner />;
-
   return (
     <div className='container'>
       <div className='mt-12 space-y-6'>
         <Typography variant='title_h2' tag='h1' className='text-left'>
           Детали заказа
         </Typography>
-        {isLoading ? (
+        {isLoading || !currentOrder ? (
           <Spinner />
         ) : (
           <OrderDetailsBlock
@@ -39,7 +37,7 @@ const OrderDetailsPage = () => {
             receiverAddress={currentOrder.receiverAddress}
             receiverPoint={currentOrder.receiverPoint}
           >
-            <nav className='flex items-center gap-6 w-1/2'>
+            <nav className='flex items-center gap-6 md:w-1/2'>
               <Link
                 to={PATHS.ORDER_HISTORY}
                 className={cn(
