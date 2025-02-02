@@ -16,7 +16,7 @@ export const createProfileScreenRoute = (): RouteObject => ({
   ),
   loader: async () => {
     const res = await getPoints({});
-    return res.data;
+    return res;
   },
   HydrateFallback: () => <Spinner />,
   errorElement: <div className=''>Error</div>

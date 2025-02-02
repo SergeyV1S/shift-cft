@@ -1,3 +1,4 @@
+import type { AxiosResponse } from "axios";
 import { useLoaderData } from "react-router-dom";
 
 import type { IGetPointsResponse } from "@shared/api";
@@ -6,7 +7,7 @@ import { Typography } from "@shared/ui";
 import { EditProfileForm } from "../_components/EditProfileForm";
 
 const ProfilePage = () => {
-  const loaderData: IGetPointsResponse = useLoaderData();
+  const loaderData: AxiosResponse<IGetPointsResponse, any> = useLoaderData();
 
   return (
     <div className='container space-y-6'>
@@ -15,7 +16,7 @@ const ProfilePage = () => {
           Профиль
         </Typography>
       </div>
-      <EditProfileForm points={loaderData.points} />
+      <EditProfileForm pointsDataResponse={loaderData.data} />
     </div>
   );
 };

@@ -1,13 +1,17 @@
 import { PatternFormat } from "react-number-format";
 
-import type { IPoint } from "@shared/types";
-import { Button, Input, Spinner } from "@shared/ui";
+import type { IGetPointsResponse } from "@shared/api";
+import { Button, Input, Spinner, Typography } from "@shared/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/ui/select";
 
 import { useEditProfile } from "../model";
 
-export const EditProfileForm = ({ points }: { points: IPoint[] }) => {
+export const EditProfileForm = ({
+  pointsDataResponse
+}: {
+  pointsDataResponse: IGetPointsResponse;
+}) => {
   const { editProfileForm, updateUser, isDisabled, isLoading } = useEditProfile();
 
   return (
@@ -102,11 +106,17 @@ export const EditProfileForm = ({ points }: { points: IPoint[] }) => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className='max-h-60'>
-                  {points.map((point) => (
-                    <SelectItem key={point.id} value={point.name}>
-                      {point.name}
-                    </SelectItem>
-                  ))}
+                  {!pointsDataResponse.success ? (
+                    <Typography variant='paragraph16_regular'>
+                      {pointsDataResponse.reason || "Произошла ошибка при запросе данных"}
+                    </Typography>
+                  ) : (
+                    pointsDataResponse.points.map((point) => (
+                      <SelectItem key={point.id} value={point.name}>
+                        {point.name}
+                      </SelectItem>
+                    ))
+                  )}
                 </SelectContent>
               </Select>
               <FormMessage />
