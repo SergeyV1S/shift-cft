@@ -2,17 +2,26 @@ import { PackageOpen } from "lucide-react";
 import { useEffect } from "react";
 import QRCode from "react-qr-code";
 
-import { useAppDispatch } from "@app/store/hooks";
+import { useAppDispatch, useAppSelector } from "@app/store/hooks";
 
 import { createOrderSliceActions } from "@modules/order";
 
-import { Typography } from "@shared/ui";
+import { Spinner, Typography } from "@shared/ui";
+import { Card, CardContent, CardHeader } from "@shared/ui/card";
 
-import { CalculateDeliveryCard } from "../_components/CalculateDeliveryCard";
-import { costCalculationSliceActions, getPackageTypesAction, getPointsAction } from "../store";
+import { CalculateDeliveryForm } from "../_components/CalculateDeliveryForm";
+import {
+  costCalculationSliceActions,
+  costCalculationSliceSelectors,
+  getPackageTypesAction,
+  getPointsAction
+} from "../store";
 
 const CostCalculationPage = () => {
   const dispatch = useAppDispatch();
+  const { isLoading, error } = useAppSelector(
+    costCalculationSliceSelectors.getCostCalculationState
+  );
 
   useEffect(() => {
     dispatch(getPackageTypesAction());
@@ -43,7 +52,22 @@ const CostCalculationPage = () => {
             </Typography>
           </div>
         </div>
-        <CalculateDeliveryCard />
+        <Card className='max-w-[600px] w-full max-md:w-full px-16 max-sm:px-5 space-y-6 py-10 min-h-[490px] relative'>
+          <CardHeader>
+            <Typography variant='title_h2' tag='h2'>
+              Рассчитать доставку
+            </Typography>
+          </CardHeader>
+          <CardContent className='w-full p-0'>
+            {isLoading ? (
+              <Spinner />
+            ) : error ? (
+              <p className='absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2'>{error}</p>
+            ) : (
+              <CalculateDeliveryForm />
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

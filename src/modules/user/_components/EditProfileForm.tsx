@@ -1,16 +1,21 @@
 import { PatternFormat } from "react-number-format";
 
+import type { IPoint } from "@shared/types";
 import { Button, Input, Spinner } from "@shared/ui";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@shared/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/ui/select";
 
 import { useEditProfile } from "../model";
 
-export const EditProfileForm = () => {
+export const EditProfileForm = ({ points }: { points: IPoint[] }) => {
   const { editProfileForm, updateUser, isDisabled, isLoading } = useEditProfile();
 
   return (
     <Form {...editProfileForm}>
-      <form onSubmit={editProfileForm.handleSubmit(updateUser)} className='grid grid-cols-2 gap-6'>
+      <form
+        onSubmit={editProfileForm.handleSubmit(updateUser)}
+        className='md:grid md:grid-cols-2 md:gap-6 max-md:space-y-6'
+      >
         <FormField
           control={editProfileForm.control}
           name='lastname'
@@ -90,9 +95,20 @@ export const EditProfileForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Город*</FormLabel>
-              <FormControl>
-                <Input type='text' placeholder='Город' {...field} />
-              </FormControl>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder={field.value ? field.value : "Выберите город"} />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent className='max-h-60'>
+                  {points.map((point) => (
+                    <SelectItem key={point.id} value={point.name}>
+                      {point.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}

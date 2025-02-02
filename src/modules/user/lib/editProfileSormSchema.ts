@@ -27,11 +27,7 @@ export const editProfileSormSchema = z
       .max(60, "Максимально 60 символов")
       .refine(validateAlphabet, "Некорректный формат"),
     email: z.string().min(1, "Обязательное поле").email("Некорректный формат"),
-    city: z
-      .string()
-      .min(1, "Обязательное поле")
-      .max(60, "Максимально 60 символов")
-      .refine(validateAlphabet, "Некорректный формат")
+    city: z.string().min(1, "Обязательное поле").max(60, "Максимально 60 символов")
   })
   .superRefine((data, context) => {
     if (!validateSameAlphabet([data.firstname, data.lastname, data.middlename || ""])) {
