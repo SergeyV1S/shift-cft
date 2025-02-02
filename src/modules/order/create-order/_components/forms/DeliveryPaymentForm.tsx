@@ -28,7 +28,7 @@ export const DeliveryPaymentForm = () => {
           addressForm.handleSubmit(setPayer)(event);
           addressForm.reset();
         }}
-        className='grid gap-6 w-1/2'
+        className='grid gap-6 w-1/2 max-md:w-full'
       >
         <FormField
           control={addressForm.control}

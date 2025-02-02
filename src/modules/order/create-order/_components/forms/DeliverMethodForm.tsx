@@ -13,7 +13,7 @@ export const DeliverMethodForm = () => {
   if (deliveryCost.length === 0) return <Navigate to='/' />;
 
   return (
-    <div className='w-1/2 space-y-6'>
+    <div className='w-1/2 max-lg:w-full space-y-6'>
       <div className='flex flex-col gap-6'>
         {deliveryCost.map((cost, index) => (
           <DeliveryVariant key={cost.id} index={index} option={cost} />

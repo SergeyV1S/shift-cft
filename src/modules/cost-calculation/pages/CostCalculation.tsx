@@ -23,7 +23,7 @@ const CostCalculationPage = () => {
 
   return (
     <div className='md:m-auto container'>
-      <div className='flex items-center gap-20 justify-center max-lg:flex-col max-lg:gap-10 max-md:mt-10 max-md:mb-16'>
+      <div className='flex items-center gap-20 justify-center max-lg:flex-col max-lg:gap-10 max-md:mt-10'>
         <div className='max-w-[600px] w-full xl:w-1/3 space-y-10'>
           <div className='space-y-4 max-md:space-y-7 max-md:text-center'>
             <Typography variant='title_h1' tag='h1'>

@@ -22,9 +22,9 @@ const RequestSentPage = () => {
 
   return (
     <div className='container'>
-      <div className='mt-12 space-y-6 w-2/3'>
+      <div className='mt-12 space-y-6 w-2/3 max-lg:w-full'>
         <div className='flex items-center gap-9'>
-          <img className='size-14' src='/svg/check.svg' alt='check mark' />
+          <img className='size-14 max-md:size-12' src='/svg/check.svg' alt='check mark' />
           <Typography tag='h1' variant='title_h2'>
             Заявка отправлена
           </Typography>
@@ -44,16 +44,22 @@ const RequestSentPage = () => {
             Вся информация была продублирована в SMS
           </Typography>
         </OrderDetailsBlock>
-        <nav className='space-x-6'>
+        <nav className='md:space-x-6 max-md:flex max-md:gap-3'>
           <Link
             to={PATHS.ORDER_HISTORY}
-            className={cn(buttonVariants({ variant: "outline_secondary", size: "xl" }), "w-1/3")}
+            className={cn(
+              buttonVariants({ variant: "outline_secondary", size: "xl" }),
+              "w-1/3 max-md:w-full"
+            )}
           >
             Посмотреть статус
           </Link>
           <Link
             to='/'
-            className={cn(buttonVariants({ variant: "contained_primary", size: "xl" }), "w-1/3")}
+            className={cn(
+              buttonVariants({ variant: "contained_primary", size: "xl" }),
+              "w-1/3 max-md:w-full"
+            )}
           >
             На главную
           </Link>

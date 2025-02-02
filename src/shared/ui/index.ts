@@ -1,5 +1,5 @@
 export * from "./button";
-export * from "./header";
+export * from "./root-navigation";
 export * from "./input";
 export * from "./input-otp";
 export * from "./label";

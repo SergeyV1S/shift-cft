@@ -28,8 +28,7 @@ export const DesktopHeader = () => {
             className={({ isActive }) =>
               cn(
                 typographyVariants({ variant: "paragraph16_medium" }),
-                buttonVariants({ variant: "link_secondary" }),
-                "flex items-center gap-2 hover:text-blue-500 duration-200 p-0 hover:before:bg-blue-500",
+                buttonVariants({ variant: "link_primary" }),
                 isActive && "!text-blue-800 before:!bg-blue-800 hover:before:!bg-blue-800"
               )
             }
@@ -42,8 +41,7 @@ export const DesktopHeader = () => {
             className={({ isActive }) =>
               cn(
                 typographyVariants({ variant: "paragraph16_medium" }),
-                buttonVariants({ variant: "link_secondary" }),
-                "flex items-center gap-2 hover:text-blue-500 duration-200 p-0 hover:before:bg-blue-500",
+                buttonVariants({ variant: "link_primary" }),
                 isActive && "!text-blue-800 before:!bg-blue-800 hover:before:!bg-blue-800"
               )
             }
